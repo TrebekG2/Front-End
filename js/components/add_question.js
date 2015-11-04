@@ -29,6 +29,9 @@ export default React.createClass({
             <button>
               Submit new question
             </button>
+            <button>
+              You're awesome. Submit another question?
+            </button>
           </form>
         </div>
       </div>

@@ -58,6 +58,11 @@ exports['default'] = _react2['default'].createClass({
             'button',
             null,
             'Submit new question'
+          ),
+          _react2['default'].createElement(
+            'button',
+            null,
+            'You\'re awesome. Submit another question?'
           )
         )
       )
