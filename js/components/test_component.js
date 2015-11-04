@@ -1,11 +1,32 @@
 import React from 'react';
 
 export default React.createClass({
-  render() {
+  
+  processUser(user) {
+
     return (
       <div>
-        Hello, this is working
+        <p>{user.name}</p>
+      </div>
+    );
+
+  },
+
+  processData(data) {
+
+    return data.map(this.processUser);
+
+  },
+
+  render() {
+    
+    let data = this.props.users;
+
+    return (
+      <div>
+        {this.processData(data)}
       </div>
     );
   }
+
 });

@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import React from 'react';
 import ReactDom from 'react-dom';
 import $ from 'jquery';
+import Cookies from 'js-cookie';
 
 import TestComponent from './components/test_component';
 
@@ -60,11 +61,25 @@ let Router = Backbone.Router.extend({
 
 
     request.then((data) => {
-      console.log('data:', data);
+      // console.log('data:', data);
+
+      Cookies.set('users', data);
+
+      console.log(Cookies.getJSON());
 
     });
+
+
+    // ReactDom.render (
+    //   <TestComponent
+    //     users = {Cookies.getJSON()}/>,
+    //   document.querySelector('.app')
+    // );
   
   },
+
+
+
 
   // We will get back token and add to headers
 
