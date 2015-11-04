@@ -5,3 +5,29 @@
 body {
   background: #e2ebf3;
 }
+
+h1 {
+  text-align: center;
+}
+
+.add-form-label {
+  display: inline-block;
+  width: 80%;
+  margin: 10px 10%;
+  position: relative;
+}
+
+.add-q-form-container {
+  margin: 20px auto;
+  border: 1px solid black;
+  width: 600px;
+}
+
+.category-input, .question-input, .answer-input {
+  border: 1px solid black;
+  display: inline-block;
+  position: absolute;
+  width: 70%;
+  left: 20%;
+}
+

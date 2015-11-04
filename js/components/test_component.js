@@ -5,7 +5,7 @@ export default React.createClass({
   processUser(user) {
 
     return (
-      <div>
+      <div key={user.objectId}>
         <p>{user.name}</p>
       </div>
     );
