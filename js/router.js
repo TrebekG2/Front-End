@@ -70,11 +70,11 @@ let Router = Backbone.Router.extend({
     });
 
 
-    // ReactDom.render (
-    //   <TestComponent
-    //     users = {Cookies.getJSON()}/>,
-    //   document.querySelector('.app')
-    // );
+    ReactDom.render (
+      <TestComponent
+        users = {Cookies.getJSON()}/>,
+      document.querySelector('.app')
+    );
   
   },
 

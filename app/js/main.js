@@ -157,11 +157,8 @@ var Router = _backbone2['default'].Router.extend({
       console.log(_jsCookie2['default'].getJSON());
     });
 
-    // ReactDom.render (
-    //   <TestComponent
-    //     users = {Cookies.getJSON()}/>,
-    //   document.querySelector('.app')
-    // );
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsTest_component2['default'], {
+      users: _jsCookie2['default'].getJSON() }), document.querySelector('.app'));
   }
 
 });
