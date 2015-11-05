@@ -1,6 +1,25 @@
 import React from 'react';
 
 export default React.createClass({
+  
+  addQuestion () {
+
+    let newQuestion = event.currentTarget.value;
+
+    this.setState({
+      question: newQuestion
+    });
+
+  },
+
+
+  // submitLogin () {
+
+  //   this.props.onSubmitForm(this.state.username);
+
+  // },
+
+
   render() {
     return (
       <div>
@@ -11,7 +30,8 @@ export default React.createClass({
               Question
               <input 
                 className='question-input' 
-                placeholder='create a question'/>
+                placeholder='create a question'
+                onChange={this.addQuestion}/>
             </label>
             <label className='add-form-label'>
               Answer
@@ -26,10 +46,12 @@ export default React.createClass({
                 className='category-input' 
                 placeholder='creat a one-word category e.g., sports'/>
             </label>
-            <button>
+            <button 
+              onClick={this.submitLogin}
+              className='add-form-button'>
               Submit new question
             </button>
-            <button>
+            <button className='add-form-button'>
               You're awesome. Submit another question?
             </button>
           </form>

@@ -2048,4 +2048,8 @@ h1 {
   width: 70%;
   left: 20%; }
 
+.add-form-button {
+  display: block;
+  margin: 10px auto; }
+
 /*# sourceMappingURL=main.css.map */
