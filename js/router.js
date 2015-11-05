@@ -8,6 +8,7 @@ import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
 import UserLandingComponent from './components/user_landing';
+import CreateDeckComponent from './components/create_deck';
 
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
@@ -105,11 +106,34 @@ let Router = Backbone.Router.extend({
     console.log(DUMMY_DECKS);
 
     ReactDom.render (
-      
-      <UserLandingComponent
-      decks = {DUMMY_DECKS}/>,
-      document.querySelector('.app')
-    );
+      <div>
+        <UserLandingComponent
+          decks = {DUMMY_DECKS}/>
+        <CreateDeckComponent
+          onSubmitNewDeck = {() => {
+          let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+          alert('A new deck has been created');
+          }}/>
+        </div>,
+        document.querySelector('.app')
+      );
+
+        // let request = $.ajax({
+        //     url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+        //     method:'POST',
+        //     data: {
+        //       title     : newDeckTitle}
+        //   });
+
+        //   request.then((data) => {
+        //     Cookies.set('return', data);
+        //     console.log(Cookies.getJSON('return'));
+        //     alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+        //     this.goto('');
+
+        // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
+        // headers: {Access-Token: {} }
+        // });  
 
   },
 
