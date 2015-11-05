@@ -58,17 +58,16 @@ let Router = Backbone.Router.extend({
           let newUserID   = document.querySelector('.newUserID').value;
           let newPass     = document.querySelector('.passcode').value;
           let newEmail    = document.querySelector('.emailAdd').value;
-          console.log(newUserName);
-          console.log(newUserID); 
-          console.log(newPass);
-          console.log(newEmail);
-
+        
           let modelData = new UserModel({
             name     :newUserName,
             password :newPass,
-            userID   :newUserID,
+            username :newUserID,
             email    :newEmail
+
           });
+
+          console.log(modelData);
 
           modelData.save().then(()=>{
             alert(' NEW USER ADDED SUCCESSFULLY ADDED');
