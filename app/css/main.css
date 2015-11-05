@@ -2030,15 +2030,6 @@ body {
 h1 {
   text-align: center; }
 
-<<<<<<< HEAD
-.deck-block-container {
-  margin: 30px auto;
-  width: 600px; }
-
-.deck-select-block {
-  border: 1px solid black;
-  width: 200px; }
-=======
 .home-page {
   width: 100%; }
 
@@ -2068,7 +2059,14 @@ h1 {
   border: none;
   background: none;
   font-size: 0.8em; }
->>>>>>> development
+
+.deck-block-container {
+  margin: 30px auto;
+  width: 600px; }
+
+.deck-select-block {
+  border: 1px solid black;
+  width: 200px; }
 
 .add-form-label {
   display: inline-block;
