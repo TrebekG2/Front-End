@@ -11,6 +11,79 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var Signup = _react2['default'].createClass({
+  displayName: 'Signup',
+
+  SubmitClickHandler: function SubmitClickHandler() {
+    this.props.onSubmitClick();
+  },
+
+  CancelClickHandler: function CancelClickHandler() {
+    this.props.onCancelClick();
+  },
+
+  render: function render() {
+    return _react2['default'].createElement(
+      'div',
+      { className: 'sign-up' },
+      _react2['default'].createElement(
+        'form',
+        null,
+        _react2['default'].createElement(
+          'label',
+          null,
+          'Name'
+        ),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter Name', className: 'newUserName' }),
+        _react2['default'].createElement(
+          'label',
+          null,
+          'Select User ID'
+        ),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Create UserID', className: 'newUserID' }),
+        _react2['default'].createElement(
+          'label',
+          null,
+          ' Password'
+        ),
+        _react2['default'].createElement('input', { type: 'password', placeholder: 'password', className: 'passcode' }),
+        _react2['default'].createElement(
+          'label',
+          null,
+          'Email'
+        ),
+        _react2['default'].createElement('input', { type: 'email', placeholder: 'Enter Email Address', className: 'emailAdd' })
+      ),
+      _react2['default'].createElement(
+        'button',
+        { className: 'submit', onClick: this.SubmitClickHandler },
+        'Submit'
+      ),
+      _react2['default'].createElement(
+        'button',
+        { className: 'cancel', onClick: this.CancelClickHandler },
+        'Cancel'
+      )
+    );
+  }
+});
+
+exports['default'] = Signup;
+module.exports = exports['default'];
+
+},{"react":166}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
 exports['default'] = _react2['default'].createClass({
   displayName: 'add_question',
 
@@ -199,31 +272,41 @@ var _componentsTest_component = require('./components/test_component');
 
 var _componentsTest_component2 = _interopRequireDefault(_componentsTest_component);
 
+<<<<<<< HEAD
 var _componentsAdd_question = require('./components/add_question');
 
 var _componentsAdd_question2 = _interopRequireDefault(_componentsAdd_question);
+=======
+var _componentsSignup_component = require('./components/signup_component');
+
+var _componentsSignup_component2 = _interopRequireDefault(_componentsSignup_component);
+>>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 
 var Router = _backbone2['default'].Router.extend({
 
   routes: {
 
     '': 'redirect',
+<<<<<<< HEAD
     'login': 'testlogin',
     'addquestion': 'showAddQuestion'
+=======
+    'signup': 'signup',
+    'login': 'testlogin'
+>>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 
   },
 
   start: function start() {
-
     _backbone2['default'].history.start();
   },
 
   goto: function goto(route) {
-
     this.navigate(route, { trigger: true });
   },
 
   redirect: function redirect() {
+<<<<<<< HEAD
 
     this.goto('addquestion', { trigger: true, replace: true });
   },
@@ -238,6 +321,33 @@ var Router = _backbone2['default'].Router.extend({
   //   );
 
   // },
+=======
+    this.goto('login', { trigger: true, replace: true });
+  },
+
+  home: function home() {
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsTest_component2['default'], null), document.querySelector('.app'));
+  },
+>>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
+
+  signup: function signup() {
+    var _this = this;
+
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsSignup_component2['default'], {
+      onCancelClick: function () {
+        return _this.goto('');
+      },
+      onSubmitClick: function () {
+        var newUserName = document.querySelector('.newUserName').value;
+        var newUserID = document.querySelector('.newUserID').value;
+        var newPass = document.querySelector('.passcode').value;
+        var newEmail = document.querySelector('.emailAdd').value;
+        console.log(newUserName);
+        console.log(newUserID);
+        console.log(newPass);
+        console.log(newEmail);
+      } }), document.querySelector('.app'));
+  },
 
   testlogin: function testlogin() {
 
@@ -331,7 +441,11 @@ var Router = _backbone2['default'].Router.extend({
 exports['default'] = Router;
 module.exports = exports['default'];
 
+<<<<<<< HEAD
 },{"./components/add_question":1,"./components/test_component":2,"backbone":5,"jquery":7,"js-cookie":8,"react":166,"react-dom":10}],5:[function(require,module,exports){
+=======
+},{"./components/signup_component":1,"./components/test_component":2,"backbone":5,"jquery":7,"js-cookie":8,"react":166,"react-dom":10}],5:[function(require,module,exports){
+>>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 (function (global){
 //     Backbone.js 1.2.3
 

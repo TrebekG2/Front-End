@@ -5,7 +5,11 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 
 import TestComponent from './components/test_component';
+<<<<<<< HEAD
 import AddFormComponent from './components/add_question';
+=======
+import SignupPage from './components/signup_component';
+>>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 
 
 let Router = Backbone.Router.extend({
@@ -14,22 +18,18 @@ let Router = Backbone.Router.extend({
 
     '' : 'redirect',
     'login' : 'testlogin',
+    'signup':'signup',
     'addquestion' : 'showAddQuestion'
 
   },
 
   start() {
-
     Backbone.history.start();
-
   },
 
   goto (route) {
-
     this.navigate ( route ,{trigger: true});
-
   },
-
 
   redirect () {
 
@@ -48,6 +48,24 @@ let Router = Backbone.Router.extend({
 
   // },
 
+
+  signup () {
+    ReactDom.render(
+      <SignupPage 
+        onCancelClick={ () =>this.goto('')}
+        onSubmitClick={ () =>{
+          let newUserName = document.querySelector('.newUserName').value;
+          let newUserID   = document.querySelector('.newUserID').value;
+          let newPass     = document.querySelector('.passcode').value;
+          let newEmail    = document.querySelector('.emailAdd').value;
+          console.log(newUserName);
+          console.log(newUserID); 
+          console.log(newPass);
+          console.log(newEmail);
+        }
+        }/>, document.querySelector('.app')
+    );
+  },
 
   testlogin () {
 
