@@ -4,9 +4,11 @@ import ReactDom from 'react-dom';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 
+
 import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
+import SignInPage from './components/signIn_component';
 
 
 let Router = Backbone.Router.extend({
@@ -16,6 +18,7 @@ let Router = Backbone.Router.extend({
     '' : 'redirect',
     'login' : 'testlogin',
     'signup':'signup',
+    'signIn': 'signIn',
     'addquestion' : 'showAddQuestion'
 
   },
