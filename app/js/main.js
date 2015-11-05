@@ -398,25 +398,33 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'user_landing',
 
+  editClickHandler: function editClickHandler() {
+
+    alert('edit button was clicked');
+  },
+
   processDecks: function processDecks(deck) {
 
     return _react2['default'].createElement(
       'div',
-      { key: deck.deckId },
+      { className: 'deck-select-block', key: deck.deckId },
       _react2['default'].createElement(
-        'div',
-        { className: 'deck-select-block' },
-        _react2['default'].createElement(
-          'p',
-          null,
-          deck.title
-        ),
-        _react2['default'].createElement(
-          'p',
-          null,
-          'Topic: ',
-          deck.topic
-        )
+        'p',
+        null,
+        deck.title
+      ),
+      _react2['default'].createElement(
+        'p',
+        null,
+        'Topic: ',
+        deck.topic
+      ),
+      _react2['default'].createElement(
+        'button',
+        {
+          onClick: this.editClickHandler,
+          className: 'edit-deck-button' },
+        'Edit this deck'
       )
     );
   },
@@ -739,6 +747,10 @@ var Router = _backbone2['default'].Router.extend({
       deckId: '2',
       title: 'Movies Deck',
       topic: 'movies stuff'
+    }, {
+      deckId: '3',
+      title: 'Games Deck',
+      topic: 'games stuff'
     }];
 
     console.log(DUMMY_DECKS);

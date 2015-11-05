@@ -53,12 +53,20 @@ h1 {
 
 .deck-block-container {
   margin: 30px auto;
-  width: 600px;
+  width: 700px;
+  border: 1px solid black;
 }
 
 .deck-select-block {
   border: 1px solid black;
+  margin: 10px;
   width: 200px;
+  display: inline-block;
+}
+
+.edit-deck-button {
+  margin: 10px auto;
+  display: block;
 }
 
 // --- ADD FORM ----

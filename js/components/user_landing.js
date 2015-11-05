@@ -2,14 +2,24 @@ import React from 'react';
 
 export default React.createClass({
   
+  editClickHandler () {
+
+    alert('edit button was clicked');
+
+  },
+
+
   processDecks(deck) {
 
     return (
-      <div key={deck.deckId}>
-        <div className='deck-select-block'>
+      <div className='deck-select-block' key={deck.deckId}>
           <p>{deck.title}</p>
           <p>Topic: {deck.topic}</p>
-        </div>
+          <button 
+            onClick = {this.editClickHandler}
+            className='edit-deck-button'>
+            Edit this deck
+          </button>
       </div>
     );
 

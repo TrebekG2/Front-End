@@ -105,6 +105,10 @@ let Router = Backbone.Router.extend({
         deckId: '2',
         title: 'Movies Deck',
         topic: 'movies stuff'
+      },{
+        deckId: '3',
+        title: 'Games Deck',
+        topic: 'games stuff'
       }
     ];
 
