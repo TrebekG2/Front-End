@@ -11,6 +11,8 @@ import SignupPage from './components/signup_component';
 
 import SignInPage from './components/signIn_component';
 
+import UserLandingComponent from './components/user_landing';
+import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
 import Landing from './components/landing_component';
 
@@ -31,7 +33,8 @@ let Router = Backbone.Router.extend({
     'signup'     : 'signup',
     'landing'    : 'landing',
     'nonExistant':'redirect',
-    'addquestion': 'showAddQuestion'
+    'addquestion': 'showAddQuestion',
+    'userLanding' : 'showUserLanding'
 
 
   },
@@ -46,7 +49,7 @@ let Router = Backbone.Router.extend({
 
   redirect () {
 
-    this.goto('signup' , {trigger : true , replace : true});
+    this.goto('userLanding' , {trigger : true , replace : true});
 
   },
 
@@ -86,69 +89,63 @@ let Router = Backbone.Router.extend({
             console.log(Cookies.getJSON('users'));
             alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
             this.goto('');
+
+            // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
+            // headers: {Access-Token: {} }
+
           });
 
         }}/>, document.querySelector('.app')
     );
   },
 
-  testlogin () {
 
-  
-    // let request = $.ajax({
+  showUserLanding () {
 
-    //   url: 'http://localhost:3000/signup',
-    //   method: 'POST',
-    //     user: {
-    //       username: {data.username},
-    //       password: {data.password},
-    //       name: '',
-    //       email: ''
-    //     }
+    const DUMMY_DECKS = [
+      {
+        deckId: '1',
+        title: 'Sports Deck',
+        topic: 'sports stuff'
+      },{
+        deckId: '2',
+        title: 'Movies Deck',
+        topic: 'movies stuff'
+      }
+    ];
 
-    //  });
+    console.log(DUMMY_DECKS);
 
-    // request.then((data) => {
-    //     console.log('data:', data);
-
-    //     Cookies.set('users', data);
-
-    //     console.log(Cookies.getJSON('users'));
-    // });
-
-
-    this.userCollection = new UserCollection();
-
-    this.userCollection.fetch().then( () => {
-
-      ReactDom.render (
-      <TestComponent
-        users = {this.userCollection.toJSON()}/>,
+    ReactDom.render (
+      <div>
+        <UserLandingComponent
+          decks = {DUMMY_DECKS}/>
+        <CreateDeckComponent
+          onSubmitNewDeck = {() => {
+          let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+          alert('A new deck has been created');
+          }}/>
+      </div>,
       document.querySelector('.app')
       );
 
-    });
+        // let request = $.ajax({
+        //     url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+        //     method:'POST',
+        //     data: {
+        //       title     : newDeckTitle}
+        //   });
 
+        //   request.then((data) => {
+        //     Cookies.set('return', data);
+        //     console.log(Cookies.getJSON('return'));
+        //     alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+        //     this.goto('');
 
-    
+        // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
+        // headers: {Access-Token: {} }
+        // });  
 
-    
-    // const DUMMY_DATA = [
-    //   {
-    //     objectId: '1',
-    //     name: 'Boyzie',
-    //     password: 'mathis'
-    //   },{
-    //     objectId: '2',
-    //     name: 'Shals',
-    //     password: 'paddy'
-    //   },{
-    //     objectId: '3',
-    //     name: 'Andrew',
-    //     password: 'faircloth'
-    //   }
-    // ];     
-  
   },
 
   showAddQuestion () {
@@ -156,47 +153,35 @@ let Router = Backbone.Router.extend({
     ReactDom.render (
       <AddFormComponent
       onSubmitQuestion = {(question, answer, category) => {
+        
         let newQuestion = new QuestionModel({
           question: question,
           answer: answer,
           category: category
         });
-        
-        newQuestion.save().then(()=> {
-          console.log('new question has been added');
-          alert('thank you. your question has been added');
-          this.goto('addquestion');
-        });
+
+        // let request = $.ajax({
+        //   url :'https://nameless-plains-2123.herokuapp.com/question',
+        //   method:'POST',
+        //   data: {
+        //     question   : newQuestion.question,
+        //     answer     : newQuestion.answer,
+        //     category   : newQuestion.category}
+        // });
+
+        // request.then((data) => {
+        //   Cookies.set('return', data);
+        //   console.log(Cookies.getJSON('return'));
+        //   alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+        //   this.goto('');
+        // });
+
       }}/>,
       document.querySelector('.app')
     );
 
 
   },
-
-
-  // We will get back token and add to headers
-
-  // signup () {
-
-  //   let request = $.ajax({
-
-  //     url: 'http://localhost:3000/signup',
-  //     method: 'POST',
-//       {
-//         username: {data.username},
-//         password: {data.password},
-//         name: '',
-//         email: ''
-//       }
-
-  //   });
-
-
-          // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
-          // headers: {Access-Token: {} }
-
-  // },
 
   // login () {
 

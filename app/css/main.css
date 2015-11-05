@@ -2076,6 +2076,14 @@ form .UserName {
   font-size: 0.8em; }
 >>>>>>> 596f0e5831de35b6f869a24894f8b85ff6cd2e13
 
+.deck-block-container {
+  margin: 30px auto;
+  width: 600px; }
+
+.deck-select-block {
+  border: 1px solid black;
+  width: 200px; }
+
 .add-form-label {
   display: inline-block;
   width: 80%;
