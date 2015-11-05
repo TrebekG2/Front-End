@@ -14,6 +14,21 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'add_question',
 
+  addQuestion: function addQuestion() {
+
+    var newQuestion = event.currentTarget.value;
+
+    this.setState({
+      question: newQuestion
+    });
+  },
+
+  // submitLogin () {
+
+  //   this.props.onSubmitForm(this.state.username);
+
+  // },
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -35,7 +50,8 @@ exports['default'] = _react2['default'].createClass({
             'Question',
             _react2['default'].createElement('input', {
               className: 'question-input',
-              placeholder: 'create a question' })
+              placeholder: 'create a question',
+              onChange: this.addQuestion })
           ),
           _react2['default'].createElement(
             'label',
@@ -56,8 +72,15 @@ exports['default'] = _react2['default'].createClass({
           ),
           _react2['default'].createElement(
             'button',
-            null,
+            {
+              onClick: this.submitLogin,
+              className: 'add-form-button' },
             'Submit new question'
+          ),
+          _react2['default'].createElement(
+            'button',
+            { className: 'add-form-button' },
+            'You\'re awesome. Submit another question?'
           )
         )
       )
