@@ -1,8 +1,9 @@
 import React from 'react';
+import Backbone from 'backbone';
 
 export default React.createClass({
   
-  addQuestion () {
+  addQuestion (event) {
 
     let newQuestion = event.currentTarget.value;
 
@@ -12,12 +13,35 @@ export default React.createClass({
 
   },
 
+  addAnswer (event) {
 
-  // submitLogin () {
+    let newAnswer = event.currentTarget.value;
 
-  //   this.props.onSubmitForm(this.state.username);
+    this.setState({
+      answer: newAnswer
+    });
 
-  // },
+  },
+
+  addCategory (event) {
+
+    let newCategory = event.currentTarget.value;
+
+    this.setState({
+      category: newCategory
+    });
+
+  },
+
+  submitNewQuestion () {
+
+    this.props.onSubmitQuestion(
+      this.state.question,
+      this.state.answer,
+      this.state.category
+    );
+
+  },
 
 
   render() {
@@ -36,23 +60,24 @@ export default React.createClass({
             <label className='add-form-label'>
               Answer
               <input 
-                className='answer-input' 
-                type='email' 
-                placeholder='create a one-word answer'/>
+                className='answer-input'  
+                placeholder='create a one-word answer'
+                onChange={this.addAnswer}/>
             </label>
             <label className='add-form-label'>
               Category
               <input 
                 className='category-input' 
-                placeholder='creat a one-word category e.g., sports'/>
+                placeholder='creat a one-word category e.g., sports'
+                onChange={this.addCategory}/>
             </label>
             <button 
-              onClick={this.submitLogin}
+              onClick={this.submitNewQuestion}
               className='add-form-button'>
               Submit new question
             </button>
             <button className='add-form-button'>
-              You're awesome. Submit another question?
+              Thank you
             </button>
           </form>
         </div>
