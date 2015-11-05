@@ -8,6 +8,9 @@ import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
 
+import UserModel from './resources/user_model';
+import UserCollection from './resources/user_collection';
+
 
 let Router = Backbone.Router.extend({
 
