@@ -2027,7 +2027,6 @@ html {
 body {
   background: #e2ebf3; }
 
-<<<<<<< HEAD
 h1 {
   text-align: center; }
 
@@ -2052,7 +2051,7 @@ h1 {
 .add-form-button {
   display: block;
   margin: 10px auto; }
-=======
+
 .sign-up {
   width: 60%;
   margin: 5% auto;
@@ -2092,6 +2091,5 @@ h1 {
   margin: 20px;
   text-align: center;
   margin-left: 200px; }
->>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 
 /*# sourceMappingURL=main.css.map */

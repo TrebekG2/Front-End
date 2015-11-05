@@ -5,11 +5,8 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 
 import TestComponent from './components/test_component';
-<<<<<<< HEAD
 import AddFormComponent from './components/add_question';
-=======
 import SignupPage from './components/signup_component';
->>>>>>> 73219350b74d598014f69d3d77353b7c54f9c00f
 
 
 let Router = Backbone.Router.extend({
@@ -33,7 +30,7 @@ let Router = Backbone.Router.extend({
 
   redirect () {
 
-    this.goto('addquestion' , {trigger : true , replace : true});
+    this.goto('login' , {trigger : true , replace : true});
 
   },
 
@@ -69,46 +66,46 @@ let Router = Backbone.Router.extend({
 
   testlogin () {
 
-    // let request = $.ajax({
+    let request = $.ajax({
 
-    //   url: 'https://api.parse.com/1/classes/users',
-    //   headers: {
-    //     'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
-    //     'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
-    //   },
-    //   method: 'GET'
-    // });
+      url: 'https://api.parse.com/1/classes/users',
+      headers: {
+        'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
+        'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
+      },
+      method: 'GET'
+    });
 
 
-    // request.then((data) => {
-    //   console.log('data:', data);
+    request.then((data) => {
+      console.log('data:', data);
 
-    //   Cookies.set('users', data);
+      Cookies.set('users', data);
 
-    //   console.log(Cookies.getJSON());
+      console.log(Cookies.getJSON());
 
-    // });
+    });
 
     
-    const DUMMY_DATA = [
-      {
-        objectId: '1',
-        name: 'Boyzie',
-        password: 'mathis'
-      },{
-        objectId: '2',
-        name: 'Shals',
-        password: 'paddy'
-      },{
-        objectId: '3',
-        name: 'Andrew',
-        password: 'faircloth'
-      }
-    ]; 
+    // const DUMMY_DATA = [
+    //   {
+    //     objectId: '1',
+    //     name: 'Boyzie',
+    //     password: 'mathis'
+    //   },{
+    //     objectId: '2',
+    //     name: 'Shals',
+    //     password: 'paddy'
+    //   },{
+    //     objectId: '3',
+    //     name: 'Andrew',
+    //     password: 'faircloth'
+    //   }
+    // ]; 
 
     ReactDom.render (
       <TestComponent
-        users = {DUMMY_DATA}/>,
+        users = {Cookies.getJSON()}/>,
       document.querySelector('.app')
     );
   
