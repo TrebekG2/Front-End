@@ -274,8 +274,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var Signup = _react2['default'].createClass({
-  displayName: 'Signup',
+var Signin = _react2['default'].createClass({
+  displayName: 'Signin',
 
   SubmitClickHandler: function SubmitClickHandler() {
     this.props.onSubmitClick();
@@ -341,37 +341,20 @@ var Signup = _react2['default'].createClass({
         _react2['default'].createElement(
           'label',
           null,
-          'Sign In'
-        ),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'Enter Name', className: 'UserName' }),
-        _react2['default'].createElement(
-          'label',
-          null,
           'User Name'
         ),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'UserID', className: 'UserID' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'User Name', className: 'UserID' }),
         _react2['default'].createElement(
           'label',
           null,
           ' Password'
         ),
-        _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', className: 'passcode' }),
-        _react2['default'].createElement(
-          'label',
-          null,
-          'Email'
-        ),
-        _react2['default'].createElement('input', { type: 'email', placeholder: 'Email', className: 'emailAdd' })
+        _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', className: 'password' })
       ),
       _react2['default'].createElement(
         'button',
         null,
-        'Sign Up'
-      ),
-      _react2['default'].createElement(
-        'button',
-        null,
-        'Submit'
+        'Sign In'
       )
     );
   }
@@ -856,7 +839,7 @@ var Router = _backbone2['default'].Router.extend({
   signin: function signin() {
     var _this3 = this;
 
-    _reactDom2['default'].render(_react2['default'].createElement(SigninPage, {
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsSignIn_component2['default'], {
       onCancelClick: function () {
         return _this3.goto('');
       },

@@ -1,9 +1,9 @@
 import React from 'react';
 
-let Signup = React.createClass({
+let Signin = React.createClass({
 
   SubmitClickHandler(){
-    this.props.onSubmitClick();
+    this.props.onClickSignin();
   },
 
   getStatus() {
@@ -56,17 +56,12 @@ let Signup = React.createClass({
     return (
       <div>
       <form class="signInForm">
-        <label>Sign In</label>
-          <input type='text' placeholder='Enter Name' className='UserName'/>
         <label>User Name</label>
-          <input type='text' placeholder='UserID' className='UserID'/>
+          <input type='text' placeholder='User Name' className='UserID'/>
         <label> Password</label>
-          <input type='password' placeholder='Password' className='passcode'/>
-        <label>Email</label>
-          <input type='email' placeholder='Email' className='emailAdd'/>
+          <input type='password' placeholder='Password' className='password'/>
       </form>
-      <button>Sign Up</button>
-      <button>Submit</button>
+      <button onClick={this.SubmitClickHandler}>Sign In</button>
     </div>
       
     );

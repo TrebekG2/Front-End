@@ -9,7 +9,7 @@ import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
 
-import SignInPage from './components/signIn_component';
+import SigninPage from './components/signIn_component';
 
 import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
@@ -36,7 +36,6 @@ let Router = Backbone.Router.extend({
     'nonExistant':'redirect',
     'addquestion': 'showAddQuestion',
     'userLanding' : 'showUserLanding'
-
 
   },
 
@@ -104,24 +103,8 @@ let Router = Backbone.Router.extend({
     ReactDom.render(
       <SigninPage 
         onCancelClick={ () =>this.goto('')}
-        onSubmitClick={ () =>{
-          let newUserName = document.querySelector('.UserName').value;
-          let newUserID   = document.querySelector('.UserID').value;
-          let newPass     = document.querySelector('.passcode').value;
-          let newEmail    = document.querySelector('.emailAdd').value;
+        onClickSignin={ () =>{},
         
-          let request = $.ajax({
-            url :'https://nameless-plains-2123.herokuapp.com/signin',
-            method:'POST',
-             
-            data:{
-              name     :UserName,
-              password :Pass,
-              username :UserID,
-              email    :Email
-            }
-          });
-
           request.then((data) => {
             Cookies.set('users', data);
             console.log(Cookies.getJSON('users'));
