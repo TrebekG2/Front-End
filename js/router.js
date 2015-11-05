@@ -16,10 +16,10 @@ let Router = Backbone.Router.extend({
 
   routes: {
 
-    '' : 'redirect',
-    'login' : 'testlogin',
-    'signup':'signup',
-    'addquestion' : 'showAddQuestion'
+    ''           : 'redirect',
+    'login'      : 'testlogin',
+    'signup'     :'signup',
+    'addquestion': 'showAddQuestion'
 
   },
 
@@ -63,10 +63,10 @@ let Router = Backbone.Router.extend({
             url :'https://nameless-plains-2123.herokuapp.com',
             method:'POST',
             data:{
-              :name     :newUserName,
-              :password :newPass,
-              :username :newUserID,
-              :email    :newEmail
+              name     :newUserName,
+              password :newPass,
+              username :newUserID,
+              email    :newEmail
             }
           });
 
