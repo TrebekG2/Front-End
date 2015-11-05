@@ -5,47 +5,43 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 
 import TestComponent from './components/test_component';
+import SignupPage from './components/signup_component';
 
 
 let Router = Backbone.Router.extend({
 
   routes: {
 
-    '' : 'redirect',
+    ''      :'redirect',
+    signup  :'signup',
     'login' : 'testlogin'
 
   },
 
   start() {
-
     Backbone.history.start();
-
   },
 
   goto (route) {
-
     this.navigate ( route ,{trigger: true});
-
   },
 
-
   redirect () {
-
     this.goto('login' , {trigger : true , replace : true});
-
   },
 
   home () {
-
     ReactDom.render(
-
       <TestComponent/>,
       document.querySelector('.app')
-
     );
-
   },
 
+  signup(){
+    ReactDom.render(
+      <SignupPage/>,document.querySelector('.app')
+    );
+  },
 
   testlogin () {
 
