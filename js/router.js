@@ -59,18 +59,32 @@ let Router = Backbone.Router.extend({
           let newPass     = document.querySelector('.passcode').value;
           let newEmail    = document.querySelector('.emailAdd').value;
         
+          ler request =$.ajax({
+            url :'https://nameless-plains-2123.herokuapp.com',
+            method:'POST',
+            data:{
+              :name     :newUserName,
+              :password :newPass,
+              :username :newUserID,
+              :email    :newEmail
+            }
+          });
+
           let modelData = new UserModel({
             name     :newUserName,
             password :newPass,
             username :newUserID,
             email    :newEmail
-
           });
 
-          console.log(modelData);
+          request.then((data)=>{
+            Cookies.set('user', data);
+            alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+          });
 
+
+          console.log(modelData);
           modelData.save().then(()=>{
-            alert(' NEW USER ADDED SUCCESSFULLY ADDED');
         this.goto(""); 
           });
         }
