@@ -59,14 +59,14 @@ let Router = Backbone.Router.extend({
           let newPass     = document.querySelector('.passcode').value;
           let newEmail    = document.querySelector('.emailAdd').value;
         
-          ler request =$.ajax({
+          let request =$.ajax({
             url :'https://nameless-plains-2123.herokuapp.com',
             method:'POST',
             data:{
-              :name     :newUserName,
-              :password :newPass,
-              :username :newUserID,
-              :email    :newEmail
+              name     :newUserName,
+              password :newPass,
+              username :newUserID,
+              email    :newEmail
             }
           });
 
