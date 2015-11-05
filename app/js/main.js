@@ -145,17 +145,30 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 exports['default'] = _react2['default'].createClass({
   displayName: 'create_deck',
 
   createDeckHandler: function createDeckHandler() {
 
     this.props.onSubmitNewDeck();
+=======
+var HomePage = _react2['default'].createClass({
+  displayName: 'HomePage',
+
+  SignInHandler: function SignInHandler() {
+    this.props.onSigninClick();
+  },
+
+  RegisterHandler: function RegisterHandler() {
+    this.props.onRegisterClick();
+>>>>>>> development
   },
 
   render: function render() {
     return _react2['default'].createElement(
       'div',
+<<<<<<< HEAD
       { className: 'deck-block-container' },
       _react2['default'].createElement(
         'form',
@@ -172,13 +185,71 @@ exports['default'] = _react2['default'].createClass({
         {
           onClick: this.createDeckHandler },
         'Create new deck'
+=======
+      { className: 'home-page' },
+      _react2['default'].createElement(
+        'header',
+        { className: 'header-opt' },
+        _react2['default'].createElement(
+          'h1',
+          { className: 'flip-game' },
+          'Trebek'
+        ),
+        _react2['default'].createElement(
+          'div',
+          { className: 'btn' },
+          _react2['default'].createElement(
+            'button',
+            { className: 'sign-in', onClick: this.SignInHandler },
+            'Sign In'
+          ),
+          _react2['default'].createElement(
+            'button',
+            { className: 'register', onClick: this.RegisterHandler },
+            'Register'
+          )
+        ),
+        _react2['default'].createElement('hr', null)
+>>>>>>> development
       )
     );
   }
 });
+<<<<<<< HEAD
 module.exports = exports['default'];
 
 },{"react":174}],4:[function(require,module,exports){
+=======
+
+exports['default'] = HomePage;
+module.exports = exports['default'];
+
+},{"react":174}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var Landing = _react2['default'].createClass({
+  displayName: 'Landing',
+
+  render: function render() {
+    return _react2['default'].createElement('div', null);
+  }
+});
+
+exports['default'] = Landing;
+module.exports = exports['default'];
+
+},{"react":174}],5:[function(require,module,exports){
+>>>>>>> development
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -251,7 +322,11 @@ var Signup = _react2['default'].createClass({
 exports['default'] = Signup;
 module.exports = exports['default'];
 
+<<<<<<< HEAD
 },{"react":174}],5:[function(require,module,exports){
+=======
+},{"react":174}],6:[function(require,module,exports){
+>>>>>>> development
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -299,6 +374,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
+<<<<<<< HEAD
 },{"react":174}],6:[function(require,module,exports){
 'use strict';
 
@@ -362,6 +438,8 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
+=======
+>>>>>>> development
 },{"react":174}],7:[function(require,module,exports){
 'use strict';
 
@@ -538,6 +616,7 @@ var _componentsSignup_component = require('./components/signup_component');
 
 var _componentsSignup_component2 = _interopRequireDefault(_componentsSignup_component);
 
+<<<<<<< HEAD
 var _componentsUser_landing = require('./components/user_landing');
 
 var _componentsUser_landing2 = _interopRequireDefault(_componentsUser_landing);
@@ -545,6 +624,15 @@ var _componentsUser_landing2 = _interopRequireDefault(_componentsUser_landing);
 var _componentsCreate_deck = require('./components/create_deck');
 
 var _componentsCreate_deck2 = _interopRequireDefault(_componentsCreate_deck);
+=======
+var _componentsHome_component = require('./components/home_component');
+
+var _componentsHome_component2 = _interopRequireDefault(_componentsHome_component);
+
+var _componentsLanding_component = require('./components/landing_component');
+
+var _componentsLanding_component2 = _interopRequireDefault(_componentsLanding_component);
+>>>>>>> development
 
 var _resourcesUser_model = require('./resources/user_model');
 
@@ -565,11 +653,22 @@ var _resourcesQuestion_collection2 = _interopRequireDefault(_resourcesQuestion_c
 var Router = _backbone2['default'].Router.extend({
 
   routes: {
+<<<<<<< HEAD
     '': 'redirect',
     'login': 'testlogin',
     'signup': 'signup',
     'addquestion': 'showAddQuestion',
     'userLanding': 'showUserLanding'
+=======
+
+    '': 'home',
+    'login': 'testlogin',
+    'signup': 'signup',
+    'landing': 'landing',
+    'nonExistant': 'redirect',
+    'addquestion': 'showAddQuestion'
+
+>>>>>>> development
   },
 
   start: function start() {
@@ -585,23 +684,24 @@ var Router = _backbone2['default'].Router.extend({
     this.goto('userLanding', { trigger: true, replace: true });
   },
 
-  // home () {
+  home: function home() {
+    var _this = this;
 
-  //   ReactDom.render(
-
-  //     <TestComponent/>,
-  //     document.querySelector('.app')
-
-  //   );
-
-  // },
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsHome_component2['default'], {
+      onSigninClick: function () {
+        return _this.goto('login');
+      },
+      onRegisterClick: function () {
+        return _this.goto('signup');
+      } }), document.querySelector('.app'));
+  },
 
   signup: function signup() {
-    var _this = this;
+    var _this2 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsSignup_component2['default'], {
       onCancelClick: function () {
-        return _this.goto('');
+        return _this2.goto('');
       },
       onSubmitClick: function () {
         var newUserName = document.querySelector('.newUserName').value;
@@ -612,26 +712,37 @@ var Router = _backbone2['default'].Router.extend({
         var request = _jquery2['default'].ajax({
           url: 'https://nameless-plains-2123.herokuapp.com/signup',
           method: 'POST',
+
           data: {
             name: newUserName,
             password: newPass,
             username: newUserID,
-            email: newEmail }
+            email: newEmail
+          }
         });
 
         request.then(function (data) {
           _jsCookie2['default'].set('users', data);
           console.log(_jsCookie2['default'].getJSON('users'));
           alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+<<<<<<< HEAD
           _this.goto('');
 
           // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
           // headers: {Access-Token: {} }
+=======
+          _this2.goto('');
+>>>>>>> development
         });
       } }), document.querySelector('.app'));
   },
 
+<<<<<<< HEAD
   showUserLanding: function showUserLanding() {
+=======
+  testlogin: function testlogin() {
+    var _this3 = this;
+>>>>>>> development
 
     var DUMMY_DECKS = [{
       deckId: '1',
@@ -673,9 +784,40 @@ var Router = _backbone2['default'].Router.extend({
     // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
     // headers: {Access-Token: {} }
     // });
+<<<<<<< HEAD
   },
 
   showAddQuestion: function showAddQuestion() {
+=======
+
+    this.userCollection = new _resourcesUser_collection2['default']();
+
+    this.userCollection.fetch().then(function () {
+
+      _reactDom2['default'].render(_react2['default'].createElement(_componentsTest_component2['default'], {
+        users: _this3.userCollection.toJSON() }), document.querySelector('.app'));
+    });
+
+    // const DUMMY_DATA = [
+    //   {
+    //     objectId: '1',
+    //     name: 'Boyzie',
+    //     password: 'mathis'
+    //   },{
+    //     objectId: '2',
+    //     name: 'Shals',
+    //     password: 'paddy'
+    //   },{
+    //     objectId: '3',
+    //     name: 'Andrew',
+    //     password: 'faircloth'
+    //   }
+    // ];   
+  },
+
+  showAddQuestion: function showAddQuestion() {
+    var _this4 = this;
+>>>>>>> development
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onSubmitQuestion: function (question, answer, category) {
@@ -686,6 +828,7 @@ var Router = _backbone2['default'].Router.extend({
           category: category
         });
 
+<<<<<<< HEAD
         // let request = $.ajax({
         //   url :'https://nameless-plains-2123.herokuapp.com/question',
         //   method:'POST',
@@ -701,6 +844,13 @@ var Router = _backbone2['default'].Router.extend({
         //   alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
         //   this.goto('');
         // });
+=======
+        newQuestion.save().then(function () {
+          console.log('new question has been added');
+          alert('thank you. your question has been added');
+          _this4.goto('addquestion');
+        });
+>>>>>>> development
       } }), document.querySelector('.app'));
   }
 
@@ -726,7 +876,11 @@ var Router = _backbone2['default'].Router.extend({
 exports['default'] = Router;
 module.exports = exports['default'];
 
+<<<<<<< HEAD
 },{"./components/add_question":2,"./components/create_deck":3,"./components/signup_component":4,"./components/test_component":5,"./components/user_landing":6,"./resources/question_collection":8,"./resources/question_model":9,"./resources/user_collection":10,"./resources/user_model":11,"backbone":13,"jquery":15,"js-cookie":16,"react":174,"react-dom":18}],13:[function(require,module,exports){
+=======
+},{"./components/add_question":2,"./components/home_component":3,"./components/landing_component":4,"./components/signup_component":5,"./components/test_component":6,"./resources/question_collection":8,"./resources/question_model":9,"./resources/user_collection":10,"./resources/user_model":11,"backbone":13,"jquery":15,"js-cookie":16,"react":174,"react-dom":18}],13:[function(require,module,exports){
+>>>>>>> development
 (function (global){
 //     Backbone.js 1.2.3
 

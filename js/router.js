@@ -9,6 +9,8 @@ import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
 import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
+import HomePage from './components/home_component';
+import Landing from './components/landing_component';
 
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
@@ -20,11 +22,15 @@ import QuestionCollection from './resources/question_collection';
 let Router = Backbone.Router.extend({
 
   routes: {
-    '' : 'redirect',
-    'login' : 'testlogin',
-    'signup':'signup',
-    'addquestion' : 'showAddQuestion',
+
+    ''           : 'home',
+    'login'      : 'testlogin',
+    'signup'     : 'signup',
+    'landing'    : 'landing',
+    'nonExistant':'redirect',
+    'addquestion': 'showAddQuestion',
     'userLanding' : 'showUserLanding'
+
   },
 
   start() {
@@ -41,16 +47,13 @@ let Router = Backbone.Router.extend({
 
   },
 
-  // home () {
-
-  //   ReactDom.render(
-
-  //     <TestComponent/>,
-  //     document.querySelector('.app')
-
-  //   );
-
-  // },
+   home () {
+    ReactDom.render(
+      <HomePage
+      onSigninClick={()=>this.goto('login')}
+      onRegisterClick={()=>this.goto('signup')}/>, document.querySelector('.app')
+    );
+   },
 
 
   signup () {
@@ -66,11 +69,13 @@ let Router = Backbone.Router.extend({
           let request = $.ajax({
             url :'https://nameless-plains-2123.herokuapp.com/signup',
             method:'POST',
-            data: {
-              name     : newUserName,
-              password : newPass,
-              username : newUserID,
-              email    : newEmail}
+             
+            data:{
+              name     :newUserName,
+              password :newPass,
+              username :newUserID,
+              email    :newEmail
+            }
           });
 
           request.then((data) => {
