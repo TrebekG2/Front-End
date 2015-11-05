@@ -5,7 +5,7 @@ export default React.createClass({
   processDecks(deck) {
 
     return (
-      <div className='deck-block-container' key={deck.deckId}>
+      <div key={deck.deckId}>
         <div className='deck-select-block'>
           <p>{deck.title}</p>
           <p>Topic: {deck.topic}</p>
@@ -26,7 +26,7 @@ export default React.createClass({
     let data = this.props.decks;
 
     return (
-      <div>
+      <div className='deck-block-container'>
         <h1>Choose one of your decks</h1>
         {this.processData(data)}
       </div>

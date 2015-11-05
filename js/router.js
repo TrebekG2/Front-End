@@ -114,8 +114,8 @@ let Router = Backbone.Router.extend({
           let newDeckTitle = document.querySelector('.new-deck-title-input').value;
           alert('A new deck has been created');
           }}/>
-        </div>,
-        document.querySelector('.app')
+      </div>,
+      document.querySelector('.app')
       );
 
         // let request = $.ajax({

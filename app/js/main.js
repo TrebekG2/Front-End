@@ -156,7 +156,7 @@ exports['default'] = _react2['default'].createClass({
   render: function render() {
     return _react2['default'].createElement(
       'div',
-      null,
+      { className: 'deck-block-container' },
       _react2['default'].createElement(
         'form',
         null,
@@ -319,7 +319,7 @@ exports['default'] = _react2['default'].createClass({
 
     return _react2['default'].createElement(
       'div',
-      { className: 'deck-block-container', key: deck.deckId },
+      { key: deck.deckId },
       _react2['default'].createElement(
         'div',
         { className: 'deck-select-block' },
@@ -349,7 +349,7 @@ exports['default'] = _react2['default'].createClass({
 
     return _react2['default'].createElement(
       'div',
-      null,
+      { className: 'deck-block-container' },
       _react2['default'].createElement(
         'h1',
         null,
