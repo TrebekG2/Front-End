@@ -2030,6 +2030,14 @@ body {
 h1 {
   text-align: center; }
 
+.deck-block-container {
+  margin: 30px auto;
+  width: 600px; }
+
+.deck-select-block {
+  border: 1px solid black;
+  width: 200px; }
+
 .add-form-label {
   display: inline-block;
   width: 80%;
