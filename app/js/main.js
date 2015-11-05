@@ -392,6 +392,18 @@ var Router = _backbone2['default'].Router.extend({
         console.log(newUserID);
         console.log(newPass);
         console.log(newEmail);
+
+        var modelData = new _resourcesUser_model2['default']({
+          name: newUserName,
+          password: newPass,
+          userID: newUserID,
+          email: newEmail
+        });
+
+        modelData.save().then(function () {
+          alert(' NEW USER ADDED SUCCESSFULLY ADDED');
+          _this.goto("");
+        });
       } }), document.querySelector('.app'));
   },
 
