@@ -7,6 +7,11 @@ let Signup = React.createClass({
     this.props.onSubmitClick();
   },
 
+  CancelClickHandler(){
+    this.props.onCancelClick();
+
+  },
+
 
 
   render() {
@@ -23,6 +28,7 @@ let Signup = React.createClass({
           <input type='email' placeholder='Enter Email Address' className='emailAdd'/>
         </form>
         <button className='submit' onClick={this.SubmitClickHandler}>Submit</button>
+        <button className='cancel' onClick={this.CancelClickHandler}>Cancel</button>
       </div>
       
     );

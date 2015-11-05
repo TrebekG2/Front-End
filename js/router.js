@@ -13,7 +13,7 @@ let Router = Backbone.Router.extend({
   routes: {
 
     ''      :'redirect',
-    signup  :'signup',
+    'signup':'signup',
     'login' : 'testlogin'
 
   },
@@ -37,9 +37,21 @@ let Router = Backbone.Router.extend({
     );
   },
 
-  signup(){
+  signup () {
     ReactDom.render(
-      <SignupPage/>,document.querySelector('.app')
+      <SignupPage 
+        onCancelClick={ () =>this.goto('')}
+        onSubmitClick={ () =>{
+          let newUserName = document.querySelector('.newUserName').value;
+          let newUserID   = document.querySelector('.newUserID').value;
+          let newPass     = document.querySelector('.passcode').value;
+          let newEmail    = document.querySelector('.emailAdd').value;
+          console.log(newUserName);
+          console.log(newUserID); 
+          console.log(newPass);
+          console.log(newEmail);
+        }
+        }/>, document.querySelector('.app')
     );
   },
 

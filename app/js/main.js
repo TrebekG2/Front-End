@@ -18,6 +18,10 @@ var Signup = _react2['default'].createClass({
     this.props.onSubmitClick();
   },
 
+  CancelClickHandler: function CancelClickHandler() {
+    this.props.onCancelClick();
+  },
+
   render: function render() {
     return _react2['default'].createElement(
       'div',
@@ -54,6 +58,11 @@ var Signup = _react2['default'].createClass({
         'button',
         { className: 'submit', onClick: this.SubmitClickHandler },
         'Submit'
+      ),
+      _react2['default'].createElement(
+        'button',
+        { className: 'cancel', onClick: this.CancelClickHandler },
+        'Cancel'
       )
     );
   }
@@ -181,7 +190,7 @@ var Router = _backbone2['default'].Router.extend({
   routes: {
 
     '': 'redirect',
-    signup: 'signup',
+    'signup': 'signup',
     'login': 'testlogin'
 
   },
@@ -203,7 +212,22 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   signup: function signup() {
-    _reactDom2['default'].render(_react2['default'].createElement(_componentsSignup_component2['default'], null), document.querySelector('.app'));
+    var _this = this;
+
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsSignup_component2['default'], {
+      onCancelClick: function () {
+        return _this.goto('');
+      },
+      onSubmitClick: function () {
+        var newUserName = document.querySelector('.newUserName').value;
+        var newUserID = document.querySelector('.newUserID').value;
+        var newPass = document.querySelector('.passcode').value;
+        var newEmail = document.querySelector('.emailAdd').value;
+        console.log(newUserName);
+        console.log(newUserID);
+        console.log(newPass);
+        console.log(newEmail);
+      } }), document.querySelector('.app'));
   },
 
   testlogin: function testlogin() {
