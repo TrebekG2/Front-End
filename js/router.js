@@ -33,7 +33,7 @@ let Router = Backbone.Router.extend({
 
   redirect () {
 
-    this.goto('login' , {trigger : true , replace : true});
+    this.goto('addquestion' , {trigger : true , replace : true});
 
   },
 

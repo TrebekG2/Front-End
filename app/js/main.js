@@ -383,7 +383,7 @@ var Router = _backbone2['default'].Router.extend({
 
   redirect: function redirect() {
 
-    this.goto('login', { trigger: true, replace: true });
+    this.goto('addquestion', { trigger: true, replace: true });
   },
 
   // home () {
