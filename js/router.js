@@ -69,25 +69,37 @@ let Router = Backbone.Router.extend({
 
   testlogin () {
 
-    let request = $.ajax({
+    // let request = $.ajax({
 
-      url: 'https://api.parse.com/1/classes/users',
-      headers: {
-        'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
-        'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
-      },
-      method: 'GET'
+    //   url: 'https://api.parse.com/1/classes/users',
+    //   headers: {
+    //     'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
+    //     'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
+    //   },
+    //   method: 'GET'
+    // });
+
+    this.userCollection = new UserCollection();
+
+    this.userCollection.fetch().then( () => {
+
+      ReactDom.render (
+      <TestComponent
+        users = {this.userCollection.toJSON()}/>,
+      document.querySelector('.app')
+      );
+
     });
 
 
-    request.then((data) => {
-      console.log('data:', data);
+    // request.then((data) => {
+    //   console.log('data:', data);
 
-      Cookies.set('users', data);
+    //   Cookies.set('users', data);
 
-      console.log(Cookies.getJSON());
+    //   console.log(Cookies.getJSON());
 
-    });
+    // });
 
     
     // const DUMMY_DATA = [
@@ -106,11 +118,7 @@ let Router = Backbone.Router.extend({
     //   }
     // ]; 
 
-    ReactDom.render (
-      <TestComponent
-        users = {Cookies.getJSON()}/>,
-      document.querySelector('.app')
-    );
+    
   
   },
 

@@ -2,9 +2,7 @@ import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
 import Router from './router';
-
-console.log('Hello, World');
-
+import './ajax_setup';
 
 let appElement = document.querySelector('.app');
 
