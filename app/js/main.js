@@ -466,7 +466,7 @@ var Router = _backbone2['default'].Router.extend({
 
   redirect: function redirect() {
 
-    this.goto('addquestion', { trigger: true, replace: true });
+    this.goto('signup', { trigger: true, replace: true });
   },
 
   // home () {
@@ -493,19 +493,21 @@ var Router = _backbone2['default'].Router.extend({
         var newPass = document.querySelector('.passcode').value;
         var newEmail = document.querySelector('.emailAdd').value;
 
-        var modelData = new _resourcesUser_model2['default']({
-          name: newUserName,
-          password: newPass,
-          username: newUserID,
-          email: newEmail
-
+        var request = _jquery2['default'].ajax({
+          url: 'https://nameless-plains-2123.herokuapp.com/signup',
+          method: 'POST',
+          data: {
+            name: newUserName,
+            password: newPass,
+            username: newUserID,
+            email: newEmail }
         });
 
-        console.log(modelData);
-
-        modelData.save().then(function () {
-          alert(' NEW USER ADDED SUCCESSFULLY ADDED');
-          _this.goto("");
+        request.then(function (data) {
+          _jsCookie2['default'].set('users', data);
+          console.log(_jsCookie2['default'].getJSON('users'));
+          alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+          _this.goto('');
         });
       } }), document.querySelector('.app'));
   },

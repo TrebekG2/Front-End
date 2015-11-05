@@ -36,7 +36,7 @@ let Router = Backbone.Router.extend({
 
   redirect () {
 
-    this.goto('addquestion' , {trigger : true , replace : true});
+    this.goto('signup' , {trigger : true , replace : true});
 
   },
 
@@ -62,36 +62,24 @@ let Router = Backbone.Router.extend({
           let newPass     = document.querySelector('.passcode').value;
           let newEmail    = document.querySelector('.emailAdd').value;
         
-          let request =$.ajax({
-            url :'https://nameless-plains-2123.herokuapp.com',
+          let request = $.ajax({
+            url :'https://nameless-plains-2123.herokuapp.com/signup',
             method:'POST',
-            data:{
-              :name     :newUserName,
-              :password :newPass,
-              :username :newUserID,
-              :email    :newEmail
-            }
+            data: {
+              name     : newUserName,
+              password : newPass,
+              username : newUserID,
+              email    : newEmail}
           });
 
-          let modelData = new UserModel({
-            name     :newUserName,
-            password :newPass,
-            username :newUserID,
-            email    :newEmail
-          });
-
-          request.then((data)=>{
-            Cookies.set('user', data);
+          request.then((data) => {
+            Cookies.set('users', data);
+            console.log(Cookies.getJSON('users'));
             alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+            this.goto('');
           });
 
-
-          console.log(modelData);
-          modelData.save().then(()=>{
-        this.goto(""); 
-          });
-        }
-        }/>, document.querySelector('.app')
+        }}/>, document.querySelector('.app')
     );
   },
 
