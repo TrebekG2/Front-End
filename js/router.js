@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
+import Home from './components/home_component';
+import Landing from './components/landing_component';
 
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
@@ -19,9 +21,11 @@ let Router = Backbone.Router.extend({
 
   routes: {
 
-    ''           : 'redirect',
+    ''           : 'home',
     'login'      : 'testlogin',
-    'signup'     :'signup',
+    'signup'     : 'signup',
+    'landing'    : 'landing',
+    'nonExistant':'redirect',
     'addquestion': 'showAddQuestion'
 
   },
