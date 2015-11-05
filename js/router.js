@@ -11,6 +11,7 @@ import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
 import Landing from './components/landing_component';
+// import EditDeckForm from './components/edit_deck';
 
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
@@ -29,7 +30,8 @@ let Router = Backbone.Router.extend({
     'landing'    : 'landing',
     'nonExistant':'redirect',
     'addquestion': 'showAddQuestion',
-    'userLanding' : 'showUserLanding'
+    'userLanding' : 'showUserLanding',
+    'editdeck' : 'showEditDeck'
 
   },
 
@@ -81,13 +83,23 @@ let Router = Backbone.Router.extend({
           request.then((data) => {
             Cookies.set('users', data);
             console.log(Cookies.getJSON('users'));
-            alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
-            this.goto('');
+            // alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
 
-            // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
-            // headers: {Access-Token: {} }
+            $.ajaxSetup ({
+              headers: {
+                access_token: data.access_token,
+                name: data.name,
+                username: data.username
+                // add other data
+              }
+            });
 
-          });
+            this.goto('userLanding');
+            // this.goto(`user/${data.username}`)
+
+          }).fail(() => {
+            $('.app'.html('oops'))
+          })
 
         }}/>, document.querySelector('.app')
     );
@@ -120,29 +132,35 @@ let Router = Backbone.Router.extend({
           decks = {DUMMY_DECKS}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
-          let newDeckTitle = document.querySelector('.new-deck-title-input').value;
-          alert('A new deck has been created');
-          }}/>
-      </div>,
-      document.querySelector('.app')
-      );
+            let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+            alert('A new deck has been created');
+       
+            let request = $.ajax({
+              url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+              method:'POST',
+              data: {
+                title     : newDeckTitle
+              }
+            });
 
-        // let request = $.ajax({
-        //     url :'https://nameless-plains-2123.herokuapp.com/deck/create',
-        //     method:'POST',
-        //     data: {
-        //       title     : newDeckTitle}
-        //   });
+            request.then((data) => {
+              Cookies.set('return', data);
+              console.log(Cookies.getJSON('return'));
+              alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+              this.goto('');
 
-        //   request.then((data) => {
-        //     Cookies.set('return', data);
-        //     console.log(Cookies.getJSON('return'));
-        //     alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-        //     this.goto('');
+            });
 
-        // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
-        // headers: {Access-Token: {} }
-        // });  
+
+            $.ajaxSetup ({
+              headers: {
+                access_token: data.access_token
+              }
+            });
+
+        }}/>
+      </div>, document.querySelector('.app')
+    ); 
 
   },
 
@@ -177,6 +195,17 @@ let Router = Backbone.Router.extend({
       }}/>,
       document.querySelector('.app')
     );
+
+
+  },
+
+  showEditDeck () {
+
+    // ReactDom.render (
+
+    //   <EditDeckForm/>,
+    //   document.querySelector('.app')
+    // );
 
 
   },

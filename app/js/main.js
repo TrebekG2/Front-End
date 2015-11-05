@@ -645,6 +645,8 @@ var _componentsLanding_component = require('./components/landing_component');
 
 var _componentsLanding_component2 = _interopRequireDefault(_componentsLanding_component);
 
+// import EditDeckForm from './components/edit_deck';
+
 var _resourcesUser_model = require('./resources/user_model');
 
 var _resourcesUser_model2 = _interopRequireDefault(_resourcesUser_model);
@@ -671,7 +673,8 @@ var Router = _backbone2['default'].Router.extend({
     'landing': 'landing',
     'nonExistant': 'redirect',
     'addquestion': 'showAddQuestion',
-    'userLanding': 'showUserLanding'
+    'userLanding': 'showUserLanding',
+    'editdeck': 'showEditDeck'
 
   },
 
@@ -728,16 +731,27 @@ var Router = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('users', data);
           console.log(_jsCookie2['default'].getJSON('users'));
-          alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
-          _this2.goto('');
+          // alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
 
-          // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
-          // headers: {Access-Token: {} }
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              access_token: data.access_token,
+              name: data.name,
+              username: data.username
+              // add other data
+            }
+          });
+
+          _this2.goto('userLanding');
+          // this.goto(`user/${data.username}`)
+        }).fail(function () {
+          (0, _jquery2['default'])('.app'.html('oops'));
         });
       } }), document.querySelector('.app'));
   },
 
   showUserLanding: function showUserLanding() {
+    var _this3 = this;
 
     var DUMMY_DECKS = [{
       deckId: '1',
@@ -764,25 +778,29 @@ var Router = _backbone2['default'].Router.extend({
         onSubmitNewDeck: function () {
           var newDeckTitle = document.querySelector('.new-deck-title-input').value;
           alert('A new deck has been created');
+
+          var request = _jquery2['default'].ajax({
+            url: 'https://nameless-plains-2123.herokuapp.com/deck/create',
+            method: 'POST',
+            data: {
+              title: newDeckTitle
+            }
+          });
+
+          request.then(function (data) {
+            _jsCookie2['default'].set('return', data);
+            console.log(_jsCookie2['default'].getJSON('return'));
+            alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+            _this3.goto('');
+          });
+
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              access_token: data.access_token
+            }
+          });
         } })
     ), document.querySelector('.app'));
-
-    // let request = $.ajax({
-    //     url :'https://nameless-plains-2123.herokuapp.com/deck/create',
-    //     method:'POST',
-    //     data: {
-    //       title     : newDeckTitle}
-    //   });
-
-    //   request.then((data) => {
-    //     Cookies.set('return', data);
-    //     console.log(Cookies.getJSON('return'));
-    //     alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-    //     this.goto('');
-
-    // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
-    // headers: {Access-Token: {} }
-    // });
   },
 
   showAddQuestion: function showAddQuestion() {
@@ -812,6 +830,16 @@ var Router = _backbone2['default'].Router.extend({
         //   this.goto('');
         // });
       } }), document.querySelector('.app'));
+  },
+
+  showEditDeck: function showEditDeck() {
+
+    // ReactDom.render (
+
+    //   <EditDeckForm/>,
+    //   document.querySelector('.app')
+    // );
+
   }
 
 });
