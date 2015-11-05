@@ -72,15 +72,28 @@ let Router = Backbone.Router.extend({
 
   testlogin () {
 
+  
     // let request = $.ajax({
 
-    //   url: 'https://api.parse.com/1/classes/users',
-    //   headers: {
-    //     'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
-    //     'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
-    //   },
-    //   method: 'GET'
+    //   url: 'http://localhost:3000/signup',
+    //   method: 'POST',
+    //     user: {
+    //       username: {data.username},
+    //       password: {data.password},
+    //       name: '',
+    //       email: ''
+    //     }
+
+    //  });
+
+    // request.then((data) => {
+    //     console.log('data:', data);
+
+    //     Cookies.set('users', data);
+
+    //     console.log(Cookies.getJSON('users'));
     // });
+
 
     this.userCollection = new UserCollection();
 
@@ -95,14 +108,7 @@ let Router = Backbone.Router.extend({
     });
 
 
-    // request.then((data) => {
-    //   console.log('data:', data);
-
-    //   Cookies.set('users', data);
-
-    //   console.log(Cookies.getJSON());
-
-    // });
+    
 
     
     // const DUMMY_DATA = [
@@ -119,9 +125,7 @@ let Router = Backbone.Router.extend({
     //     name: 'Andrew',
     //     password: 'faircloth'
     //   }
-    // ]; 
-
-    
+    // ];     
   
   },
 
@@ -157,7 +161,7 @@ let Router = Backbone.Router.extend({
 
   //     url: 'http://localhost:3000/signup',
   //     method: 'POST',
-//       user: {
+//       {
 //         username: {data.username},
 //         password: {data.password},
 //         name: '',
