@@ -11,6 +11,9 @@ import SignupPage from './components/signup_component';
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
 
+import QuestionModel from './resources/question_model';
+import QuestionCollection from './resources/question_collection';
+
 
 let Router = Backbone.Router.extend({
 
@@ -33,7 +36,7 @@ let Router = Backbone.Router.extend({
 
   redirect () {
 
-    this.goto('login' , {trigger : true , replace : true});
+    this.goto('signup' , {trigger : true , replace : true});
 
   },
 
@@ -59,9 +62,10 @@ let Router = Backbone.Router.extend({
           let newPass     = document.querySelector('.passcode').value;
           let newEmail    = document.querySelector('.emailAdd').value;
         
-          let request =$.ajax({
-            url :'https://nameless-plains-2123.herokuapp.com',
+          let request = $.ajax({
+            url :'https://nameless-plains-2123.herokuapp.com/signup',
             method:'POST',
+             
             data:{
               name     :newUserName,
               password :newPass,
@@ -70,39 +74,41 @@ let Router = Backbone.Router.extend({
             }
           });
 
-          let modelData = new UserModel({
-            name     :newUserName,
-            password :newPass,
-            username :newUserID,
-            email    :newEmail
-          });
-
-          request.then((data)=>{
-            Cookies.set('user', data);
+          request.then((data) => {
+            Cookies.set('users', data);
+            console.log(Cookies.getJSON('users'));
             alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+            this.goto('');
           });
 
-
-          console.log(modelData);
-          modelData.save().then(()=>{
-        this.goto(""); 
-          });
-        }
-        }/>, document.querySelector('.app')
+        }}/>, document.querySelector('.app')
     );
   },
 
   testlogin () {
 
+  
     // let request = $.ajax({
 
-    //   url: 'https://api.parse.com/1/classes/users',
-    //   headers: {
-    //     'X-Parse-Application-Id': 'P8SM9vYMpCsowtQFtf1DvWMgqxiMUHQIHOsaJ1le',
-    //     'X-Parse-REST-API-Key': 'yg1w6pGNA5cCJAb1DW1bHQRlUWB5Nr1oPf7bPdrq'
-    //   },
-    //   method: 'GET'
+    //   url: 'http://localhost:3000/signup',
+    //   method: 'POST',
+    //     user: {
+    //       username: {data.username},
+    //       password: {data.password},
+    //       name: '',
+    //       email: ''
+    //     }
+
+    //  });
+
+    // request.then((data) => {
+    //     console.log('data:', data);
+
+    //     Cookies.set('users', data);
+
+    //     console.log(Cookies.getJSON('users'));
     // });
+
 
     this.userCollection = new UserCollection();
 
@@ -117,14 +123,7 @@ let Router = Backbone.Router.extend({
     });
 
 
-    // request.then((data) => {
-    //   console.log('data:', data);
-
-    //   Cookies.set('users', data);
-
-    //   console.log(Cookies.getJSON());
-
-    // });
+    
 
     
     // const DUMMY_DATA = [
@@ -141,23 +140,32 @@ let Router = Backbone.Router.extend({
     //     name: 'Andrew',
     //     password: 'faircloth'
     //   }
-    // ]; 
-
-    
+    // ];     
   
   },
 
   showAddQuestion () {
 
     ReactDom.render (
-      <AddFormComponent/>,
+      <AddFormComponent
+      onSubmitQuestion = {(question, answer, category) => {
+        let newQuestion = new QuestionModel({
+          question: question,
+          answer: answer,
+          category: category
+        });
+        
+        newQuestion.save().then(()=> {
+          console.log('new question has been added');
+          alert('thank you. your question has been added');
+          this.goto('addquestion');
+        });
+      }}/>,
       document.querySelector('.app')
     );
 
 
   },
-
-
 
 
   // We will get back token and add to headers
@@ -168,16 +176,18 @@ let Router = Backbone.Router.extend({
 
   //     url: 'http://localhost:3000/signup',
   //     method: 'POST',
-  //     data: {
-  //       user: {
-  //         username: {data.username},
-  //         password: {data.password},
-  //         name: '',
-  //         email: ''
-  //       }
-  //     }
+//       {
+//         username: {data.username},
+//         password: {data.password},
+//         name: '',
+//         email: ''
+//       }
 
   //   });
+
+
+          // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
+          // headers: {Access-Token: {} }
 
   // },
 
