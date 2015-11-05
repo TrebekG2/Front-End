@@ -11,6 +11,9 @@ import SignupPage from './components/signup_component';
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
 
+import QuestionModel from './resources/question_model';
+import QuestionCollection from './resources/question_collection';
+
 
 let Router = Backbone.Router.extend({
 
@@ -125,14 +128,25 @@ let Router = Backbone.Router.extend({
   showAddQuestion () {
 
     ReactDom.render (
-      <AddFormComponent/>,
+      <AddFormComponent
+      onSubmitQuestion = {(question, answer, category) => {
+        let newQuestion = new QuestionModel({
+          question: question,
+          answer: answer,
+          category: category
+        });
+        
+        newQuestion.save().then(()=> {
+          console.log('new question has been added');
+          alert('thank you. your question has been added');
+          this.goto('addquestion');
+        });
+      }}/>,
       document.querySelector('.app')
     );
 
 
   },
-
-
 
 
   // We will get back token and add to headers
@@ -143,16 +157,18 @@ let Router = Backbone.Router.extend({
 
   //     url: 'http://localhost:3000/signup',
   //     method: 'POST',
-  //     data: {
-  //       user: {
-  //         username: {data.username},
-  //         password: {data.password},
-  //         name: '',
-  //         email: ''
-  //       }
-  //     }
+//       user: {
+//         username: {data.username},
+//         password: {data.password},
+//         name: '',
+//         email: ''
+//       }
 
   //   });
+
+
+          // WILL NEED TO ADD HEADERS HERE WITH AJAX SETUP
+          // headers: {Access-Token: {} }
 
   // },
 
