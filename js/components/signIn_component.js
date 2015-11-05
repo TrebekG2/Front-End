@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default React.createClass({
+let Signup = React.createClass({
+
+  SubmitClickHandler(){
+    this.props.onSubmitClick();
+  },
 
   getStatus() {
     let user = this.props.user;
@@ -37,30 +41,16 @@ export default React.createClass({
     }
   },
 
-  render() {
-    return (
-      <div>
-        <div>{this.getStatus()}</div>
-        {this.getButton()}
-      </div>
-    );
-  }
+// let Signup = React.createClass({
 
-}); 
+//   SubmitClickHandler(){
+//     this.props.onSubmitClick();
+//   },
 
-import React from 'react';
+//   CancelClickHandler(){
+//     this.props.onCancelClick();
 
-
-let Signup = React.createClass({
-
-  SubmitClickHandler(){
-    this.props.onSubmitClick();
-  },
-
-  CancelClickHandler(){
-    this.props.onCancelClick();
-
-  },
+//   },
 
   render() {
     return (
@@ -83,3 +73,4 @@ let Signup = React.createClass({
   }
 });
 
+export default Signin;

@@ -31,6 +31,7 @@ let Router = Backbone.Router.extend({
     ''           : 'home',
     'login'      : 'testlogin',
     'signup'     : 'signup',
+    'signin'     : 'signin',
     'landing'    : 'landing',
     'nonExistant':'redirect',
     'addquestion': 'showAddQuestion',
@@ -99,6 +100,42 @@ let Router = Backbone.Router.extend({
     );
   },
 
+  signin () {
+    ReactDom.render(
+      <SigninPage 
+        onCancelClick={ () =>this.goto('')}
+        onSubmitClick={ () =>{
+          let newUserName = document.querySelector('.UserName').value;
+          let newUserID   = document.querySelector('.UserID').value;
+          let newPass     = document.querySelector('.passcode').value;
+          let newEmail    = document.querySelector('.emailAdd').value;
+        
+          let request = $.ajax({
+            url :'https://nameless-plains-2123.herokuapp.com/signin',
+            method:'POST',
+             
+            data:{
+              name     :UserName,
+              password :Pass,
+              username :UserID,
+              email    :Email
+            }
+          });
+
+          request.then((data) => {
+            Cookies.set('users', data);
+            console.log(Cookies.getJSON('users'));
+            alert(' Welcome Back!');
+            this.goto('');
+
+            // ADD HEADERS HERE WITH AJAX SETUP
+            // headers: {Access-Token: {} }
+
+          });
+
+        }}/>, document.querySelector('.app')
+    );
+  },
 
   showUserLanding () {
 
