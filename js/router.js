@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
-import Home from './components/home_component';
+import HomePage from './components/home_component';
 import Landing from './components/landing_component';
 
 import UserModel from './resources/user_model';
@@ -44,16 +44,13 @@ let Router = Backbone.Router.extend({
 
   },
 
-  // home () {
-
-  //   ReactDom.render(
-
-  //     <TestComponent/>,
-  //     document.querySelector('.app')
-
-  //   );
-
-  // },
+   home () {
+    ReactDom.render(
+      <HomePage
+      onSigninClick={()=>this.goto('login')}
+      onRegisterClick={()=>this.goto('signup')}/>, document.querySelector('.app')
+    );
+   },
 
 
   signup () {
