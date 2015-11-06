@@ -1134,26 +1134,31 @@ var Router = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onSubmitQuestion: function (question, answer, category) {
 
-        var newQuestion = new _resourcesQuestion_model2['default']({
-          question: question,
-          answer: answer,
-          category: category
-        });
+        var newQuestion = document.querySelector('.question-input').value;
+        var newAnswer = document.querySelector('.answer-input').value;
+        var newCategory = document.querySelector('.category-input').value;
+
+        var baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
 
         var request = _jquery2['default'].ajax({
-          url: 'https://nameless-plains-2123.herokuapp.com/deck/' + id + '/cards',
+          url: 'baseUrl' + id + '/cards',
           method: 'POST',
           data: {
-            question: newQuestion.question,
-            answer: newQuestion.answer,
-            category: newQuestion.category }
+            question: newQuestion,
+            answer: newAnswer,
+            category: newCategory }
         });
 
         request.then(function (data) {
-          _jsCookie2['default'].set('return', data);
-          console.log(_jsCookie2['default'].getJSON('return'));
-          alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+          _jsCookie2['default'].set('newcard', data);
+          console.log(_jsCookie2['default'].getJSON('newcard'));
           _this7.goto('addquestion/' + id);
+
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              access_token: data.access_token
+            }
+          });
         });
       } }), document.querySelector('.app'));
   }

@@ -315,26 +315,32 @@ let Router = Backbone.Router.extend({
       <AddFormComponent
       onSubmitQuestion = {(question, answer, category) => {
         
-        let newQuestion = new QuestionModel({
-          question: question,
-          answer: answer,
-          category: category
-        });
+        let newQuestion = document.querySelector('.question-input').value;
+        let newAnswer = document.querySelector('.answer-input').value;
+        let newCategory = document.querySelector('.category-input').value;
+
+        let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/'
 
         let request = $.ajax({
-          url:`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
+          url: `baseUrl${id}/cards`,
           method:'POST',
           data: {
-            question   : newQuestion.question,
-            answer     : newQuestion.answer,
-            category   : newQuestion.category}
+            question   : newQuestion,
+            answer     : newAnswer,
+            category   : newCategory}
         });
 
         request.then((data) => {
-          Cookies.set('return', data);
-          console.log(Cookies.getJSON('return'));
-          alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+          Cookies.set('newcard', data);
+          console.log(Cookies.getJSON('newcard'));
           this.goto(`addquestion/${id}`);
+
+          $.ajaxSetup({
+            headers: {
+              access_token: data.access_token
+            }
+          });
+
         });
 
       }}/>,
