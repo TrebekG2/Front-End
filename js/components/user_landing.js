@@ -12,9 +12,8 @@ export default React.createClass({
   processDecks(deck) {
 
     return (
-      <div className='deck-select-block' key={deck.deckId}>
+      <div className='deck-select-block' key={deck.id}>
           <p>{deck.title}</p>
-          <p>Topic: {deck.topic}</p>
           <button 
             onClick = {this.editClickHandler}
             className='edit-deck-button'>

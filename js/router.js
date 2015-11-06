@@ -16,6 +16,7 @@ import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
 import Landing from './components/landing_component';
 // import EditDeckForm from './components/edit_deck';
+import ViewDeckComponent from './components/view_deck';
 
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
@@ -28,16 +29,17 @@ let Router = Backbone.Router.extend({
 
   routes: {
 
-    ''             : 'home',
-    'login'        : 'testlogin',
-    'signup'       : 'signup',
-    'landing'      : 'landing',
-    'nonExistant'  :'redirect',
-    'addquestion'  : 'showAddQuestion',
-    'userLanding'  : 'showUserLanding',
-    'editdeck/:id' : 'showEditDeck',
-    'viewdeck/:id' : 'showViewDeck',
-    'signin'       : 'signin',
+    ''                 : 'home',
+    'login'            : 'testlogin',
+    'signup'           : 'signup',
+    'landing'          : 'landing',
+    'nonExistant'      :'redirect',
+    'addquestion/:id'  : 'showAddQuestion',
+    'userLanding'      : 'showUserLanding',
+    'user/:name'       : 'showSpecificUser',
+    'editdeck/:id'     : 'showEditDeck',
+    'viewdeck/:id'     : 'showViewDeck',
+    'signin'           : 'signin',
 
   },
 
@@ -99,7 +101,10 @@ let Router = Backbone.Router.extend({
               }
             });
 
-            this.goto('userLanding');
+            let userObject = Cookies.getJSON('users');
+            console.log(userObject)
+
+            this.goto(`user/${userObject.name}`);
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
@@ -131,6 +136,7 @@ let Router = Backbone.Router.extend({
             Cookies.set('users', data);
             console.log(Cookies.getJSON('users'));
 
+
             $.ajaxSetup({
               headers:{
                 access_token: data.access_token,
@@ -146,56 +152,34 @@ let Router = Backbone.Router.extend({
             });
         }
     }/>, document.querySelector('.app')
+
     );
   },
 
   showUserLanding () {
 
-    const DUMMY_DECKS = [
-      {
-        deckId: '1',
-        title: 'Sports Deck',
-        topic: 'sports stuff'
-      },{
-        deckId: '2',
-        title: 'Movies Deck',
-        topic: 'movies stuff'
-      },{
-        deckId: '3',
-        title: 'Games Deck',
-        topic: 'games stuff'
-      }
-    ];
+    let request = $.ajax({
+      url :'https://nameless-plains-2123.herokuapp.com/deck',
+      method:'GET'
+    });
 
-    console.log(DUMMY_DECKS);
+    request.then((data) => {
+      Cookies.set('decks', data);
+      // console.log(Cookies.getJSON('decks'));
+      // this.goto('userLanding');
 
-
-    // let request = $.ajax({
-    //   url :'https://nameless-plains-2123.herokuapp.com/decks',
-    //   method:'GET'
-    // });
-
-    // request.then((data) => {
-    //   Cookies.set('decks', data);
-    //   console.log(Cookies.getJSON('decks'));
-    //   this.goto('');
-    // });
-
-
-    // $.ajaxSetup ({
-    //   headers: {
-    //     access_token: data.access_token
-    //   }
-    // });
-
-    // --- REPLACE DUMMY DATA WITH THIS ---
-    // decks = {Cookies.getJSON('decks')}
-    // --- REPLACE DUMMY DATA WITH THIS ---
+      $.ajaxSetup ({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
+  
 
     ReactDom.render (
       <div>
         <UserLandingComponent
-          decks = {DUMMY_DECKS}
+          decks = {Cookies.getJSON('decks')}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -212,18 +196,81 @@ let Router = Backbone.Router.extend({
 
             request.then((data) => {
               Cookies.set('return', data);
-              // console.log(Cookies.getJSON('return'));
+              console.log(Cookies.getJSON('return'));
               // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-              this.goto('');
-
-            });
+              this.goto('userLanding');
 
 
-            $.ajaxSetup ({
-              headers: {
-                access_token: data.access_token
+              $.ajaxSetup ({
+                headers: {
+                  access_token: data.access_token
+                }
+              });
+
+            });          
+
+        }}/>
+      </div>, document.querySelector('.app')
+    ); 
+
+  },
+
+
+  showSpecificUser (name) {
+
+    // need to pass id or name to this function
+    // request decks by user id
+
+    let request = $.ajax({
+      url :'https://nameless-plains-2123.herokuapp.com/deck',
+      method:'GET'
+    });
+
+    request.then((data) => {
+      Cookies.set('decks', data);
+      // console.log(Cookies.getJSON('decks'));
+      // this.goto('userLanding');
+
+      $.ajaxSetup ({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
+  
+
+    ReactDom.render (
+      <div>
+        <UserLandingComponent
+          decks = {Cookies.getJSON('decks')}
+          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
+        <CreateDeckComponent
+          onSubmitNewDeck = {() => {
+            let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+            alert('A new deck has been created');
+       
+            let request = $.ajax({
+              url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+              method:'POST',
+              data: {
+                title     : newDeckTitle
               }
             });
+
+            request.then((data) => {
+              Cookies.set('return', data);
+              console.log(Cookies.getJSON('return'));
+              // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+              let userObject = Cookies.getJSON('users');
+              this.goto(`user/${userObject.name}`);
+
+              $.ajaxSetup ({
+                headers: {
+                  access_token: data.access_token
+                }
+              });
+
+            });          
 
         }}/>
       </div>, document.querySelector('.app')
@@ -233,12 +280,31 @@ let Router = Backbone.Router.extend({
 
   showViewDeck (id) {
 
+    // let request = $.ajax({
+    //   url :`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
+    //   method:'GET'
+    // });
+
+    // request.then((data) => {
+    //   Cookies.set('cards', data);
+    //   // console.log(Cookies.getJSON('cards'));
+    //   // this.goto('userLanding');
+
+    //   $.ajaxSetup ({
+    //     headers: {
+    //       access_token: data.access_token
+    //     }
+    //   });
+    // });
+
+
     // ReactDom.render(
     //   <ViewDeckComponent
-    //     deck = {Cookies.getJSON('return'}
-    //     onEditClick = {() => {this.goto(`editdeck/${id}`}/>,
+    //     cards = {Cookies.getJSON('cards'}
+    //     onEditClick = {(id) => {this.goto(`editdeck/${id}`}/>,
     //   document.querySelector('.app')
     // );
+
 
   },
 
@@ -268,7 +334,7 @@ let Router = Backbone.Router.extend({
   },
 
 
-  showAddQuestion () {
+  showAddQuestion (id) {
 
     ReactDom.render (
       <AddFormComponent
@@ -280,21 +346,21 @@ let Router = Backbone.Router.extend({
           category: category
         });
 
-        // let request = $.ajax({
-        //   url :'https://nameless-plains-2123.herokuapp.com/question',
-        //   method:'POST',
-        //   data: {
-        //     question   : newQuestion.question,
-        //     answer     : newQuestion.answer,
-        //     category   : newQuestion.category}
-        // });
+        let request = $.ajax({
+          url:`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
+          method:'POST',
+          data: {
+            question   : newQuestion.question,
+            answer     : newQuestion.answer,
+            category   : newQuestion.category}
+        });
 
-        // request.then((data) => {
-        //   Cookies.set('return', data);
-        //   console.log(Cookies.getJSON('return'));
-        //   alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
-        //   this.goto('');
-        // });
+        request.then((data) => {
+          Cookies.set('return', data);
+          console.log(Cookies.getJSON('return'));
+          alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
+          this.goto('');
+        });
 
       }}/>,
       document.querySelector('.app')
