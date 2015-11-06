@@ -2,9 +2,9 @@ import React from 'react';
 
 export default React.createClass({
   
-  editClickHandler () {
+  editClickHandler (id) {
 
-    this.props.onViewClick();
+    this.props.onViewClick(id);
 
   },
 
@@ -15,7 +15,7 @@ export default React.createClass({
       <div className='deck-select-block' key={deck.id}>
           <p>{deck.title}</p>
           <button 
-            onClick = {this.editClickHandler}
+            onClick ={()=> {this.editClickHandler(deck.id)}}
             className='edit-deck-button'>
             View this deck
           </button>

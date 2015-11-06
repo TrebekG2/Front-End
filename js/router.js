@@ -103,7 +103,7 @@ let Router = Backbone.Router.extend({
             let userObject = Cookies.getJSON('users');
             console.log(userObject)
 
-            this.goto(`user/${userObject.id}`);
+            this.goto(`user/${userObject.name}`);
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
@@ -145,7 +145,7 @@ let Router = Backbone.Router.extend({
             });
 
             let userObject = Cookies.getJSON('users');
-            this.goto(`user/${userObject.id}`);
+            this.goto(`user/${userObject.name}`);
             
           }).fail( () => {
               alert('INCORRECT USER NAME OR PASSWORD..TRY AGAIN');
@@ -218,7 +218,7 @@ let Router = Backbone.Router.extend({
   },
 
 
-  showSpecificUser () {
+  showSpecificUser (name) {
 
     // need to pass id or name to this function
     // request decks by user id
@@ -236,6 +236,7 @@ let Router = Backbone.Router.extend({
       console.log(Cookies.getJSON('decks'));
       // this.goto('userLanding');
 
+
       $.ajaxSetup ({
         headers: {
           access_token: data.access_token
@@ -243,12 +244,13 @@ let Router = Backbone.Router.extend({
       });
     });
   
+// onViewClick = {(id) => this.goto('viewdeck/' + id )}/>
 
     ReactDom.render (
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
-          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
+          onViewClick = {(id) => this.goto(`viewdeck/${id}` )}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
             let newDeckTitle = document.querySelector('.new-deck-title-input').value;

@@ -456,12 +456,13 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'user_landing',
 
-  editClickHandler: function editClickHandler() {
+  editClickHandler: function editClickHandler(id) {
 
-    this.props.onViewClick();
+    this.props.onViewClick(id);
   },
 
   processDecks: function processDecks(deck) {
+    var _this = this;
 
     return _react2['default'].createElement(
       'div',
@@ -474,7 +475,9 @@ exports['default'] = _react2['default'].createClass({
       _react2['default'].createElement(
         'button',
         {
-          onClick: this.editClickHandler,
+          onClick: function () {
+            _this.editClickHandler(deck.id);
+          },
           className: 'edit-deck-button' },
         'View this deck'
       )
@@ -892,7 +895,7 @@ var Router = _backbone2['default'].Router.extend({
           var userObject = _jsCookie2['default'].getJSON('users');
           console.log(userObject);
 
-          _this2.goto('user/' + userObject.id);
+          _this2.goto('user/' + userObject.name);
           // this.goto(`user/${data.username}`)
         }).fail(function () {
           (0, _jquery2['default'])('.app').html('USER ID TAKEN. PLEASE TRY A DIFFERENT USER NAME');
@@ -933,7 +936,7 @@ var Router = _backbone2['default'].Router.extend({
           });
 
           var userObject = _jsCookie2['default'].getJSON('users');
-          _this3.goto('user/' + userObject.id);
+          _this3.goto('user/' + userObject.name);
         }).fail(function () {
           alert('INCORRECT USER NAME OR PASSWORD..TRY AGAIN');
           document.querySelector('.UserID').value = '';
@@ -999,7 +1002,7 @@ var Router = _backbone2['default'].Router.extend({
     ), document.querySelector('.app'));
   },
 
-  showSpecificUser: function showSpecificUser() {
+  showSpecificUser: function showSpecificUser(name) {
     var _this5 = this;
 
     // need to pass id or name to this function
@@ -1024,6 +1027,8 @@ var Router = _backbone2['default'].Router.extend({
         }
       });
     });
+
+    // onViewClick = {(id) => this.goto('viewdeck/' + id )}/>
 
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
