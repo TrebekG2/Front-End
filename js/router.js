@@ -121,63 +121,36 @@ let Router = Backbone.Router.extend({
             console.log(Cookies.getJSON('users'));
             alert(' Welcome Back!');
             this.goto('');
+          })
 
-            // ADD HEADERS HERE WITH AJAX SETUP
-            // headers: {Access-Token: {} }
-
-          });
-
-        }}/>, document.querySelector('.app')
+        }/>, document.querySelector('.app')
     );
   },
 
   showUserLanding () {
 
-    const DUMMY_DECKS = [
-      {
-        deckId: '1',
-        title: 'Sports Deck',
-        topic: 'sports stuff'
-      },{
-        deckId: '2',
-        title: 'Movies Deck',
-        topic: 'movies stuff'
-      },{
-        deckId: '3',
-        title: 'Games Deck',
-        topic: 'games stuff'
-      }
-    ];
+    let request = $.ajax({
+      url :'https://nameless-plains-2123.herokuapp.com/deck',
+      method:'GET'
+    });
 
-    console.log(DUMMY_DECKS);
+    request.then((data) => {
+      Cookies.set('decks', data);
+      // console.log(Cookies.getJSON('decks'));
+      this.goto('userLanding');
 
-
-    // let request = $.ajax({
-    //   url :'https://nameless-plains-2123.herokuapp.com/decks',
-    //   method:'GET'
-    // });
-
-    // request.then((data) => {
-    //   Cookies.set('decks', data);
-    //   console.log(Cookies.getJSON('decks'));
-    //   this.goto('');
-    // });
-
-
-    // $.ajaxSetup ({
-    //   headers: {
-    //     access_token: data.access_token
-    //   }
-    // });
-
-    // --- REPLACE DUMMY DATA WITH THIS ---
-    // decks = {Cookies.getJSON('decks')}
-    // --- REPLACE DUMMY DATA WITH THIS ---
+      $.ajaxSetup ({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
+  
 
     ReactDom.render (
       <div>
         <UserLandingComponent
-          decks = {DUMMY_DECKS}
+          decks = {Cookies.getJSON('decks')}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -194,18 +167,18 @@ let Router = Backbone.Router.extend({
 
             request.then((data) => {
               Cookies.set('return', data);
-              // console.log(Cookies.getJSON('return'));
+              console.log(Cookies.getJSON('return'));
               // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-              this.goto('');
-
-            });
+              this.goto('userLanding');
 
 
-            $.ajaxSetup ({
-              headers: {
-                access_token: data.access_token
-              }
-            });
+              $.ajaxSetup ({
+                headers: {
+                  access_token: data.access_token
+                }
+              });
+
+            });          
 
         }}/>
       </div>, document.querySelector('.app')

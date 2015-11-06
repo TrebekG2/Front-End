@@ -2030,7 +2030,6 @@ body {
 h1 {
   text-align: center; }
 
-<<<<<<< HEAD
 .signInForm {
   width: 50%;
   height: 60%;
@@ -2041,10 +2040,6 @@ h1 {
   text-align: center;
   border-radius: 10px; }
 
-form .UserName {
-  margin-left: 20%;
-  margin-right: 20%; }
-=======
 .home-page {
   width: 100%; }
 
@@ -2074,7 +2069,6 @@ form .UserName {
   border: none;
   background: none;
   font-size: 0.8em; }
->>>>>>> 596f0e5831de35b6f869a24894f8b85ff6cd2e13
 
 .deck-block-container {
   margin: 30px auto;

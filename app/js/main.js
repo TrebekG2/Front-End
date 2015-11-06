@@ -278,7 +278,7 @@ var Signin = _react2['default'].createClass({
   displayName: 'Signin',
 
   SubmitClickHandler: function SubmitClickHandler() {
-    this.props.onSubmitClick();
+    this.props.onClickSignin();
   },
 
   getStatus: function getStatus() {
@@ -353,7 +353,7 @@ var Signin = _react2['default'].createClass({
       ),
       _react2['default'].createElement(
         'button',
-        null,
+        { onClick: this.SubmitClickHandler },
         'Sign In'
       )
     );
@@ -509,17 +509,11 @@ exports['default'] = _react2['default'].createClass({
 
     return _react2['default'].createElement(
       'div',
-      { className: 'deck-select-block', key: deck.deckId },
+      { className: 'deck-select-block', key: deck.id },
       _react2['default'].createElement(
         'p',
         null,
         deck.title
-      ),
-      _react2['default'].createElement(
-        'p',
-        null,
-        'Topic: ',
-        deck.topic
       ),
       _react2['default'].createElement(
         'button',
@@ -776,13 +770,13 @@ var Router = _backbone2['default'].Router.extend({
     '': 'home',
     'login': 'testlogin',
     'signup': 'signup',
-    'signin': 'signin',
     'landing': 'landing',
     'nonExistant': 'redirect',
     'addquestion': 'showAddQuestion',
     'userLanding': 'showUserLanding',
     'editdeck/:id': 'showEditDeck',
-    'viewdeck/:id': 'showViewDeck'
+    'viewdeck/:id': 'showViewDeck',
+    'signin': 'signin'
 
   },
 
@@ -863,83 +857,41 @@ var Router = _backbone2['default'].Router.extend({
       onCancelClick: function () {
         return _this3.goto('');
       },
-      onSubmitClick: function () {
-        var newUserName = document.querySelector('.UserName').value;
-        var newUserID = document.querySelector('.UserID').value;
-        var newPass = document.querySelector('.passcode').value;
-        var newEmail = document.querySelector('.emailAdd').value;
-
-        var request = _jquery2['default'].ajax({
-          url: 'https://nameless-plains-2123.herokuapp.com/signin',
-          method: 'POST',
-
-          data: {
-            name: UserName,
-            password: Pass,
-            username: UserID,
-            email: Email
-          }
-        });
-
-        request.then(function (data) {
-          _jsCookie2['default'].set('users', data);
-          console.log(_jsCookie2['default'].getJSON('users'));
-          alert(' Welcome Back!');
-          _this3.goto('');
-
-          // ADD HEADERS HERE WITH AJAX SETUP
-          // headers: {Access-Token: {} }
-        });
-      } }), document.querySelector('.app'));
+      onClickSignin: (function () {}, request.then(function (data) {
+        _jsCookie2['default'].set('users', data);
+        console.log(_jsCookie2['default'].getJSON('users'));
+        alert(' Welcome Back!');
+        _this3.goto('');
+      })) }), document.querySelector('.app'));
   },
 
   showUserLanding: function showUserLanding() {
-    var _this3 = this;
+    var _this4 = this;
 
-    var DUMMY_DECKS = [{
-      deckId: '1',
-      title: 'Sports Deck',
-      topic: 'sports stuff'
-    }, {
-      deckId: '2',
-      title: 'Movies Deck',
-      topic: 'movies stuff'
-    }, {
-      deckId: '3',
-      title: 'Games Deck',
-      topic: 'games stuff'
-    }];
+    var request = _jquery2['default'].ajax({
+      url: 'https://nameless-plains-2123.herokuapp.com/deck',
+      method: 'GET'
+    });
 
-    console.log(DUMMY_DECKS);
+    request.then(function (data) {
+      _jsCookie2['default'].set('decks', data);
+      // console.log(Cookies.getJSON('decks'));
+      _this4.goto('userLanding');
 
-    // let request = $.ajax({
-    //   url :'https://nameless-plains-2123.herokuapp.com/decks',
-    //   method:'GET'
-    // });
-
-    // request.then((data) => {
-    //   Cookies.set('decks', data);
-    //   console.log(Cookies.getJSON('decks'));
-    //   this.goto('');
-    // });
-
-    // $.ajaxSetup ({
-    //   headers: {
-    //     access_token: data.access_token
-    //   }
-    // });
-
-    // --- REPLACE DUMMY DATA WITH THIS ---
-    // decks = {Cookies.getJSON('decks')}
-    // --- REPLACE DUMMY DATA WITH THIS ---
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
 
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
-        decks: DUMMY_DECKS,
+        decks: _jsCookie2['default'].getJSON('decks'),
         onViewClick: function (id) {
-          return _this3.goto('viewdeck/' + id);
+          return _this4.goto('viewdeck/' + id);
         } }),
       _react2['default'].createElement(_componentsCreate_deck2['default'], {
         onSubmitNewDeck: function () {
@@ -956,15 +908,15 @@ var Router = _backbone2['default'].Router.extend({
 
           request.then(function (data) {
             _jsCookie2['default'].set('return', data);
-            // console.log(Cookies.getJSON('return'));
+            console.log(_jsCookie2['default'].getJSON('return'));
             // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-            _this3.goto('');
-          });
+            _this4.goto('userLanding');
 
-          _jquery2['default'].ajaxSetup({
-            headers: {
-              access_token: data.access_token
-            }
+            _jquery2['default'].ajaxSetup({
+              headers: {
+                access_token: data.access_token
+              }
+            });
           });
         } })
     ), document.querySelector('.app'));
