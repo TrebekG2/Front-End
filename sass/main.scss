@@ -10,18 +10,53 @@ h1 {
   text-align: center;
 }
 
-///// Sign In FORM //////
-.signInForm {
-  width: 50%;
-  height: 60%;
-  border: 1px solid grey;
-  display: inline-block;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
-  border-radius: 10px;
+//----SIGN IN  FORM ----
+.signIn{
+  margin:7% auto;
+  width : 60%;
+  border:1px solid black;
+  text-align:center;
+  border-radius:5px;
+  position:relative;
 }
 
+.signInForm {
+  width: 50%;
+  padding:5%;
+  margin-bottom:5%;
+  display: inline-block;
+  line-height :20%;
+  // margin-right: auto;
+  // margin-left: auto;
+  text-align: center;
+}
+
+.UserID{
+  line-height:1.5em;
+  width :66%;
+  margin-bottom:2%;
+  margin-left:2%;
+}
+.password{
+  line-height:1.5em;
+  width :66%;
+  margin-bottom:2%;
+  margin-left : 6%;
+}
+
+.btn{
+  position:absolute;
+  bottom: 3%;
+  width: 20%;
+  margin: 2%;
+  float: right;
+  left: 43%;
+  background: none;
+  border: none;
+}
+.btn:hover{
+  border-bottom :1px solid pink;
+}
 
 //--- HOME PAGE ----
 

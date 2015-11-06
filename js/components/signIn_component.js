@@ -2,6 +2,13 @@ import React from 'react';
 
 let Signin = React.createClass({
 
+  // getInitialState(
+  //   return(
+      
+  //     let display =this.state.showRestart ? '' :'none';
+  //     );
+  //   ),
+
   SubmitClickHandler(){
     this.props.onClickSignin();
   },
@@ -25,43 +32,17 @@ let Signin = React.createClass({
     return !!this.props.user;
   },
 
-  getButton() {
-    if(this.isLoggedIn()) {
-      return (
-        <button onClick={this.props.onLogoutClick}>
-          Log out
-        </button>
-      );
-    } else {
-      return (
-        <button onClick={this.props.onLoginClick}>
-          Log in
-        </button>
-      );
-    }
-  },
-
-// let Signup = React.createClass({
-
-//   SubmitClickHandler(){
-//     this.props.onSubmitClick();
-//   },
-
-//   CancelClickHandler(){
-//     this.props.onCancelClick();
-
-//   },
 
   render() {
     return (
-      <div>
-      <form class="signInForm">
-        <label>User Name</label>
+      <div className='signIn'>
+        <form className="signInForm">
+          <label>User Name</label>
           <input type='text' placeholder='User Name' className='UserID'/>
-        <label> Password</label>
+          <label>Password</label>
           <input type='password' placeholder='Password' className='password'/>
-      </form>
-      <button onClick={this.SubmitClickHandler}>Sign In</button>
+        </form>
+        <button className='btn'onClick={this.SubmitClickHandler}>Sign In</button>
     </div>
       
     );
