@@ -1,57 +1,57 @@
-// import React from 'react';
-// import $ from 'jqeury';
+import React from 'react';
+import $ from 'jqeury';
 
 
-// export default React.createClass({
+export default React.createClass({
   
 
-//   getInitialState (id) {
+  getInitialState (id) {
 
-//     this.props.
-
-
-//   },
+    this.props.
 
 
-//   changeTitleHandler (event) {
-
-//     let newTitle = event.currentTarget.value;
-
-//     this.setState ({
-
-//       title: newTitle;
-
-//     });
-
-//   },
+  },
 
 
-//   onSubmitEdits () {
+  changeTitleHandler (event) {
 
-//     this.saveForm ({
+    let newTitle = event.currentTarget.value;
 
-//       this.state.title,
+    this.setState ({
+
+      title: newTitle;
+
+    });
+
+  },
+
+
+  onSubmitEdits () {
+
+    this.saveForm ({
+
+      this.state.title,
       
 
-//     });
+    });
 
-//   },
+  },
 
 
-//   render() {
-//     return (
-//       <div>
-//         <form>
-//           <input 
-//             className='edit-title-input'
-//             onChange={this.changeTitleHandler}
-//             value={this.state.title}
-//         </form>
-//         <button
-//           onClick={this.onSubmitEdits}>
-//           Submit edits 
-//         </button>
-//       </div> 
-//     );
-//   }
-// });
+  render() {
+    return (
+      <div>
+        <form>
+          <input 
+            className='edit-title-input'
+            onChange={this.changeTitleHandler}
+            value={this.state.title}
+        </form>
+        <button
+          onClick={this.onSubmitEdits}>
+          Submit edits 
+        </button>
+      </div> 
+    );
+  }
+});

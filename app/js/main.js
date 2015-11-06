@@ -424,7 +424,7 @@ exports['default'] = _react2['default'].createClass({
         {
           onClick: this.editClickHandler,
           className: 'edit-deck-button' },
-        'Edit this deck'
+        'View this deck'
       )
     );
   },
@@ -674,7 +674,8 @@ var Router = _backbone2['default'].Router.extend({
     'nonExistant': 'redirect',
     'addquestion': 'showAddQuestion',
     'userLanding': 'showUserLanding',
-    'editdeck': 'showEditDeck'
+    'editdeck/:id': 'showEditDeck',
+    'viewdeck/:id': 'showViewDeck'
 
   },
 
@@ -730,8 +731,6 @@ var Router = _backbone2['default'].Router.extend({
 
         request.then(function (data) {
           _jsCookie2['default'].set('users', data);
-          console.log(_jsCookie2['default'].getJSON('users'));
-          // alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
 
           _jquery2['default'].ajaxSetup({
             headers: {
@@ -745,7 +744,7 @@ var Router = _backbone2['default'].Router.extend({
           _this2.goto('userLanding');
           // this.goto(`user/${data.username}`)
         }).fail(function () {
-          (0, _jquery2['default'])('.app'.html('oops'));
+          (0, _jquery2['default'])('.app').html('oops');
         });
       } }), document.querySelector('.app'));
   },
@@ -769,11 +768,35 @@ var Router = _backbone2['default'].Router.extend({
 
     console.log(DUMMY_DECKS);
 
+    // let request = $.ajax({
+    //   url :'https://nameless-plains-2123.herokuapp.com/decks',
+    //   method:'GET'
+    // });
+
+    // request.then((data) => {
+    //   Cookies.set('decks', data);
+    //   console.log(Cookies.getJSON('decks'));
+    //   this.goto('');
+    // });
+
+    // $.ajaxSetup ({
+    //   headers: {
+    //     access_token: data.access_token
+    //   }
+    // });
+
+    // --- REPLACE DUMMY DATA WITH THIS ---
+    // decks = {Cookies.getJSON('decks')}
+    // --- REPLACE DUMMY DATA WITH THIS ---
+
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
-        decks: DUMMY_DECKS }),
+        decks: DUMMY_DECKS,
+        onViewClick: function (id) {
+          return _this3.goto('viewdeck/' + id);
+        } }),
       _react2['default'].createElement(_componentsCreate_deck2['default'], {
         onSubmitNewDeck: function () {
           var newDeckTitle = document.querySelector('.new-deck-title-input').value;
@@ -789,8 +812,8 @@ var Router = _backbone2['default'].Router.extend({
 
           request.then(function (data) {
             _jsCookie2['default'].set('return', data);
-            console.log(_jsCookie2['default'].getJSON('return'));
-            alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+            // console.log(Cookies.getJSON('return'));
+            // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
             _this3.goto('');
           });
 
@@ -801,6 +824,39 @@ var Router = _backbone2['default'].Router.extend({
           });
         } })
     ), document.querySelector('.app'));
+  },
+
+  showViewDeck: function showViewDeck(id) {
+
+    // ReactDom.render(
+    //   <ViewDeckComponent
+    //     deck = {Cookies.getJSON('return'}
+    //     onEditClick = {() => {this.goto(`editdeck/${id}`}/>,
+    //   document.querySelector('.app')
+    // );
+
+  },
+
+  showEditDeck: function showEditDeck(id) {
+
+    // let editDeck =
+
+    // let request = $.ajax({
+
+    //   url :'https://nameless-plains-2123.herokuapp.com/question',
+    //   method:'POST',
+    //   data: {
+    //     question   : newQuestion.question,
+    //     answer     : newQuestion.answer,
+    //     category   : newQuestion.category}
+    // });
+
+    // ReactDom.render (
+
+    //   <EditDeckForm/>,
+    //   document.querySelector('.app')
+    // );
+
   },
 
   showAddQuestion: function showAddQuestion() {
@@ -830,16 +886,6 @@ var Router = _backbone2['default'].Router.extend({
         //   this.goto('');
         // });
       } }), document.querySelector('.app'));
-  },
-
-  showEditDeck: function showEditDeck() {
-
-    // ReactDom.render (
-
-    //   <EditDeckForm/>,
-    //   document.querySelector('.app')
-    // );
-
   }
 
 });

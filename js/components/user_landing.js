@@ -18,7 +18,7 @@ export default React.createClass({
           <button 
             onClick = {this.editClickHandler}
             className='edit-deck-button'>
-            Edit this deck
+            View this deck
           </button>
       </div>
     );

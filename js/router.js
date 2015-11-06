@@ -24,14 +24,15 @@ let Router = Backbone.Router.extend({
 
   routes: {
 
-    ''           : 'home',
-    'login'      : 'testlogin',
-    'signup'     : 'signup',
-    'landing'    : 'landing',
-    'nonExistant':'redirect',
-    'addquestion': 'showAddQuestion',
-    'userLanding' : 'showUserLanding',
-    'editdeck' : 'showEditDeck'
+    ''             : 'home',
+    'login'        : 'testlogin',
+    'signup'       : 'signup',
+    'landing'      : 'landing',
+    'nonExistant'  :'redirect',
+    'addquestion'  : 'showAddQuestion',
+    'userLanding'  : 'showUserLanding',
+    'editdeck/:id'     : 'showEditDeck',
+    'viewdeck/:id' : 'showViewDeck'
 
   },
 
@@ -53,7 +54,8 @@ let Router = Backbone.Router.extend({
     ReactDom.render(
       <HomePage
       onSigninClick={()=>this.goto('login')}
-      onRegisterClick={()=>this.goto('signup')}/>, document.querySelector('.app')
+      onRegisterClick={()=>this.goto('signup')}/>,
+      document.querySelector('.app')
     );
    },
 
@@ -82,8 +84,6 @@ let Router = Backbone.Router.extend({
 
           request.then((data) => {
             Cookies.set('users', data);
-            console.log(Cookies.getJSON('users'));
-            // alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
 
             $.ajaxSetup ({
               headers: {
@@ -98,8 +98,8 @@ let Router = Backbone.Router.extend({
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
-            $('.app'.html('oops'))
-          })
+            $('.app').html('oops');
+          });
 
         }}/>, document.querySelector('.app')
     );
@@ -126,10 +126,34 @@ let Router = Backbone.Router.extend({
 
     console.log(DUMMY_DECKS);
 
+
+    // let request = $.ajax({
+    //   url :'https://nameless-plains-2123.herokuapp.com/decks',
+    //   method:'GET'
+    // });
+
+    // request.then((data) => {
+    //   Cookies.set('decks', data);
+    //   console.log(Cookies.getJSON('decks'));
+    //   this.goto('');
+    // });
+
+
+    // $.ajaxSetup ({
+    //   headers: {
+    //     access_token: data.access_token
+    //   }
+    // });
+
+    // --- REPLACE DUMMY DATA WITH THIS ---
+    // decks = {Cookies.getJSON('decks')}
+    // --- REPLACE DUMMY DATA WITH THIS ---
+
     ReactDom.render (
       <div>
         <UserLandingComponent
-          decks = {DUMMY_DECKS}/>
+          decks = {DUMMY_DECKS}
+          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
             let newDeckTitle = document.querySelector('.new-deck-title-input').value;
@@ -145,8 +169,8 @@ let Router = Backbone.Router.extend({
 
             request.then((data) => {
               Cookies.set('return', data);
-              console.log(Cookies.getJSON('return'));
-              alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+              // console.log(Cookies.getJSON('return'));
+              // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
               this.goto('');
 
             });
@@ -163,6 +187,43 @@ let Router = Backbone.Router.extend({
     ); 
 
   },
+
+  showViewDeck (id) {
+
+    // ReactDom.render(
+    //   <ViewDeckComponent
+    //     deck = {Cookies.getJSON('return'}
+    //     onEditClick = {() => {this.goto(`editdeck/${id}`}/>,
+    //   document.querySelector('.app')
+    // );
+
+  },
+
+  showEditDeck (id) {
+
+    // let editDeck = 
+
+
+    // let request = $.ajax({
+
+    //   url :'https://nameless-plains-2123.herokuapp.com/question',
+    //   method:'POST',
+    //   data: {
+    //     question   : newQuestion.question,
+    //     answer     : newQuestion.answer,
+    //     category   : newQuestion.category}
+    // });
+
+
+    // ReactDom.render (
+
+    //   <EditDeckForm/>,
+    //   document.querySelector('.app')
+    // );
+
+
+  },
+
 
   showAddQuestion () {
 
@@ -195,17 +256,6 @@ let Router = Backbone.Router.extend({
       }}/>,
       document.querySelector('.app')
     );
-
-
-  },
-
-  showEditDeck () {
-
-    // ReactDom.render (
-
-    //   <EditDeckForm/>,
-    //   document.querySelector('.app')
-    // );
 
 
   },
