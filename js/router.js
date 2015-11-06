@@ -14,7 +14,6 @@ import SigninPage from './components/signIn_component';
 import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
-import Landing from './components/landing_component';
 // import EditDeckForm from './components/edit_deck';
 import ViewDeckComponent from './components/view_deck';
 
@@ -30,10 +29,8 @@ let Router = Backbone.Router.extend({
   routes: {
 
     ''                 : 'home',
-    'login'            : 'testlogin',
     'signup'           : 'signup',
-    'landing'          : 'landing',
-    'nonExistant'      :'redirect',
+    'nonExistant'      : 'redirect',
     'addquestion/:id'  : 'showAddQuestion',
     'userLanding'      : 'showUserLanding',
     'user/:name'       : 'showSpecificUser',
@@ -57,14 +54,14 @@ let Router = Backbone.Router.extend({
 
   },
 
-   home () {
+  home () {
     ReactDom.render(
       <HomePage
       onSigninClick={()=>this.goto('signin')}
       onRegisterClick={()=>this.goto('signup')}/>,
       document.querySelector('.app')
     );
-   },
+  },
 
 
   signup () {
@@ -96,7 +93,8 @@ let Router = Backbone.Router.extend({
               headers: {
                 access_token : data.access_token,
                 name         : data.name,
-                username     : data.username
+                username     : data.username,
+                id           : data.id
                 // add other data
               }
             });
@@ -104,7 +102,7 @@ let Router = Backbone.Router.extend({
             let userObject = Cookies.getJSON('users');
             console.log(userObject)
 
-            this.goto(`user/${userObject.name}`);
+            this.goto(`user/${userObject.id}`);
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
@@ -143,8 +141,10 @@ let Router = Backbone.Router.extend({
                 username: data.username
               }
             });
-            //console.log(access_token);
-            this.goto('userLanding');
+
+            let userObject = Cookies.getJSON('users');
+            this.goto(`user/${userObject.id}`);
+            
           }).fail( () => {
               alert('INCORRECT USER NAME OR PASSWORD..TRY AGAIN');
               document.querySelector('.UserID').value = '';
@@ -216,19 +216,22 @@ let Router = Backbone.Router.extend({
   },
 
 
-  showSpecificUser (id) {
+  showSpecificUser () {
 
     // need to pass id or name to this function
     // request decks by user id
 
+    let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
+    // let thisId = `${id}`;
+
     let request = $.ajax({
-      url :'https://nameless-plains-2123.herokuapp.com/deck',
+      url :`${baseUrl}`,
       method:'GET'
     });
 
     request.then((data) => {
       Cookies.set('decks', data);
-      // console.log(Cookies.getJSON('decks'));
+      console.log(Cookies.getJSON('decks'));
       // this.goto('userLanding');
 
       $.ajaxSetup ({
@@ -258,11 +261,11 @@ let Router = Backbone.Router.extend({
             });
 
             request.then((data) => {
-              Cookies.set('return', data);
-              console.log(Cookies.getJSON('return'));
+              Cookies.set('decks', data);
+              console.log(Cookies.getJSON('decks'));
               // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-              let userObject = Cookies.getJSON('users');
-              this.goto(`user/${userObject.name}`);
+              let decksObject = Cookies.getJSON('decks');
+              this.goto(`viewdeck/${decksObject.id}`);
 
               $.ajaxSetup ({
                 headers: {
@@ -280,16 +283,21 @@ let Router = Backbone.Router.extend({
 
   showViewDeck (id) {
 
+    let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
+    let thisId = `${id}`;
+    let endofurl = '/cards';
+
+    // console.log(`${baseUrl}${id}/cards`);
+
     let request = $.ajax({
-      url :`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
-      method:'GET'
+      url: `${baseUrl}${id}/cards`,
+      method:'GET',
     });
 
     request.then((data) => {
       Cookies.set('cards', data);
 
       console.log(Cookies.getJSON('cards'));
-      // this.goto('userLanding');
 
       $.ajaxSetup ({
         headers: {
@@ -298,12 +306,13 @@ let Router = Backbone.Router.extend({
       });
     });
 
+    console.log(`addquestion/${id}`);
 
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
         onEditClick = {(id) => {this.goto(`editdeck/${id}`)}}
-        onAddClick = {(id) => this.goto(`addquestion/${id}`)}/>,
+        onAddClick = {(id) => {this.goto(`addquestion/${id}`)}}/>,
       document.querySelector('.app')
     );
 
@@ -343,10 +352,14 @@ let Router = Backbone.Router.extend({
         let newAnswer = document.querySelector('.answer-input').value;
         let newCategory = document.querySelector('.category-input').value;
 
-        let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/'
+        let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
+        let thisId = `${id}`;
+        let endofurl = '/cards';
+
+        // console.log(`${baseUrl}${id}/cards`);
 
         let request = $.ajax({
-          url: `baseUrl${id}/cards`,
+          url: `${baseUrl}${id}/cards`,
           method:'POST',
           data: {
             question   : newQuestion,
@@ -357,7 +370,7 @@ let Router = Backbone.Router.extend({
         request.then((data) => {
           Cookies.set('newcard', data);
           console.log(Cookies.getJSON('newcard'));
-          this.goto(`addquestion/${id}`);
+          // this.goto(`addquestion/${id}`);
 
           $.ajaxSetup({
             headers: {
@@ -373,23 +386,6 @@ let Router = Backbone.Router.extend({
 
 
   },
-
-  // login () {
-
-  //   let request = $.ajax({
-
-  //     url: 'http://localhost:3000/login',
-  //     method: 'POST',
-  //     data: {
-  //       user: {
-  //         username: {data.username},
-  //         password: {data.password},
-  //       }
-  //     }
-
-  //   });
-
-  // }
 
 
 });

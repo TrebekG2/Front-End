@@ -46,7 +46,7 @@ export default React.createClass({
         <h1>Choose one of the cards</h1>
         <button
           onClick={this.addHandler}>
-          Edit a card
+          Add a card
         </button>
         {this.processData(data)}
       </div>

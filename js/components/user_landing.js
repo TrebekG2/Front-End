@@ -4,7 +4,7 @@ export default React.createClass({
   
   editClickHandler () {
 
-    alert('edit button was clicked');
+    this.props.onViewClick();
 
   },
 
