@@ -727,6 +727,7 @@ exports['default'] = UserModel;
 module.exports = exports['default'];
 
 },{"backbone":16}],15:[function(require,module,exports){
+// --- LIBRARIES AND PROGRAMS ---
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -754,6 +755,8 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _jsCookie = require('js-cookie');
 
 var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
+// --- REACT COMPONENTS ---
 
 var _componentsTest_component = require('./components/test_component');
 
@@ -783,11 +786,13 @@ var _componentsHome_component = require('./components/home_component');
 
 var _componentsHome_component2 = _interopRequireDefault(_componentsHome_component);
 
-// import EditDeckForm from './components/edit_deck';
-
 var _componentsView_deck = require('./components/view_deck');
 
 var _componentsView_deck2 = _interopRequireDefault(_componentsView_deck);
+
+// import EditDeckForm from './components/edit_deck';
+
+// --- UN-NEEDED BACKBONE COMPONENTS ---
 
 var _resourcesUser_model = require('./resources/user_model');
 
@@ -805,6 +810,8 @@ var _resourcesQuestion_collection = require('./resources/question_collection');
 
 var _resourcesQuestion_collection2 = _interopRequireDefault(_resourcesQuestion_collection);
 
+// --- ROUTER BACKBONE CONSTRUCTOR ---
+
 var Router = _backbone2['default'].Router.extend({
 
   routes: {
@@ -813,7 +820,7 @@ var Router = _backbone2['default'].Router.extend({
     'signup': 'signup',
     'nonExistant': 'redirect',
     'addquestion/:id': 'showAddQuestion',
-    'userLanding': 'showUserLanding',
+    // 'userLanding'      : 'showUserLanding',
     'user/:name': 'showSpecificUser',
     'editdeck/:id': 'showEditDeck',
     'viewdeck/:id': 'showViewDeck',
@@ -830,7 +837,6 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   redirect: function redirect() {
-
     this.goto('userLanding', { trigger: true, replace: true });
   },
 
@@ -862,7 +868,6 @@ var Router = _backbone2['default'].Router.extend({
         var request = _jquery2['default'].ajax({
           url: 'https://nameless-plains-2123.herokuapp.com/signup',
           method: 'POST',
-
           data: {
             name: newUserName,
             password: newPass,
@@ -922,7 +927,8 @@ var Router = _backbone2['default'].Router.extend({
           _jquery2['default'].ajaxSetup({
             headers: {
               access_token: data.access_token,
-              username: data.username
+              username: data.username,
+              id: data.id
             }
           });
 

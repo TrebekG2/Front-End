@@ -1,3 +1,4 @@
+// --- LIBRARIES AND PROGRAMS ---
 import Backbone from 'backbone';
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -5,24 +6,27 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 
 
+// --- REACT COMPONENTS ---
 import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
-
 import SigninPage from './components/signIn_component';
-
 import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
-// import EditDeckForm from './components/edit_deck';
 import ViewDeckComponent from './components/view_deck';
+// import EditDeckForm from './components/edit_deck';
 
+
+// --- UN-NEEDED BACKBONE COMPONENTS ---
 import UserModel from './resources/user_model';
 import UserCollection from './resources/user_collection';
-
 import QuestionModel from './resources/question_model';
 import QuestionCollection from './resources/question_collection';
 
+
+
+// --- ROUTER BACKBONE CONSTRUCTOR ---
 
 let Router = Backbone.Router.extend({
 
@@ -32,7 +36,7 @@ let Router = Backbone.Router.extend({
     'signup'           : 'signup',
     'nonExistant'      : 'redirect',
     'addquestion/:id'  : 'showAddQuestion',
-    'userLanding'      : 'showUserLanding',
+    // 'userLanding'      : 'showUserLanding',
     'user/:name'       : 'showSpecificUser',
     'editdeck/:id'     : 'showEditDeck',
     'viewdeck/:id'     : 'showViewDeck',
@@ -49,9 +53,7 @@ let Router = Backbone.Router.extend({
   },
 
   redirect () {
-
     this.goto('userLanding' , {trigger : true , replace : true});
-
   },
 
   home () {
@@ -68,7 +70,7 @@ let Router = Backbone.Router.extend({
     ReactDom.render(
       <SignupPage 
         onCancelClick={ () =>this.goto('')}
-        onSubmitClick={ () =>{
+        onSubmitClick={ () => {
           let newUserName = document.querySelector('.newUserName').value;
           let newUserID   = document.querySelector('.newUserID').value;
           let newPass     = document.querySelector('.passcode').value;
@@ -77,7 +79,6 @@ let Router = Backbone.Router.extend({
           let request = $.ajax({
             url :'https://nameless-plains-2123.herokuapp.com/signup',
             method:'POST',
-             
             data:{
               name     :newUserName,
               password :newPass,
@@ -137,8 +138,9 @@ let Router = Backbone.Router.extend({
 
             $.ajaxSetup({
               headers:{
-                access_token: data.access_token,
-                username: data.username
+                access_token : data.access_token,
+                username     : data.username,
+                id           : data.id
               }
             });
 
