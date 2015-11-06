@@ -60,7 +60,7 @@ let Router = Backbone.Router.extend({
    home () {
     ReactDom.render(
       <HomePage
-      onSigninClick={()=>this.goto('login')}
+      onSigninClick={()=>this.goto('signin')}
       onRegisterClick={()=>this.goto('signup')}/>,
       document.querySelector('.app')
     );
@@ -94,9 +94,9 @@ let Router = Backbone.Router.extend({
 
             $.ajaxSetup ({
               headers: {
-                access_token: data.access_token,
-                name: data.name,
-                username: data.username
+                access_token : data.access_token,
+                name         : data.name,
+                username     : data.username
                 // add other data
               }
             });
@@ -108,7 +108,7 @@ let Router = Backbone.Router.extend({
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
-            $('.app').html('oops');
+            $('.app').html('USER ID TAKEN. PLEASE TRY A DIFFERENT USER NAME');
           });
 
         }}/>, document.querySelector('.app')
@@ -119,16 +119,40 @@ let Router = Backbone.Router.extend({
     ReactDom.render(
       <SigninPage 
         onCancelClick={ () =>this.goto('')}
-        onClickSignin={ () =>{},
-        
+        onClickSignin={ () =>{
+          let newUserName = document.querySelector('.UserID').value;
+          let newPass     = document.querySelector('.password').value;
+
+          let request = $.ajax({
+            url :'https://nameless-plains-2123.herokuapp.com/login',
+            method:'POST',
+            data:{
+              username     :newUserName,
+              password     :newPass
+            }
+          });
+          
           request.then((data) => {
             Cookies.set('users', data);
             console.log(Cookies.getJSON('users'));
-            alert(' Welcome Back!');
-            this.goto('');
-          })
 
-        }/>, document.querySelector('.app')
+
+            $.ajaxSetup({
+              headers:{
+                access_token: data.access_token,
+                username: data.username
+              }
+            });
+            //console.log(access_token);
+            this.goto('userLanding');
+          }).fail( () => {
+              alert('INCORRECT USER NAME OR PASSWORD..TRY AGAIN');
+              document.querySelector('.UserID').value = '';
+              document.querySelector('.password').value='';
+            });
+        }
+    }/>, document.querySelector('.app')
+
     );
   },
 

@@ -277,6 +277,13 @@ var _react2 = _interopRequireDefault(_react);
 var Signin = _react2['default'].createClass({
   displayName: 'Signin',
 
+  // getInitialState(
+  //   return(
+
+  //     let display =this.state.showRestart ? '' :'none';
+  //     );
+  //   ),
+
   SubmitClickHandler: function SubmitClickHandler() {
     this.props.onClickSignin();
   },
@@ -304,40 +311,13 @@ var Signin = _react2['default'].createClass({
     return !!this.props.user;
   },
 
-  getButton: function getButton() {
-    if (this.isLoggedIn()) {
-      return _react2['default'].createElement(
-        'button',
-        { onClick: this.props.onLogoutClick },
-        'Log out'
-      );
-    } else {
-      return _react2['default'].createElement(
-        'button',
-        { onClick: this.props.onLoginClick },
-        'Log in'
-      );
-    }
-  },
-
-  // let Signup = React.createClass({
-
-  //   SubmitClickHandler(){
-  //     this.props.onSubmitClick();
-  //   },
-
-  //   CancelClickHandler(){
-  //     this.props.onCancelClick();
-
-  //   },
-
   render: function render() {
     return _react2['default'].createElement(
       'div',
-      null,
+      { className: 'signIn' },
       _react2['default'].createElement(
         'form',
-        { 'class': 'signInForm' },
+        { className: 'signInForm' },
         _react2['default'].createElement(
           'label',
           null,
@@ -347,13 +327,17 @@ var Signin = _react2['default'].createClass({
         _react2['default'].createElement(
           'label',
           null,
-          ' Password'
+          'Password'
         ),
         _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', className: 'password' })
       ),
       _react2['default'].createElement(
         'button',
+<<<<<<< HEAD
+        { className: 'btn', onClick: this.SubmitClickHandler },
+=======
         { onClick: this.SubmitClickHandler },
+>>>>>>> development
         'Sign In'
       )
     );
@@ -889,7 +873,7 @@ var Router = _backbone2['default'].Router.extend({
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsHome_component2['default'], {
       onSigninClick: function () {
-        return _this.goto('login');
+        return _this.goto('signin');
       },
       onRegisterClick: function () {
         return _this.goto('signup');
@@ -939,7 +923,7 @@ var Router = _backbone2['default'].Router.extend({
           _this2.goto('user/' + userObject.name);
           // this.goto(`user/${data.username}`)
         }).fail(function () {
-          (0, _jquery2['default'])('.app').html('oops');
+          (0, _jquery2['default'])('.app').html('USER ID TAKEN. PLEASE TRY A DIFFERENT USER NAME');
         });
       } }), document.querySelector('.app'));
   },
@@ -951,6 +935,43 @@ var Router = _backbone2['default'].Router.extend({
       onCancelClick: function () {
         return _this3.goto('');
       },
+<<<<<<< HEAD
+      onClickSignin: function () {
+        var newUserName = document.querySelector('.UserID').value;
+        var newPass = document.querySelector('.password').value;
+
+        var request = _jquery2['default'].ajax({
+          url: 'https://nameless-plains-2123.herokuapp.com/login',
+          method: 'POST',
+          data: {
+            username: newUserName,
+            password: newPass
+          }
+        });
+
+        request.then(function (data) {
+          _jsCookie2['default'].set('users', data);
+          console.log(_jsCookie2['default'].getJSON('users'));
+
+          _jquery2['default'].ajaxSetup({
+            headers: {
+              access_token: data.access_token,
+              username: data.username
+            }
+          });
+          //console.log(access_token);
+          _this3.goto('userLanding');
+        }).fail(function () {
+          alert('INCORRECT USER NAME OR PASSWORD..TRY AGAIN');
+          document.querySelector('.UserID').value = '';
+          document.querySelector('.password').value = '';
+        });
+      } }), document.querySelector('.app'));
+  },
+
+  showUserLanding: function showUserLanding() {
+    var _this4 = this;
+=======
       onClickSignin: (function () {}, request.then(function (data) {
         _jsCookie2['default'].set('users', data);
         console.log(_jsCookie2['default'].getJSON('users'));
@@ -991,6 +1012,7 @@ var Router = _backbone2['default'].Router.extend({
         onSubmitNewDeck: function () {
           var newDeckTitle = document.querySelector('.new-deck-title-input').value;
           alert('A new deck has been created');
+>>>>>>> development
 
           var request = _jquery2['default'].ajax({
             url: 'https://nameless-plains-2123.herokuapp.com/deck/create',
@@ -1045,7 +1067,11 @@ var Router = _backbone2['default'].Router.extend({
       _react2['default'].createElement(_componentsUser_landing2['default'], {
         decks: _jsCookie2['default'].getJSON('decks'),
         onViewClick: function (id) {
+<<<<<<< HEAD
+          return _this4.goto('viewdeck/' + id);
+=======
           return _this5.goto('viewdeck/' + id);
+>>>>>>> development
         } }),
       _react2['default'].createElement(_componentsCreate_deck2['default'], {
         onSubmitNewDeck: function () {
@@ -1064,8 +1090,13 @@ var Router = _backbone2['default'].Router.extend({
             _jsCookie2['default'].set('return', data);
             console.log(_jsCookie2['default'].getJSON('return'));
             // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+<<<<<<< HEAD
+            _this4.goto('');
+          });
+=======
             var userObject = _jsCookie2['default'].getJSON('users');
             _this5.goto('user/' + userObject.name);
+>>>>>>> development
 
             _jquery2['default'].ajaxSetup({
               headers: {
