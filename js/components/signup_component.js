@@ -12,8 +12,6 @@ let Signup = React.createClass({
 
   },
 
-
-
   render() {
     return (
       <div className='sign-up'>

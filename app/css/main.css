@@ -2030,6 +2030,21 @@ body {
 h1 {
   text-align: center; }
 
+<<<<<<< HEAD
+.signInForm {
+  width: 50%;
+  height: 60%;
+  border: 1px solid grey;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  border-radius: 10px; }
+
+form .UserName {
+  margin-left: 20%;
+  margin-right: 20%; }
+=======
 .home-page {
   width: 100%; }
 
@@ -2059,6 +2074,7 @@ h1 {
   border: none;
   background: none;
   font-size: 0.8em; }
+>>>>>>> 596f0e5831de35b6f869a24894f8b85ff6cd2e13
 
 .deck-block-container {
   margin: 30px auto;

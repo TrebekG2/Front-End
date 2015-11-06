@@ -4,9 +4,13 @@ import ReactDom from 'react-dom';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 
+
 import TestComponent from './components/test_component';
 import AddFormComponent from './components/add_question';
 import SignupPage from './components/signup_component';
+
+import SigninPage from './components/signIn_component';
+
 import UserLandingComponent from './components/user_landing';
 import CreateDeckComponent from './components/create_deck';
 import HomePage from './components/home_component';
@@ -31,8 +35,9 @@ let Router = Backbone.Router.extend({
     'nonExistant'  :'redirect',
     'addquestion'  : 'showAddQuestion',
     'userLanding'  : 'showUserLanding',
-    'editdeck/:id'     : 'showEditDeck',
-    'viewdeck/:id' : 'showViewDeck'
+    'editdeck/:id' : 'showEditDeck',
+    'viewdeck/:id' : 'showViewDeck',
+    'signin'       : 'signin',
 
   },
 
@@ -105,6 +110,26 @@ let Router = Backbone.Router.extend({
     );
   },
 
+  signin () {
+    ReactDom.render(
+      <SigninPage 
+        onCancelClick={ () =>this.goto('')}
+        onClickSignin={ () =>{},
+        
+          request.then((data) => {
+            Cookies.set('users', data);
+            console.log(Cookies.getJSON('users'));
+            alert(' Welcome Back!');
+            this.goto('');
+
+            // ADD HEADERS HERE WITH AJAX SETUP
+            // headers: {Access-Token: {} }
+
+          });
+
+        }}/>, document.querySelector('.app')
+    );
+  },
 
   showUserLanding () {
 
