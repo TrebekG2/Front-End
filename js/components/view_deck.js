@@ -8,6 +8,12 @@ export default React.createClass({
 
   },
 
+  addHandler () {
+
+    this.props.onAddClick();
+
+  },
+
 
   processCards(card) {
 
@@ -38,6 +44,10 @@ export default React.createClass({
     return (
       <div className='deck-block-container'>
         <h1>Choose one of the cards</h1>
+        <button
+          onClick={this.addHandler}>
+          Edit a card
+        </button>
         {this.processData(data)}
       </div>
     );

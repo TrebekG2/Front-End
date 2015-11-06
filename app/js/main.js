@@ -570,6 +570,11 @@ exports['default'] = _react2['default'].createClass({
     alert('edit button was clicked');
   },
 
+  addHandler: function addHandler() {
+
+    this.props.onAddClick();
+  },
+
   processCards: function processCards(card) {
 
     return _react2['default'].createElement(
@@ -611,6 +616,12 @@ exports['default'] = _react2['default'].createClass({
         'h1',
         null,
         'Choose one of the cards'
+      ),
+      _react2['default'].createElement(
+        'button',
+        {
+          onClick: this.addHandler },
+        'Edit a card'
       ),
       this.processData(data)
     );
@@ -1005,7 +1016,7 @@ var Router = _backbone2['default'].Router.extend({
     ), document.querySelector('.app'));
   },
 
-  showSpecificUser: function showSpecificUser(name) {
+  showSpecificUser: function showSpecificUser(id) {
     var _this5 = this;
 
     // need to pass id or name to this function
@@ -1067,36 +1078,37 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showViewDeck: function showViewDeck(id) {
+    var _this6 = this;
 
-    // let request = $.ajax({
-    //   url :`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
-    //   method:'GET'
-    // });
+    var request = _jquery2['default'].ajax({
+      url: 'https://nameless-plains-2123.herokuapp.com/deck/' + id + '/cards',
+      method: 'GET'
+    });
 
-    // request.then((data) => {
-    //   Cookies.set('cards', data);
-    //   // console.log(Cookies.getJSON('cards'));
-    //   // this.goto('userLanding');
+    request.then(function (data) {
+      _jsCookie2['default'].set('cards', data);
 
-    //   $.ajaxSetup ({
-    //     headers: {
-    //       access_token: data.access_token
-    //     }
-    //   });
-    // });
+      console.log(_jsCookie2['default'].getJSON('cards'));
+      // this.goto('userLanding');
 
-    // ReactDom.render(
-    //   <ViewDeckComponent
-    //     cards = {Cookies.getJSON('cards'}
-    //     onEditClick = {(id) => {this.goto(`editdeck/${id}`}/>,
-    //   document.querySelector('.app')
-    // );
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
 
+    _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
+      cards: _jsCookie2['default'].getJSON('cards'),
+      onEditClick: function (id) {
+        _this6.goto('editdeck/' + id);
+      },
+      onAddClick: function (id) {
+        return _this6.goto('addquestion/' + id);
+      } }), document.querySelector('.app'));
   },
 
   showEditDeck: function showEditDeck(id) {
-
-    // let editDeck =
 
     // let request = $.ajax({
 
@@ -1106,7 +1118,7 @@ var Router = _backbone2['default'].Router.extend({
     //     question   : newQuestion.question,
     //     answer     : newQuestion.answer,
     //     category   : newQuestion.category}
-    // });
+    //   });
 
     // ReactDom.render (
 
@@ -1117,7 +1129,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showAddQuestion: function showAddQuestion(id) {
-    var _this6 = this;
+    var _this7 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onSubmitQuestion: function (question, answer, category) {
@@ -1141,7 +1153,7 @@ var Router = _backbone2['default'].Router.extend({
           _jsCookie2['default'].set('return', data);
           console.log(_jsCookie2['default'].getJSON('return'));
           alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
-          _this6.goto('');
+          _this7.goto('addquestion/' + id);
         });
       } }), document.querySelector('.app'));
   }

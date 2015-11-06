@@ -192,7 +192,7 @@ let Router = Backbone.Router.extend({
   },
 
 
-  showSpecificUser (name) {
+  showSpecificUser (id) {
 
     // need to pass id or name to this function
     // request decks by user id
@@ -256,38 +256,37 @@ let Router = Backbone.Router.extend({
 
   showViewDeck (id) {
 
-    // let request = $.ajax({
-    //   url :`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
-    //   method:'GET'
-    // });
+    let request = $.ajax({
+      url :`https://nameless-plains-2123.herokuapp.com/deck/${id}/cards`,
+      method:'GET'
+    });
 
-    // request.then((data) => {
-    //   Cookies.set('cards', data);
-    //   // console.log(Cookies.getJSON('cards'));
-    //   // this.goto('userLanding');
+    request.then((data) => {
+      Cookies.set('cards', data);
 
-    //   $.ajaxSetup ({
-    //     headers: {
-    //       access_token: data.access_token
-    //     }
-    //   });
-    // });
+      console.log(Cookies.getJSON('cards'));
+      // this.goto('userLanding');
+
+      $.ajaxSetup ({
+        headers: {
+          access_token: data.access_token
+        }
+      });
+    });
 
 
-    // ReactDom.render(
-    //   <ViewDeckComponent
-    //     cards = {Cookies.getJSON('cards'}
-    //     onEditClick = {(id) => {this.goto(`editdeck/${id}`}/>,
-    //   document.querySelector('.app')
-    // );
+    ReactDom.render(
+      <ViewDeckComponent
+        cards = {Cookies.getJSON('cards')}
+        onEditClick = {(id) => {this.goto(`editdeck/${id}`)}}
+        onAddClick = {(id) => this.goto(`addquestion/${id}`)}/>,
+      document.querySelector('.app')
+    );
 
 
   },
 
   showEditDeck (id) {
-
-    // let editDeck = 
-
 
     // let request = $.ajax({
 
@@ -297,7 +296,7 @@ let Router = Backbone.Router.extend({
     //     question   : newQuestion.question,
     //     answer     : newQuestion.answer,
     //     category   : newQuestion.category}
-    // });
+    //   });
 
 
     // ReactDom.render (
@@ -335,7 +334,7 @@ let Router = Backbone.Router.extend({
           Cookies.set('return', data);
           console.log(Cookies.getJSON('return'));
           alert(' NEW USER ADDED IN RAILS SUCCESSFULLY');
-          this.goto('');
+          this.goto(`addquestion/${id}`);
         });
 
       }}/>,
