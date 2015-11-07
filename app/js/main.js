@@ -836,7 +836,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   goto: function goto(route) {
-    this.navigate(route, { trigger: true });
+    this.navigate(route, { trigger: true, replace: true });
   },
 
   redirect: function redirect() {
@@ -1094,7 +1094,7 @@ var Router = _backbone2['default'].Router.extend({
       });
     });
 
-    console.log('addquestion/' + id);
+    var newCard = 'addquestion/' + id;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
       cards: _jsCookie2['default'].getJSON('cards'),
@@ -1102,8 +1102,10 @@ var Router = _backbone2['default'].Router.extend({
         _this6.goto('editdeck/' + id);
       },
       onAddClick: function (id) {
-        _this6.goto('addquestion/' + id);
+        _this6.goto(newCard);
       } }), document.querySelector('.app'));
+
+    console.log('addquestion/' + id);
   },
 
   showEditDeck: function showEditDeck(id) {
@@ -1127,6 +1129,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showAddQuestion: function showAddQuestion(id) {
+    var _this7 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onSubmitQuestion: function (question, answer, category) {
@@ -1153,7 +1156,7 @@ var Router = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('newcard', data);
           console.log(_jsCookie2['default'].getJSON('newcard'));
-          // this.goto(`addquestion/${id}`);
+          _this7.goto('viewdeck/' + id);
 
           _jquery2['default'].ajaxSetup({
             headers: {

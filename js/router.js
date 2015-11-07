@@ -49,7 +49,7 @@ let Router = Backbone.Router.extend({
   },
 
   goto (route) {
-    this.navigate ( route ,{trigger: true});
+    this.navigate ( route ,{trigger: true, replace : true});
   },
 
   redirect () {
@@ -250,7 +250,7 @@ let Router = Backbone.Router.extend({
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
-          onViewClick = {(id) => this.goto(`viewdeck/${id}` )}/>
+          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
             let newDeckTitle = document.querySelector('.new-deck-title-input').value;
@@ -310,16 +310,17 @@ let Router = Backbone.Router.extend({
       });
     });
 
-    console.log(`addquestion/${id}`);
+    let newCard = `addquestion/${id}`;
 
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
         onEditClick = {(id) => {this.goto(`editdeck/${id}`)}}
-        onAddClick = {(id) => {this.goto(`addquestion/${id}`)}}/>,
+        onAddClick = {(id) => {this.goto(newCard)}}/>,
       document.querySelector('.app')
     );
 
+    console.log(`addquestion/${id}`);
 
   },
 
@@ -374,7 +375,7 @@ let Router = Backbone.Router.extend({
         request.then((data) => {
           Cookies.set('newcard', data);
           console.log(Cookies.getJSON('newcard'));
-          // this.goto(`addquestion/${id}`);
+          this.goto(`viewdeck/${id}`);
 
           $.ajaxSetup({
             headers: {
