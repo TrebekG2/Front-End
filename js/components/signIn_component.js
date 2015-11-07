@@ -13,36 +13,44 @@ let Signin = React.createClass({
     this.props.onClickSignin();
   },
 
-  getStatus() {
-    let user = this.props.user;
-    if (user) {
-      let name = user.FirstName;
-      let mesg = `Welcome ${name}`;
-      return (
-        <span>{mesg}</span>
-      );
-    } else {
-      return (
-        <span>You are not logged in</span>
-      );
-    }
+  RegisterHandler(){
+    this.props.onClickRegister();
   },
 
-  isLoggedIn() {
-    return !!this.props.user;
-  },
+  // getStatus() {
+  //   let user = this.props.user;
+  //   if (user) {
+  //     let name = user.FirstName;
+  //     let mesg = `Welcome ${name}`;
+  //     return (
+  //       <span>{mesg}</span>
+  //     );
+  //   } else {
+  //     return (
+  //       <span>You are not logged in</span>
+  //     );
+  //   }
+  // },
+
+  // isLoggedIn() {
+  //   return !!this.props.user;
+  // },
 
 
   render() {
     return (
       <div className='signIn'>
+        <h3>Trebek Welcomes You </h3>
         <form className="signInForm">
           <label>User Name</label>
           <input type='text' placeholder='User Name' className='UserID'/>
           <label>Password</label>
           <input type='password' placeholder='Password' className='password'/>
         </form>
-        <button className='btn'onClick={this.SubmitClickHandler}>Sign In</button>
+        <div className='signin-form-btn'>
+          <button className='signin-btn'onClick={this.SubmitClickHandler}>Sign In</button>
+          <button className ='register-btn' onClick={this.RegisterHandler} >New User Registration</button>
+        </div>
     </div>
       
     );

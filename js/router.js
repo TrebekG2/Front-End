@@ -117,7 +117,7 @@ let Router = Backbone.Router.extend({
   signin () {
     ReactDom.render(
       <SigninPage 
-        onCancelClick={ () =>this.goto('')}
+        onClickRegister={() =>this.goto('signup')}
         onClickSignin={ () =>{
           let newUserName = document.querySelector('.UserID').value;
           let newPass     = document.querySelector('.password').value;

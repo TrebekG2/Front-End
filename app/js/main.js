@@ -264,33 +264,38 @@ var Signin = _react2['default'].createClass({
     this.props.onClickSignin();
   },
 
-  getStatus: function getStatus() {
-    var user = this.props.user;
-    if (user) {
-      var _name = user.FirstName;
-      var mesg = 'Welcome ' + _name;
-      return _react2['default'].createElement(
-        'span',
-        null,
-        mesg
-      );
-    } else {
-      return _react2['default'].createElement(
-        'span',
-        null,
-        'You are not logged in'
-      );
-    }
+  RegisterHandler: function RegisterHandler() {
+    this.props.onClickRegister();
   },
 
-  isLoggedIn: function isLoggedIn() {
-    return !!this.props.user;
-  },
+  // getStatus() {
+  //   let user = this.props.user;
+  //   if (user) {
+  //     let name = user.FirstName;
+  //     let mesg = `Welcome ${name}`;
+  //     return (
+  //       <span>{mesg}</span>
+  //     );
+  //   } else {
+  //     return (
+  //       <span>You are not logged in</span>
+  //     );
+  //   }
+  // },
+
+  // isLoggedIn() {
+  //   return !!this.props.user;
+  // },
 
   render: function render() {
     return _react2['default'].createElement(
       'div',
       { className: 'signIn' },
+      _react2['default'].createElement(
+        'h3',
+        null,
+        'Trebek Welcomes You '
+      ),
       _react2['default'].createElement(
         'form',
         { className: 'signInForm' },
@@ -308,9 +313,18 @@ var Signin = _react2['default'].createClass({
         _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', className: 'password' })
       ),
       _react2['default'].createElement(
-        'button',
-        { className: 'btn', onClick: this.SubmitClickHandler },
-        'Sign In'
+        'div',
+        { className: 'signin-form-btn' },
+        _react2['default'].createElement(
+          'button',
+          { className: 'signin-btn', onClick: this.SubmitClickHandler },
+          'Sign In'
+        ),
+        _react2['default'].createElement(
+          'button',
+          { className: 'register-btn', onClick: this.RegisterHandler },
+          'New User Registration'
+        )
       )
     );
   }
@@ -907,8 +921,8 @@ var Router = _backbone2['default'].Router.extend({
     var _this3 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsSignIn_component2['default'], {
-      onCancelClick: function () {
-        return _this3.goto('');
+      onClickRegister: function () {
+        return _this3.goto('signup');
       },
       onClickSignin: function () {
         var newUserName = document.querySelector('.UserID').value;
@@ -1113,19 +1127,29 @@ var Router = _backbone2['default'].Router.extend({
 
     (0, _jquery2['default'])('.app').html('Hello');
 
-    // let request = $.ajax({
-
-    //   url :'https://nameless-plains-2123.herokuapp.com/question',
-    //   method:'POST',
-    //   data: {
-    //     question   : newQuestion.question,
-    //     answer     : newQuestion.answer,
-    //     category   : newQuestion.category}
-    //   });
+    // let thisQuestion = NEED CARD ID
 
     // ReactDom.render (
 
-    //   <EditDeckForm/>,
+    //   <EditDeckForm
+    //   onSubmitClick = {() => {
+
+    //     let newQuestion = $('.edit-question-input').val();
+    //     let newAnswer = $('.edit-answer-input').val();
+    //     let newCategory = $('.edit-title-input').val();
+
+    //     let request = $.ajax({
+    //       url :'https://nameless-plains-2123.herokuapp.com/question',
+    //       method:'POST',
+    //       data: {
+    //         question   : newQuestion.question,
+    //         answer     : newQuestion.answer,
+    //         category   : newQuestion.category}
+    //       });
+
+    //     })
+
+    //   }/>,
     //   document.querySelector('.app')
     // );
   },
