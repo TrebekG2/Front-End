@@ -40,7 +40,7 @@ let Signin = React.createClass({
   render() {
     return (
       <div className='signIn'>
-        <h3>Trebek Welcomes You </h3>
+        <h1>Trebek Welcomes You </h1>
         <form className="signInForm">
           <label>User Name</label>
           <input type='text' placeholder='User Name' className='UserID'/>

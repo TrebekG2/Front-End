@@ -15,6 +15,7 @@ let Signup = React.createClass({
   render() {
     return (
       <div className='sign-up'>
+        <h1>New User Registration</h1>
         <form>
           <label >Name</label>
           <input type='text' placeholder='Enter Name' className='newUserName'/>

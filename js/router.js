@@ -41,6 +41,7 @@ let Router = Backbone.Router.extend({
     'editcard/:id'     : 'showEditCard',
     'viewdeck/:id'     : 'showViewDeck',
     'signin'           : 'signin',
+    'logout'           : 'logout'
 
   },
 
@@ -64,6 +65,16 @@ let Router = Backbone.Router.extend({
       document.querySelector('.app')
     );
   },
+
+  // logout() {
+  //   Cookies.remove('users');
+  //   $.ajaxSetup({
+  //     headers: {
+  //       access_token: null
+  //     }
+  //   });
+  //   this.goto('');
+  // },
 
 
   signup () {
@@ -101,13 +112,13 @@ let Router = Backbone.Router.extend({
             });
 
             let userObject = Cookies.getJSON('users');
-            console.log(userObject)
+            //console.log(userObject)
 
             this.goto(`user/${userObject.name}`);
             // this.goto(`user/${data.username}`)
 
           }).fail(() => {
-            $('.app').html('USER ID TAKEN. PLEASE TRY A DIFFERENT USER NAME');
+            alert('INVALID INFORMATION..TRY AGAIN');
           });
 
         }}/>, document.querySelector('.app')
@@ -169,7 +180,6 @@ let Router = Backbone.Router.extend({
       Cookies.set('decks', data);
       // console.log(Cookies.getJSON('decks'));
       // this.goto('userLanding');
-
       $.ajaxSetup ({
         headers: {
           access_token: data.access_token
@@ -177,11 +187,19 @@ let Router = Backbone.Router.extend({
       });
     });
   
+  // LogoutClick={() => this.goto('')
+  //          Cookies.remove('decks') 
+  //           $.ajaxSetup ({
+  //              headers: {
+  //               access_token: null
+  //            }
+  //     });
 
     ReactDom.render (
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
+          logoutClick={() => this.goto('')}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -195,6 +213,7 @@ let Router = Backbone.Router.extend({
                 title     : newDeckTitle
               }
             });
+
 
             request.then((data) => {
               Cookies.set('return', data);

@@ -30,6 +30,10 @@ export default React.createClass({
 
   },
 
+  onLogoutHandler(){
+    this.props.logoutClick();
+  },
+
   render() {
     
     let data = this.props.decks;
@@ -37,7 +41,9 @@ export default React.createClass({
     return (
       <div className='deck-block-container'>
         <h1>Choose one of your decks</h1>
-        {this.processData(data)}
+        <button onClick={this.onLogoutHandler}>Logout</button>
+        <hr/>
+        {this.processData(data)}        
       </div>
     );
   }

@@ -2028,10 +2028,14 @@ body {
   background: #e2ebf3; }
 
 h1 {
-  text-align: center; }
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: normal;
+  padding-top: 2%; }
 
 .home-page {
-  width: 100%; }
+  width: 100%;
+  margin: 0; }
 
 .flip-game {
   display: inline-block;
@@ -2127,12 +2131,13 @@ h1 {
 .sign-up {
   width: 51%;
   margin: 5% auto;
-  padding: 4%;
+  padding: 2%;
   border: 1px solid black;
   border-radius: 5px; }
 
 .newUserName {
   width: 60%;
+  margin-top: 2%;
   line-height: 20px;
   margin-bottom: 2%;
   margin-right: 20%;
@@ -2162,7 +2167,26 @@ h1 {
 .submit {
   margin: 20px;
   text-align: center;
-  margin-left: 200px; }
+  margin-left: 200px;
+  border: none;
+  background: none;
+  font-size: 0.8em; }
+
+.submit:hover {
+  font-style: italic;
+  font-size: 1em;
+  border-bottom: 0.1em solid grey; }
+
+.cancel {
+  margin: 20px;
+  border: none;
+  background: none;
+  font-size: 0.8em; }
+
+.cancel:hover {
+  font-style: italic;
+  font-size: 1em;
+  border-bottom: 0.1em solid grey; }
 
 .deck-block-container {
   margin: 30px auto;

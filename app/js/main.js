@@ -292,7 +292,7 @@ var Signin = _react2['default'].createClass({
       'div',
       { className: 'signIn' },
       _react2['default'].createElement(
-        'h3',
+        'h1',
         null,
         'Trebek Welcomes You '
       ),
@@ -361,6 +361,11 @@ var Signup = _react2['default'].createClass({
     return _react2['default'].createElement(
       'div',
       { className: 'sign-up' },
+      _react2['default'].createElement(
+        'h1',
+        null,
+        'New User Registration'
+      ),
       _react2['default'].createElement(
         'form',
         null,
@@ -503,6 +508,10 @@ exports['default'] = _react2['default'].createClass({
     return data.map(this.processDecks);
   },
 
+  onLogoutHandler: function onLogoutHandler() {
+    this.props.logoutClick();
+  },
+
   render: function render() {
 
     var data = this.props.decks;
@@ -515,6 +524,12 @@ exports['default'] = _react2['default'].createClass({
         null,
         'Choose one of your decks'
       ),
+      _react2['default'].createElement(
+        'button',
+        { onClick: this.onLogoutHandler },
+        'Logout'
+      ),
+      _react2['default'].createElement('hr', null),
       this.processData(data)
     );
   }
@@ -841,7 +856,8 @@ var Router = _backbone2['default'].Router.extend({
     'user/:name': 'showSpecificUser',
     'editcard/:id': 'showEditCard',
     'viewdeck/:id': 'showViewDeck',
-    'signin': 'signin'
+    'signin': 'signin',
+    'logout': 'logout'
 
   },
 
@@ -868,6 +884,16 @@ var Router = _backbone2['default'].Router.extend({
         return _this.goto('signup');
       } }), document.querySelector('.app'));
   },
+
+  // logout() {
+  //   Cookies.remove('users');
+  //   $.ajaxSetup({
+  //     headers: {
+  //       access_token: null
+  //     }
+  //   });
+  //   this.goto('');
+  // },
 
   signup: function signup() {
     var _this2 = this;
@@ -907,12 +933,12 @@ var Router = _backbone2['default'].Router.extend({
           });
 
           var userObject = _jsCookie2['default'].getJSON('users');
-          console.log(userObject);
+          //console.log(userObject)
 
           _this2.goto('user/' + userObject.name);
           // this.goto(`user/${data.username}`)
         }).fail(function () {
-          (0, _jquery2['default'])('.app').html('USER ID TAKEN. PLEASE TRY A DIFFERENT USER NAME');
+          alert('INVALID INFORMATION..TRY AGAIN');
         });
       } }), document.querySelector('.app'));
   },
@@ -971,7 +997,6 @@ var Router = _backbone2['default'].Router.extend({
       _jsCookie2['default'].set('decks', data);
       // console.log(Cookies.getJSON('decks'));
       // this.goto('userLanding');
-
       _jquery2['default'].ajaxSetup({
         headers: {
           access_token: data.access_token
@@ -979,11 +1004,22 @@ var Router = _backbone2['default'].Router.extend({
       });
     });
 
+    // LogoutClick={() => this.goto('')
+    //          Cookies.remove('decks')
+    //           $.ajaxSetup ({
+    //              headers: {
+    //               access_token: null
+    //            }
+    //     });
+
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
         decks: _jsCookie2['default'].getJSON('decks'),
+        logoutClick: function () {
+          return _this4.goto('');
+        },
         onViewClick: function (id) {
           return _this4.goto('viewdeck/' + id);
         } }),
