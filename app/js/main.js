@@ -526,7 +526,7 @@ exports['default'] = _react2['default'].createClass({
 
   editClickHandler: function editClickHandler() {
 
-    alert('edit button was clicked');
+    this.props.onEditClick();
   },
 
   addHandler: function addHandler() {
@@ -554,7 +554,7 @@ exports['default'] = _react2['default'].createClass({
         {
           onClick: this.editClickHandler,
           className: 'edit-deck-button' },
-        'View this card'
+        'Edit this card'
       )
     );
   },
@@ -825,7 +825,7 @@ var Router = _backbone2['default'].Router.extend({
     'addquestion/:id': 'showAddQuestion',
     // 'userLanding'      : 'showUserLanding',
     'user/:name': 'showSpecificUser',
-    'editdeck/:id': 'showEditDeck',
+    'editcard/:id': 'showEditCard',
     'viewdeck/:id': 'showViewDeck',
     'signin': 'signin'
 
@@ -1095,11 +1095,12 @@ var Router = _backbone2['default'].Router.extend({
     });
 
     var newCard = 'addquestion/' + id;
+    var editCard = 'editcard/' + id;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
       cards: _jsCookie2['default'].getJSON('cards'),
       onEditClick: function (id) {
-        _this6.goto('editdeck/' + id);
+        _this6.goto(editCard);
       },
       onAddClick: function (id) {
         _this6.goto(newCard);
@@ -1108,7 +1109,9 @@ var Router = _backbone2['default'].Router.extend({
     console.log('addquestion/' + id);
   },
 
-  showEditDeck: function showEditDeck(id) {
+  showEditCard: function showEditCard(id) {
+
+    (0, _jquery2['default'])('.app').html('Hello');
 
     // let request = $.ajax({
 
@@ -1125,7 +1128,6 @@ var Router = _backbone2['default'].Router.extend({
     //   <EditDeckForm/>,
     //   document.querySelector('.app')
     // );
-
   },
 
   showAddQuestion: function showAddQuestion(id) {

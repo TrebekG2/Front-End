@@ -38,7 +38,7 @@ let Router = Backbone.Router.extend({
     'addquestion/:id'  : 'showAddQuestion',
     // 'userLanding'      : 'showUserLanding',
     'user/:name'       : 'showSpecificUser',
-    'editdeck/:id'     : 'showEditDeck',
+    'editcard/:id'     : 'showEditCard',
     'viewdeck/:id'     : 'showViewDeck',
     'signin'           : 'signin',
 
@@ -311,11 +311,12 @@ let Router = Backbone.Router.extend({
     });
 
     let newCard = `addquestion/${id}`;
+    let editCard = `editcard/${id}`;
 
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
-        onEditClick = {(id) => {this.goto(`editdeck/${id}`)}}
+        onEditClick = {(id) => {this.goto(editCard)}}
         onAddClick = {(id) => {this.goto(newCard)}}/>,
       document.querySelector('.app')
     );
@@ -324,22 +325,33 @@ let Router = Backbone.Router.extend({
 
   },
 
-  showEditDeck (id) {
+  showEditCard (id) {
 
-    // let request = $.ajax({
+    $('.app').html('Hello');
 
-    //   url :'https://nameless-plains-2123.herokuapp.com/question',
-    //   method:'POST',
-    //   data: {
-    //     question   : newQuestion.question,
-    //     answer     : newQuestion.answer,
-    //     category   : newQuestion.category}
-    //   });
-
+    // let thisQuestion = NEED CARD ID 
 
     // ReactDom.render (
 
-    //   <EditDeckForm/>,
+    //   <EditDeckForm
+    //   onSubmitClick = {() => {
+        
+    //     let newQuestion = $('.edit-question-input').val();
+    //     let newAnswer = $('.edit-answer-input').val();
+    //     let newCategory = $('.edit-title-input').val();
+
+    //     let request = $.ajax({
+    //       url :'https://nameless-plains-2123.herokuapp.com/question',
+    //       method:'POST',
+    //       data: {
+    //         question   : newQuestion.question,
+    //         answer     : newQuestion.answer,
+    //         category   : newQuestion.category}
+    //       });
+
+    //     })
+
+    //   }/>,
     //   document.querySelector('.app')
     // );
 

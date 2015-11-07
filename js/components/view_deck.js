@@ -4,7 +4,7 @@ export default React.createClass({
   
   editClickHandler () {
 
-    alert('edit button was clicked');
+    this.props.onEditClick();
 
   },
 
@@ -24,7 +24,7 @@ export default React.createClass({
           <button 
             onClick = {this.editClickHandler}
             className='edit-deck-button'>
-            View this card
+            Edit this card
           </button>
       </div>
     );

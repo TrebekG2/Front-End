@@ -28,10 +28,7 @@ export default React.createClass({
 
   onSubmitEdits () {
 
-    this.saveForm ({
 
-      this.state.title,
-      
 
     });
 
@@ -43,9 +40,15 @@ export default React.createClass({
       <div>
         <form>
           <input 
-            className='edit-title-input'
+            className='edit-question-input'
             onChange={this.changeTitleHandler}
-            value={this.state.title}
+            value={this.state.title}/>
+          <input 
+            className='edit-answer-input'
+            onChange={this.changeTitleHandler}
+            value={this.state.title}/>
+          <p className='category-name'>
+            {this.}
         </form>
         <button
           onClick={this.onSubmitEdits}>
