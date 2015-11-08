@@ -42,8 +42,9 @@ let Signin = React.createClass({
       <div className='signIn'>
         <h1>Trebek Welcomes You </h1>
         <form className="signInForm">
-          <label>User Name</label>
-          <input type='text' placeholder='User Name' className='UserID'/>
+          <label>Username</label>
+          <input type='text' placeholder='Username' className='UserID'/>
+          <p></p>
           <label>Password</label>
           <input type='password' placeholder='Password' className='password'/>
         </form>

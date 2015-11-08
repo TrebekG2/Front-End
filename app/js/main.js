@@ -327,9 +327,10 @@ var HomePage = _react2['default'].createClass({
         { className: 'header-opt' },
         _react2['default'].createElement(
           'h1',
-          { className: 'flip-game' },
+          null,
           'Trebek'
         ),
+        _react2['default'].createElement('hr', null),
         _react2['default'].createElement(
           'div',
           { className: 'btn' },
@@ -344,7 +345,17 @@ var HomePage = _react2['default'].createClass({
             'Register'
           )
         ),
-        _react2['default'].createElement('hr', null)
+        _react2['default'].createElement(
+          'div',
+          { className: 'home-pic-container' },
+          _react2['default'].createElement('img', { className: 'home-pic',
+            src: 'http://i.huffpost.com/gen/1800873/images/o-ALEX-TREBEK-facebook.jpg' }),
+          _react2['default'].createElement(
+            'p',
+            { className: 'home-greet' },
+            'Let\'s find out what you know'
+          )
+        )
       )
     );
   }
@@ -418,9 +429,10 @@ var Signin = _react2['default'].createClass({
         _react2['default'].createElement(
           'label',
           null,
-          'User Name'
+          'Username'
         ),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'User Name', className: 'UserID' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', className: 'UserID' }),
+        _react2['default'].createElement('p', null),
         _react2['default'].createElement(
           'label',
           null,
@@ -484,7 +496,7 @@ var Signup = _react2['default'].createClass({
       ),
       _react2['default'].createElement(
         'form',
-        null,
+        { className: 'signInForm' },
         _react2['default'].createElement(
           'label',
           null,
@@ -494,9 +506,9 @@ var Signup = _react2['default'].createClass({
         _react2['default'].createElement(
           'label',
           null,
-          'Select User ID'
+          'Username'
         ),
-        _react2['default'].createElement('input', { type: 'text', placeholder: 'Create UserID', className: 'newUserID' }),
+        _react2['default'].createElement('input', { type: 'text', placeholder: 'Create username', className: 'newUserID' }),
         _react2['default'].createElement(
           'label',
           null,
@@ -614,7 +626,7 @@ exports['default'] = _react2['default'].createClass({
             _this.editClickHandler(deck.id);
           },
           className: 'edit-deck-button' },
-        'View this deck'
+        'View deck'
       )
     );
   },
@@ -645,7 +657,6 @@ exports['default'] = _react2['default'].createClass({
         { className: 'logout-btn', onClick: this.onLogoutClickHandler },
         'Logout'
       ),
-      _react2['default'].createElement('hr', null),
       this.processData(data)
     );
   }
@@ -1000,7 +1011,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   goto: function goto(route) {
-    this.navigate(route, { trigger: true, replace: true });
+    this.navigate(route, { trigger: true });
   },
 
   redirect: function redirect() {

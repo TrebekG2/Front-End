@@ -17,7 +17,7 @@ export default React.createClass({
           <button 
             onClick ={()=> {this.editClickHandler(deck.id)}}
             className='edit-deck-button'>
-            View this deck
+            View deck
           </button>
       </div>
     );
@@ -42,7 +42,7 @@ export default React.createClass({
       <div className='deck-block-container'>
         <h1>Choose one of your decks</h1>
         <button className='logout-btn' onClick={this.onLogoutClickHandler}>Logout</button>
-        <hr/>
+        
         {this.processData(data)}        
       </div>
     );
