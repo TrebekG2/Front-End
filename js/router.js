@@ -66,17 +66,6 @@ let Router = Backbone.Router.extend({
     );
   },
 
-  // logout() {
-  //   Cookies.remove('users');
-  //   $.ajaxSetup({
-  //     headers: {
-  //       access_token: null
-  //     }
-  //   });
-  //   this.goto('');
-  // },
-
-
   signup () {
     ReactDom.render(
       <SignupPage 
@@ -168,72 +157,74 @@ let Router = Backbone.Router.extend({
 
     );
   },
+ logout(){
+  //let userObject = Cookies.getJSON('users')
+  Cookies.remove('users')
+  $.ajaxSetup ({
+      headers: {
+        access_token: null
+      }
+   });
+  this.goto('')
+ },
 
-  showUserLanding () {
+// //USED ???
+//   showUserLanding () {
 
-    let request = $.ajax({
-      url :'https://nameless-plains-2123.herokuapp.com/deck',
-      method:'GET'
-    });
+//     let request = $.ajax({
+//       url :'https://nameless-plains-2123.herokuapp.com/deck',
+//       method:'GET'
+//     });
 
-    request.then((data) => {
-      Cookies.set('decks', data);
-      // console.log(Cookies.getJSON('decks'));
-      // this.goto('userLanding');
-      $.ajaxSetup ({
-        headers: {
-          access_token: data.access_token
-        }
-      });
-    });
+//     request.then((data) => {
+//       Cookies.set('decks', data);
+//       // console.log(Cookies.getJSON('decks'));
+//       // this.goto('userLanding');
+//       $.ajaxSetup ({
+//         headers: {
+//           access_token: data.access_token
+//         }
+//       });
+//     });
 
-    ReactDom.render (
-      <div>
-        <UserLandingComponent
-          decks = {Cookies.getJSON('decks')}
-          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
-        <CreateDeckComponent
-          onSubmitNewDeck = {() => {
-            let newDeckTitle = document.querySelector('.new-deck-title-input').value;
-            alert('A new deck has been created');
+//     ReactDom.render (
+//       <div>
+//         <UserLandingComponent
+//           decks = {Cookies.getJSON('decks')}
+//           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
+//         <CreateDeckComponent
+//           onSubmitNewDeck = {() => {
+//             let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+//             alert('A new deck has been created');
        
-            let request = $.ajax({
-              url :'https://nameless-plains-2123.herokuapp.com/deck/create',
-              method:'POST',
-              data: {
-                title     : newDeckTitle
-              }
-            });
-            request.then((data) => {
-              Cookies.set('return', data);
-              console.log(Cookies.getJSON('return'));
-              // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-              this.goto('userLanding');
+//             let request = $.ajax({
+//               url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+//               method:'POST',
+//               data: {
+//                 title     : newDeckTitle
+//               }
+//             });
+//             request.then((data) => {
+//               Cookies.set('return', data);
+//               console.log(Cookies.getJSON('return'));
+//               // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+//               this.goto('userLanding');
 
 
-              $.ajaxSetup ({
-                headers: {
-                  access_token: data.access_token
-                }
-              });
+//               $.ajaxSetup ({
+//                 headers: {
+//                   access_token: data.access_token
+//                 }
+//               });
 
-            });          
+//             });          
 
-        }}/>
-      </div>, document.querySelector('.app')
-    ); 
+//         }}/>
+//       </div>, document.querySelector('.app')
+//     ); 
 
-  },
+//   },
 
-
-//need to send user oject to release it when logging out and returning to home page
-  // LogoutClick={() => this.goto('')
-  //          Cookies.remove('decks') 
-  //           $.ajaxSetup ({
-  //              headers: {
-  //               access_token: null
-  //            }
-  //     });
 
   showSpecificUser (name) {
 
@@ -242,6 +233,9 @@ let Router = Backbone.Router.extend({
 
     let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
     // let thisId = `${id}`;
+    //let userObject = Cookies.getJSON('users');
+ 
+
 
     let request = $.ajax({
       url :`${baseUrl}`,
@@ -251,7 +245,6 @@ let Router = Backbone.Router.extend({
     request.then((data) => {
       Cookies.set('decks', data);
       console.log(Cookies.getJSON('decks'));
-      // this.goto('userLanding');
 
 
       $.ajaxSetup ({
@@ -264,9 +257,9 @@ let Router = Backbone.Router.extend({
     ReactDom.render (
       <div>
         <UserLandingComponent
-          decks = {Cookies.getJSON('decks')}
-          onLogoutClick={()=>{this.goto('')}
-        }
+          onLogoutClick={()=> this.goto('logout')}
+          users ={Cookies.getJSON('users')}
+          decks= {Cookies.getJSON('decks')}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -364,7 +357,6 @@ let Router = Backbone.Router.extend({
       document.querySelector('.app')
     );
 
-    // console.log(`addquestion/${id}`);
 
   },
 

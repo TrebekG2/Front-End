@@ -1019,16 +1019,6 @@ var Router = _backbone2['default'].Router.extend({
       } }), document.querySelector('.app'));
   },
 
-  // logout() {
-  //   Cookies.remove('users');
-  //   $.ajaxSetup({
-  //     headers: {
-  //       access_token: null
-  //     }
-  //   });
-  //   this.goto('');
-  // },
-
   signup: function signup() {
     var _this2 = this;
 
@@ -1118,79 +1108,82 @@ var Router = _backbone2['default'].Router.extend({
         });
       } }), document.querySelector('.app'));
   },
-
-  showUserLanding: function showUserLanding() {
-    var _this4 = this;
-
-    var request = _jquery2['default'].ajax({
-      url: 'https://nameless-plains-2123.herokuapp.com/deck',
-      method: 'GET'
+  logout: function logout() {
+    //let userObject = Cookies.getJSON('users')
+    _jsCookie2['default'].remove('users');
+    _jquery2['default'].ajaxSetup({
+      headers: {
+        access_token: null
+      }
     });
-
-    request.then(function (data) {
-      _jsCookie2['default'].set('decks', data);
-      // console.log(Cookies.getJSON('decks'));
-      // this.goto('userLanding');
-      _jquery2['default'].ajaxSetup({
-        headers: {
-          access_token: data.access_token
-        }
-      });
-    });
-
-    _reactDom2['default'].render(_react2['default'].createElement(
-      'div',
-      null,
-      _react2['default'].createElement(_componentsUser_landing2['default'], {
-        decks: _jsCookie2['default'].getJSON('decks'),
-        onViewClick: function (id) {
-          return _this4.goto('viewdeck/' + id);
-        } }),
-      _react2['default'].createElement(_componentsCreate_deck2['default'], {
-        onSubmitNewDeck: function () {
-          var newDeckTitle = document.querySelector('.new-deck-title-input').value;
-          alert('A new deck has been created');
-
-          var request = _jquery2['default'].ajax({
-            url: 'https://nameless-plains-2123.herokuapp.com/deck/create',
-            method: 'POST',
-            data: {
-              title: newDeckTitle
-            }
-          });
-          request.then(function (data) {
-            _jsCookie2['default'].set('return', data);
-            console.log(_jsCookie2['default'].getJSON('return'));
-            // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
-            _this4.goto('userLanding');
-
-            _jquery2['default'].ajaxSetup({
-              headers: {
-                access_token: data.access_token
-              }
-            });
-          });
-        } })
-    ), document.querySelector('.app'));
+    this.goto('');
   },
 
-  //need to send user oject to release it when logging out and returning to home page
-  // LogoutClick={() => this.goto('')
-  //          Cookies.remove('decks')
-  //           $.ajaxSetup ({
-  //              headers: {
-  //               access_token: null
-  //            }
+  // //USED ???
+  //   showUserLanding () {
+
+  //     let request = $.ajax({
+  //       url :'https://nameless-plains-2123.herokuapp.com/deck',
+  //       method:'GET'
   //     });
 
+  //     request.then((data) => {
+  //       Cookies.set('decks', data);
+  //       // console.log(Cookies.getJSON('decks'));
+  //       // this.goto('userLanding');
+  //       $.ajaxSetup ({
+  //         headers: {
+  //           access_token: data.access_token
+  //         }
+  //       });
+  //     });
+
+  //     ReactDom.render (
+  //       <div>
+  //         <UserLandingComponent
+  //           decks = {Cookies.getJSON('decks')}
+  //           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
+  //         <CreateDeckComponent
+  //           onSubmitNewDeck = {() => {
+  //             let newDeckTitle = document.querySelector('.new-deck-title-input').value;
+  //             alert('A new deck has been created');
+
+  //             let request = $.ajax({
+  //               url :'https://nameless-plains-2123.herokuapp.com/deck/create',
+  //               method:'POST',
+  //               data: {
+  //                 title     : newDeckTitle
+  //               }
+  //             });
+  //             request.then((data) => {
+  //               Cookies.set('return', data);
+  //               console.log(Cookies.getJSON('return'));
+  //               // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
+  //               this.goto('userLanding');
+
+  //               $.ajaxSetup ({
+  //                 headers: {
+  //                   access_token: data.access_token
+  //                 }
+  //               });
+
+  //             });         
+
+  //         }}/>
+  //       </div>, document.querySelector('.app')
+  //     );
+
+  //   },
+
   showSpecificUser: function showSpecificUser(name) {
-    var _this5 = this;
+    var _this4 = this;
 
     // need to pass id or name to this function
     // request decks by user id
 
     var baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
     // let thisId = `${id}`;
+    //let userObject = Cookies.getJSON('users');
 
     var request = _jquery2['default'].ajax({
       url: '' + baseUrl,
@@ -1200,7 +1193,6 @@ var Router = _backbone2['default'].Router.extend({
     request.then(function (data) {
       _jsCookie2['default'].set('decks', data);
       console.log(_jsCookie2['default'].getJSON('decks'));
-      // this.goto('userLanding');
 
       _jquery2['default'].ajaxSetup({
         headers: {
@@ -1213,12 +1205,13 @@ var Router = _backbone2['default'].Router.extend({
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
-        decks: _jsCookie2['default'].getJSON('decks'),
         onLogoutClick: function () {
-          _this5.goto('');
+          return _this4.goto('logout');
         },
+        users: _jsCookie2['default'].getJSON('users'),
+        decks: _jsCookie2['default'].getJSON('decks'),
         onViewClick: function (id) {
-          return _this5.goto('viewdeck/' + id);
+          return _this4.goto('viewdeck/' + id);
         } }),
       _react2['default'].createElement(_componentsCreate_deck2['default'], {
         onSubmitNewDeck: function () {
@@ -1238,7 +1231,7 @@ var Router = _backbone2['default'].Router.extend({
             console.log(_jsCookie2['default'].getJSON('decks'));
             // alert(' NEW DECK HAS BEEN CREATED AND GIVEN A TITLE');
             var decksObject = _jsCookie2['default'].getJSON('decks');
-            _this5.goto('viewdeck/' + decksObject.id);
+            _this4.goto('viewdeck/' + decksObject.id);
 
             _jquery2['default'].ajaxSetup({
               headers: {
@@ -1251,7 +1244,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showViewDeck: function showViewDeck(id) {
-    var _this6 = this;
+    var _this5 = this;
 
     var baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
     var thisId = '' + id;
@@ -1285,7 +1278,7 @@ var Router = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
       cards: _jsCookie2['default'].getJSON('cards'),
       onBackClick: function () {
-        _this6.goto('user/' + userObject.name);
+        _this5.goto('user/' + userObject.name);
       },
       onCardClick: function (id) {
 
@@ -1303,17 +1296,15 @@ var Router = _backbone2['default'].Router.extend({
           console.log(_jsCookie2['default'].getJSON('card'));
         });
 
-        _this6.goto('editcard/' + id);
+        _this5.goto('editcard/' + id);
       },
       onAddClick: function (id) {
-        _this6.goto(newCard);
+        _this5.goto(newCard);
       } }), document.querySelector('.app'));
-
-    // console.log(`addquestion/${id}`);
   },
 
   showEditCard: function showEditCard(id) {
-    var _this7 = this;
+    var _this6 = this;
 
     var baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
     var thisId = '' + id;
@@ -1335,7 +1326,7 @@ var Router = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_componentsEdit_card2['default'], {
       cardData: _jsCookie2['default'].getJSON('card'),
       onBackClick: function () {
-        return _this7.goto('viewdeck/' + cardObject.deck_id);
+        return _this6.goto('viewdeck/' + cardObject.deck_id);
       },
       onSubmitClick: function (question, answer, category) {
 
@@ -1360,11 +1351,11 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showAddQuestion: function showAddQuestion(id) {
-    var _this8 = this;
+    var _this7 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onBackClick: function () {
-        return _this8.goto('viewdeck/' + id);
+        return _this7.goto('viewdeck/' + id);
       },
       onSubmitQuestion: function (question, answer, category) {
 
@@ -1390,7 +1381,7 @@ var Router = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('newcard', data);
           console.log(_jsCookie2['default'].getJSON('newcard'));
-          _this8.goto('viewdeck/' + id);
+          _this7.goto('viewdeck/' + id);
 
           _jquery2['default'].ajaxSetup({
             headers: {
