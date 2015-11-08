@@ -207,7 +207,8 @@ exports['default'] = _react2['default'].createClass({
     return {
 
       question: this.props.cardData.question,
-      answer: this.props.cardData.answer
+      answer: this.props.cardData.answer,
+      category: this.props.cardData.category
 
     };
   },
@@ -230,11 +231,25 @@ exports['default'] = _react2['default'].createClass({
     });
   },
 
+  updateCategory: function updateCategory(event) {
+
+    var newCategory = event.currentTarget.value;
+
+    this.setState({
+      category: newCategory
+    });
+  },
+
   submitEditHandler: function submitEditHandler(event) {
 
     event.preventDefault();
 
-    this.props.onSubmitClick(this.state.question, this.state.answer);
+    this.props.onSubmitClick(this.state.question, this.state.answer, this.state.category);
+  },
+
+  onBackHandler: function onBackHandler() {
+
+    this.props.onBackClick();
   },
 
   render: function render() {
@@ -245,6 +260,13 @@ exports['default'] = _react2['default'].createClass({
       'div',
       { className: 'edit-card-container' },
       _react2['default'].createElement(
+        'button',
+        {
+          onClick: this.onBackHandler,
+          className: 'navigation-buttons' },
+        'Back to deck'
+      ),
+      _react2['default'].createElement(
         'form',
         { className: 'edit-card-form' },
         _react2['default'].createElement('input', {
@@ -254,7 +276,11 @@ exports['default'] = _react2['default'].createClass({
         _react2['default'].createElement('input', {
           className: 'edit-answer-input',
           onChange: this.updateAnswer,
-          value: this.state.answer })
+          value: this.state.answer }),
+        _react2['default'].createElement('input', {
+          className: 'edit-category-input',
+          onChange: this.updateCategory,
+          value: this.state.category })
       ),
       _react2['default'].createElement(
         'button',
@@ -643,9 +669,9 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'view_deck',
 
-  editClickHandler: function editClickHandler(id) {
+  editHandler: function editHandler(id) {
 
-    this.props.onEditClick(id);
+    this.props.onCardClick(id);
   },
 
   addHandler: function addHandler() {
@@ -653,12 +679,8 @@ exports['default'] = _react2['default'].createClass({
     this.props.onAddClick();
   },
 
-  //NEED TO CREATE THIS FUNCTION
-  playClickHandler: function playClickHandler() {
-    this.props.playDeck();
-  },
-
   processCards: function processCards(card) {
+    var _this = this;
 
     return _react2['default'].createElement(
       'div',
@@ -676,7 +698,9 @@ exports['default'] = _react2['default'].createClass({
       _react2['default'].createElement(
         'button',
         {
-          onClick: this.editClickHandler(card.id),
+          onClick: function () {
+            return _this.editHandler(card.id);
+          },
           className: 'edit-deck-button' },
         'Edit this card'
       )
@@ -1236,7 +1260,7 @@ var Router = _backbone2['default'].Router.extend({
     // console.log(`${baseUrl}${id}/cards`);
 
     var request = _jquery2['default'].ajax({
-      url: '' + baseUrl + id + '/cards',
+      url: '' + baseUrl + thisId + '/cards',
       method: 'GET'
     });
 
@@ -1263,7 +1287,7 @@ var Router = _backbone2['default'].Router.extend({
       onBackClick: function () {
         _this6.goto('user/' + userObject.name);
       },
-      onEditClick: function (id) {
+      onCardClick: function (id) {
 
         var baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
         var thisId = '' + id;
@@ -1289,6 +1313,7 @@ var Router = _backbone2['default'].Router.extend({
   },
 
   showEditCard: function showEditCard(id) {
+    var _this7 = this;
 
     var baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
     var thisId = '' + id;
@@ -1304,9 +1329,15 @@ var Router = _backbone2['default'].Router.extend({
       console.log(_jsCookie2['default'].getJSON('card'));
     });
 
+    var cardObject = _jsCookie2['default'].getJSON('card');
+    console.log(cardObject);
+
     _reactDom2['default'].render(_react2['default'].createElement(_componentsEdit_card2['default'], {
       cardData: _jsCookie2['default'].getJSON('card'),
-      onSubmitClick: function (question, answer) {
+      onBackClick: function () {
+        return _this7.goto('viewdeck/' + cardObject.deck_id);
+      },
+      onSubmitClick: function (question, answer, category) {
 
         var baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
         var thisId = '' + id;
@@ -1317,17 +1348,23 @@ var Router = _backbone2['default'].Router.extend({
           method: 'POST',
           data: {
             question: question,
-            answer: answer }
+            answer: answer,
+            category: category }
+        });
+
+        request.then(function (data) {
+          _jsCookie2['default'].set('newcard', data);
+          console.log(_jsCookie2['default'].getJSON('newcard'));
         });
       } }), document.querySelector('.app'));
   },
 
   showAddQuestion: function showAddQuestion(id) {
-    var _this7 = this;
+    var _this8 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsAdd_question2['default'], {
       onBackClick: function () {
-        return _this7.goto('viewdeck/' + id);
+        return _this8.goto('viewdeck/' + id);
       },
       onSubmitQuestion: function (question, answer, category) {
 
@@ -1353,7 +1390,7 @@ var Router = _backbone2['default'].Router.extend({
         request.then(function (data) {
           _jsCookie2['default'].set('newcard', data);
           console.log(_jsCookie2['default'].getJSON('newcard'));
-          _this7.goto('viewdeck/' + id);
+          _this8.goto('viewdeck/' + id);
 
           _jquery2['default'].ajaxSetup({
             headers: {

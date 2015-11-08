@@ -311,7 +311,7 @@ let Router = Backbone.Router.extend({
     // console.log(`${baseUrl}${id}/cards`);
 
     let request = $.ajax({
-      url: `${baseUrl}${id}/cards`,
+      url: `${baseUrl}${thisId}/cards`,
       method:'GET',
     });
 
@@ -334,13 +334,14 @@ let Router = Backbone.Router.extend({
     let editCard = `editcard/${id}`;
 
 
+  
 
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
         onBackClick ={()=>{this.goto(`user/${userObject.name}`)}}
-        onEditClick = {(id) => {
-
+        onCardClick = {(id) => {
+          
           let baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
           let thisId = `${id}`;
           let endofurl = '/edit';
@@ -353,8 +354,7 @@ let Router = Backbone.Router.extend({
           request.then((data) => {
             Cookies.set('card', data);
             console.log(Cookies.getJSON('card'));
-          });
-
+          }); 
 
           this.goto(`editcard/${id}`);
 
@@ -383,11 +383,16 @@ let Router = Backbone.Router.extend({
       console.log(Cookies.getJSON('card'));
     });
 
+
+    let cardObject = Cookies.getJSON('card');
+    console.log(cardObject);
+
     ReactDom.render (
 
       <EditCardForm
       cardData = {Cookies.getJSON('card')}
-      onSubmitClick = {(question, answer) => {
+      onBackClick = {() => this.goto(`viewdeck/${cardObject.deck_id}`)}
+      onSubmitClick = {(question, answer, category) => {
         
         let baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
         let thisId = `${id}`;
@@ -398,8 +403,14 @@ let Router = Backbone.Router.extend({
           method:'POST',
           data: {
             question   : question,
-            answer     : answer}
+            answer     : answer,
+            category   : category}
           });
+
+        request.then((data) => {
+            Cookies.set('newcard', data);
+            console.log(Cookies.getJSON('newcard'));
+          }); 
 
         }}/>,
       document.querySelector('.app')

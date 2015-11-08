@@ -3,9 +3,9 @@ import React from 'react';
 
 export default React.createClass({
   
-  editClickHandler (id) {
+  editHandler (id) {
 
-    this.props.onEditClick(id);
+    this.props.onCardClick(id);
 
   },
 
@@ -13,11 +13,6 @@ export default React.createClass({
 
     this.props.onAddClick();
 
-  },
-
-//NEED TO CREATE THIS FUNCTION
-  playClickHandler(){
-    this.props.playDeck();
   },
 
 
@@ -28,7 +23,7 @@ export default React.createClass({
           <p>{card.question}</p>
           <p>{card.answer}</p>
           <button 
-            onClick = {this.editClickHandler(card.id)}
+            onClick = {() => this.editHandler(card.id)}
             className='edit-deck-button'>
             Edit this card
           </button>
