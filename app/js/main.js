@@ -534,7 +534,7 @@ exports['default'] = _react2['default'].createClass({
       ),
       _react2['default'].createElement(
         'button',
-        { onClick: this.onLogoutClickHandler },
+        { className: 'logout-btn', onClick: this.onLogoutClickHandler },
         'Logout'
       ),
       _react2['default'].createElement('hr', null),
@@ -1029,23 +1029,12 @@ var Router = _backbone2['default'].Router.extend({
         }
       });
     });
-    //need to send user oject to release it when logging out and returning to home page
-    // LogoutClick={() => this.goto('')
-    //          Cookies.remove('decks')
-    //           $.ajaxSetup ({
-    //              headers: {
-    //               access_token: null
-    //            }
-    //     });
 
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
         decks: _jsCookie2['default'].getJSON('decks'),
-        onLogoutClick: function () {
-          _this4.goto('');
-        },
         onViewClick: function (id) {
           return _this4.goto('viewdeck/' + id);
         } }),
@@ -1077,6 +1066,15 @@ var Router = _backbone2['default'].Router.extend({
     ), document.querySelector('.app'));
   },
 
+  //need to send user oject to release it when logging out and returning to home page
+  // LogoutClick={() => this.goto('')
+  //          Cookies.remove('decks')
+  //           $.ajaxSetup ({
+  //              headers: {
+  //               access_token: null
+  //            }
+  //     });
+
   showSpecificUser: function showSpecificUser(name) {
     var _this5 = this;
 
@@ -1103,13 +1101,14 @@ var Router = _backbone2['default'].Router.extend({
       });
     });
 
-    // onViewClick = {(id) => this.goto('viewdeck/' + id )}/>
-
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
         decks: _jsCookie2['default'].getJSON('decks'),
+        onLogoutClick: function () {
+          _this5.goto('');
+        },
         onViewClick: function (id) {
           return _this5.goto('viewdeck/' + id);
         } }),
@@ -1171,11 +1170,12 @@ var Router = _backbone2['default'].Router.extend({
 
     var newCard = 'addquestion/' + id;
     var editCard = 'editcard/' + id;
+    var userObject = _jsCookie2['default'].getJSON('users');
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
       cards: _jsCookie2['default'].getJSON('cards'),
       onBackClick: function () {
-        _this6.goto('');
+        _this6.goto('user/' + userObject.name);
       },
       onEditClick: function (id) {
         _this6.goto(editCard);

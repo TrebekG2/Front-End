@@ -186,20 +186,11 @@ let Router = Backbone.Router.extend({
         }
       });
     });
-  //need to send user oject to release it when logging out and returning to home page
-  // LogoutClick={() => this.goto('')
-  //          Cookies.remove('decks') 
-  //           $.ajaxSetup ({
-  //              headers: {
-  //               access_token: null
-  //            }
-  //     });
 
     ReactDom.render (
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
-          onLogoutClick={()=>{this.goto('')}}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -235,6 +226,15 @@ let Router = Backbone.Router.extend({
   },
 
 
+//need to send user oject to release it when logging out and returning to home page
+  // LogoutClick={() => this.goto('')
+  //          Cookies.remove('decks') 
+  //           $.ajaxSetup ({
+  //              headers: {
+  //               access_token: null
+  //            }
+  //     });
+
   showSpecificUser (name) {
 
     // need to pass id or name to this function
@@ -260,13 +260,13 @@ let Router = Backbone.Router.extend({
         }
       });
     });
-  
-// onViewClick = {(id) => this.goto('viewdeck/' + id )}/>
 
     ReactDom.render (
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
+          onLogoutClick={()=>{this.goto('')}
+        }
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -329,11 +329,12 @@ let Router = Backbone.Router.extend({
 
     let newCard = `addquestion/${id}`;
     let editCard = `editcard/${id}`;
+    let userObject = Cookies.getJSON('users');
 
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
-        onBackClick ={()=>{this.goto('')}}
+        onBackClick ={()=>{this.goto(`user/${userObject.name}`)}}
         onEditClick = {(id) => {this.goto(editCard)}}
         onAddClick = {(id) => {this.goto(newCard)}}/>,
       document.querySelector('.app')

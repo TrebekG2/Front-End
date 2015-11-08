@@ -46,7 +46,7 @@ export default React.createClass({
     return (
       <div className='deck-block-container'>
         <h1>Choose one of your decks</h1>
-        <button onClick={this.onLogoutClickHandler}>Logout</button>
+        <button className='logout-btn' onClick={this.onLogoutClickHandler}>Logout</button>
         <hr/>
         {this.processData(data)}        
       </div>

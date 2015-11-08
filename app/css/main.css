@@ -2203,6 +2203,38 @@ h1 {
   margin: 10px auto;
   display: block; }
 
+.logout-btn {
+  background: none;
+  font-size: 0.8em;
+  border: none; }
+
+.logout-btn:hover {
+  font-style: italic;
+  font-size: 1em;
+  border-bottom: 0.1em solid grey; }
+
+.back-btn {
+  margin-left: 10%;
+  background: none;
+  font-size: 0.8em;
+  border: none; }
+
+.back-btn:hover {
+  font-style: italic;
+  font-size: 1em;
+  border-bottom: 0.1em solid grey; }
+
+.addcardBtn {
+  margin-left: 5%;
+  background: none;
+  font-size: 0.8em;
+  border: none; }
+
+.addcardBtn:hover {
+  font-style: italic;
+  font-size: 1em;
+  border-bottom: 0.1em solid grey; }
+
 .add-form-label {
   display: inline-block;
   width: 80%;
