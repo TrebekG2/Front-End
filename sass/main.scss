@@ -44,6 +44,8 @@ h1 {
    border:none;
    background:none;
    font-size:0.8em;
+   border: 1px solid blue;
+   border-radius: 3px;
 }
 .sign-in:hover{
   font-style :italic;
@@ -55,6 +57,8 @@ h1 {
   border:none;
   background:none;
   font-size:0.8em;
+  border: 1px solid blue;
+  border-radius: 3px;
 }
 .register:hover{
   font-style :italic;
@@ -71,36 +75,42 @@ h1 {
   text-align:center;
   border-radius:5px;
   position:relative;
+  background: lightblue;
 
 }
 
 .signInForm {
-  width: 50%;
-  padding:5%;
-  margin-bottom:5%;
-  display: inline-block;
-  line-height :20%;
+  padding:5px;
+  display: block;
   // margin-right: auto;
   // margin-left: auto;
-  text-align: center;
+  text-align: left;
+  position: relative;
+  width: 70%;
+  margin: 10px auto;
+  max-width: 400px;
+  // border: 1px solid black;
+
+  label {
+    color: black;
+    text-align: left;
+    min-width: 25%;
+    margin-left: 3%;
+    display: inline-block;
+    padding: 5px;
+  }
+
 }
 
-.UserID{
-  line-height:1.5em;
-  width :66%;
-  margin-bottom:2%;
-  margin-left:2%;
+.UserID, .password {
+  display: inline-block;
+  margin-left: 7%;
 }
-.password{
-  line-height:1.5em;
-  width :66%;
-  margin-bottom:2%;
-  margin-left : 6%;
-}
+
 
 .signin-form-btn{ 
   left: 47%;
- 
+
 }
 
 .signin-btn{
@@ -131,43 +141,52 @@ h1 {
 // --- SIGN UP FORM ----
 
 .sign-up{
-  width :51%;
+  width :60%;
   margin :5% auto;
   padding:2%;
   border:1px solid black;
   border-radius:5px;
+  background: lightblue;
 }
-.newUserName{
-  width: 60%;
-  margin-top: 2%;
-  line-height: 20px;
-  margin-bottom: 2%;
-  margin-right: 20%;
-  margin-left: 12%;
-}
-.newUserID{
-  width: 60%;
-  line-height:20px;
-  margin-bottom: 2%;
-  margin-right: 19%;
-  margin-left: 1%;
 
-}
-.passcode{
-  width: 60%;
-  line-height: 20px;
-  margin-bottom: 2%;
-  margin-right: 20%;
+
+.newUserName, .newUserID, .passcode, .emailAdd {
+  display: inline-block;
   margin-left: 7%;
 
 }
-.emailAdd{
-  width:60%;
-  line-height:20px;
-  margin-bottom: 10px;
-  margin-right: 90px;
-  margin-left:68px;
-}
+
+// .newUserName{
+//   width: 60%;
+//   margin-top: 2%;
+//   line-height: 20px;
+//   margin-bottom: 2%;
+//   margin-right: 20%;
+//   margin-left: 12%;
+// }
+// .newUserID{
+//   width: 60%;
+//   line-height:20px;
+//   margin-bottom: 2%;
+//   margin-right: 19%;
+//   margin-left: 1%;
+
+// }
+// .passcode{
+//   width: 60%;
+//   line-height: 20px;
+//   margin-bottom: 2%;
+//   margin-right: 20%;
+//   margin-left: 7%;
+
+// }
+// .emailAdd{
+//   width:60%;
+//   line-height:20px;
+//   margin-bottom: 10px;
+//   margin-right: 90px;
+//   margin-left:68px;
+// }
 
 .submit{
   margin: 20px;
@@ -201,25 +220,36 @@ font-style :italic;
 .deck-block-container {
   margin: 30px auto;
   width: 700px;
-  border: 1px solid black;
+  // border: 1px solid black;
+  text-align: center;
 }
 
 .deck-select-block {
-  border: 1px solid black;
+  border: 1px solid blue;
+  border-radius: 4px;
   margin: 10px;
   width: 200px;
   display: inline-block;
+  background: lightblue;
 }
 
 .edit-deck-button {
   margin: 10px auto;
+  background: green;
+  color: white;
   display: block;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: .8em;
+  padding: 6px;
 }
 
 .logout-btn{
   background:none;
   font-size:0.8em;
   border:none;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .logout-btn:hover{
@@ -293,6 +323,23 @@ font-style :italic;
   margin: 20px auto;
   border: 1px solid black;
   width: 600px;
+}
+
+
+// --- HOME PAGE ----
+
+.home-pic-container {
+  margin: 20px auto;
+  width: 600px;
+}
+
+.home-pic {
+  width: 100%;
+}
+
+.home-greet {
+  font-size: 24px;
+  text-align: center;
 }
 
 

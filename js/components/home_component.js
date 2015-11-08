@@ -15,12 +15,17 @@ let HomePage = React.createClass({
     return (
         <div className='home-page'>
             <header className='header-opt'>
-              <h1 className='flip-game'>Trebek</h1>
+              <h1>Trebek</h1>
+              <hr/>
               <div className='btn'>
                 <button className='sign-in' onClick={this.SignInHandler}>Sign In</button>
                 <button className='register' onClick={this.RegisterHandler}>Register</button>
               </div>
-              <hr/>
+              <div className='home-pic-container'>
+                <img className='home-pic'
+                src='http://i.huffpost.com/gen/1800873/images/o-ALEX-TREBEK-facebook.jpg'/>
+                <p className='home-greet'>Let's find out what you know</p>
+              </div>
             </header>
         </div>
       

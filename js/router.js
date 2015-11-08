@@ -50,7 +50,7 @@ let Router = Backbone.Router.extend({
   },
 
   goto (route) {
-    this.navigate ( route ,{trigger: true, replace : true});
+    this.navigate ( route ,{trigger: true});
   },
 
   redirect () {

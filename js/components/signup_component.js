@@ -16,11 +16,11 @@ let Signup = React.createClass({
     return (
       <div className='sign-up'>
         <h1>New User Registration</h1>
-        <form>
+        <form className="signInForm">
           <label >Name</label>
           <input type='text' placeholder='Enter Name' className='newUserName'/>
-          <label>Select User ID</label>
-          <input type='text' placeholder='Create UserID' className='newUserID'/>
+          <label>Username</label>
+          <input type='text' placeholder='Create username' className='newUserID'/>
           <label> Password</label>
           <input type='password' placeholder='password' className='passcode'/>
           <label>Email</label>
