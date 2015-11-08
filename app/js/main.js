@@ -202,14 +202,67 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'edit_card',
 
+  getInitialState: function getInitialState() {
+
+    return {
+
+      question: this.props.cardData.question,
+      answer: this.props.cardData.answer
+
+    };
+  },
+
+  updateQuestion: function updateQuestion(event) {
+
+    var newQuestion = event.currentTarget.value;
+
+    this.setState({
+      question: newQuestion
+    });
+  },
+
+  updateAnswer: function updateAnswer(event) {
+
+    var newAnswer = event.currentTarget.value;
+
+    this.setState({
+      answer: newAnswer
+    });
+  },
+
+  submitEditHandler: function submitEditHandler(event) {
+
+    event.preventDefault();
+
+    this.props.onSubmitClick(this.state.question, this.state.answer);
+  },
+
   render: function render() {
 
     var cardData = this.props.cardData;
 
     return _react2['default'].createElement(
       'div',
-      null,
-      _react2['default'].createElement('input', { value: cardData.question })
+      { className: 'edit-card-container' },
+      _react2['default'].createElement(
+        'form',
+        { className: 'edit-card-form' },
+        _react2['default'].createElement('input', {
+          className: 'edit-question-input',
+          onChange: this.updateQuestion,
+          value: this.state.question }),
+        _react2['default'].createElement('input', {
+          className: 'edit-answer-input',
+          onChange: this.updateAnswer,
+          value: this.state.answer })
+      ),
+      _react2['default'].createElement(
+        'button',
+        {
+          onClick: this.submitEditHandler,
+          className: 'submit-edit-card-button' },
+        'Submit edits'
+      )
     );
   }
 });
@@ -1253,19 +1306,18 @@ var Router = _backbone2['default'].Router.extend({
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsEdit_card2['default'], {
       cardData: _jsCookie2['default'].getJSON('card'),
-      onSubmitClick: function () {
+      onSubmitClick: function (question, answer) {
 
-        var newQuestion = (0, _jquery2['default'])('.edit-question-input').val();
-        var newAnswer = (0, _jquery2['default'])('.edit-answer-input').val();
-        var newCategory = (0, _jquery2['default'])('.edit-title-input').val();
+        var baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
+        var thisId = '' + id;
+        var endofurl = '/edit';
 
         var request = _jquery2['default'].ajax({
-          url: 'https://nameless-plains-2123.herokuapp.com/question',
+          url: '' + baseUrl + thisId + '/' + endofurl,
           method: 'POST',
           data: {
-            question: newQuestion.question,
-            answer: newQuestion.answer,
-            category: newQuestion.category }
+            question: question,
+            answer: answer }
         });
       } }), document.querySelector('.app'));
   },

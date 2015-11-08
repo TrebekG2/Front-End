@@ -387,19 +387,18 @@ let Router = Backbone.Router.extend({
 
       <EditCardForm
       cardData = {Cookies.getJSON('card')}
-      onSubmitClick = {() => {
+      onSubmitClick = {(question, answer) => {
         
-        let newQuestion = $('.edit-question-input').val();
-        let newAnswer = $('.edit-answer-input').val();
-        let newCategory = $('.edit-title-input').val();
+        let baseUrl = 'https://nameless-plains-2123.herokuapp.com/card/';
+        let thisId = `${id}`;
+        let endofurl = '/edit';
 
         let request = $.ajax({
-          url :'https://nameless-plains-2123.herokuapp.com/question',
+          url :`${baseUrl}${thisId}/${endofurl}`,
           method:'POST',
           data: {
-            question   : newQuestion.question,
-            answer     : newQuestion.answer,
-            category   : newQuestion.category}
+            question   : question,
+            answer     : answer}
           });
 
         }}/>,
