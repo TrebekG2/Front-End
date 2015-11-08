@@ -315,6 +315,7 @@ let Router = Backbone.Router.extend({
       method:'GET',
     });
 
+
     request.then((data) => {
       Cookies.set('cards', data);
 
