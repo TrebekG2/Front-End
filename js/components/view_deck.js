@@ -1,11 +1,11 @@
-
+  
 import React from 'react';
 
 export default React.createClass({
   
-  editClickHandler () {
+  editClickHandler (id) {
 
-    this.props.onEditClick();
+    this.props.onEditClick(id);
 
   },
 
@@ -28,7 +28,7 @@ export default React.createClass({
           <p>{card.question}</p>
           <p>{card.answer}</p>
           <button 
-            onClick = {this.editClickHandler}
+            onClick = {this.editClickHandler(card.id)}
             className='edit-deck-button'>
             Edit this card
           </button>

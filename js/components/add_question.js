@@ -43,6 +43,11 @@ export default React.createClass({
 
   },
 
+  backHandler () {
+
+    this.props.onBackClick();
+
+  },
 
   render() {
     return (
@@ -76,8 +81,10 @@ export default React.createClass({
               className='add-form-button'>
               Submit new question
             </button>
-            <button className='add-form-button'>
-              Thank you
+            <button 
+              className='add-form-button'
+              onClick={this.backHandler}>
+              Back to the deck
             </button>
           </form>
         </div>
