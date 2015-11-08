@@ -15,6 +15,7 @@ export default React.createClass({
           <input className='new-deck-title-input' type='text' placeholder='enter a deck title'/>
         </form>
         <button
+          className='createNewDeck'
           onClick={this.createDeckHandler}>
           Create new deck
         </button>

@@ -186,7 +186,7 @@ let Router = Backbone.Router.extend({
         }
       });
     });
-  
+  //need to send user oject to release it when logging out and returning to home page
   // LogoutClick={() => this.goto('')
   //          Cookies.remove('decks') 
   //           $.ajaxSetup ({
@@ -199,7 +199,7 @@ let Router = Backbone.Router.extend({
       <div>
         <UserLandingComponent
           decks = {Cookies.getJSON('decks')}
-          logoutClick={() => this.goto('')}
+          onLogoutClick={()=>{this.goto('')}}
           onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
@@ -213,8 +213,6 @@ let Router = Backbone.Router.extend({
                 title     : newDeckTitle
               }
             });
-
-
             request.then((data) => {
               Cookies.set('return', data);
               console.log(Cookies.getJSON('return'));
@@ -335,6 +333,7 @@ let Router = Backbone.Router.extend({
     ReactDom.render(
       <ViewDeckComponent
         cards = {Cookies.getJSON('cards')}
+        onBackClick ={()=>{this.goto('')}}
         onEditClick = {(id) => {this.goto(editCard)}}
         onAddClick = {(id) => {this.goto(newCard)}}/>,
       document.querySelector('.app')

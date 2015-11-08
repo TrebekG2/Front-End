@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export default React.createClass({
@@ -12,6 +13,11 @@ export default React.createClass({
 
     this.props.onAddClick();
 
+  },
+
+//NEED TO CREATE THIS FUNCTION
+  playClickHandler(){
+    this.props.playDeck();
   },
 
 
@@ -37,6 +43,10 @@ export default React.createClass({
 
   },
 
+  BackClickHandler(){
+    this.props.onBackClick();
+  },
+
   render() {
     
     let data = this.props.cards;
@@ -45,9 +55,16 @@ export default React.createClass({
       <div className='deck-block-container'>
         <h1>Choose one of the cards</h1>
         <button
+          className='addcardBtn'
           onClick={this.addHandler}>
           Add a card
         </button>
+        <button 
+          className='back-btn'
+          onClick={this.BackClickHandler}>
+          Back
+        </button>
+        <hr/>
         {this.processData(data)}
       </div>
     );

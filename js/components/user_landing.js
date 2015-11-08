@@ -19,6 +19,11 @@ export default React.createClass({
             className='edit-deck-button'>
             View this deck
           </button>
+          <button 
+            className='play-button'
+            onClick = {this.playClickHandler}>
+            Play
+          </button>
       </div>
     );
 
@@ -30,8 +35,8 @@ export default React.createClass({
 
   },
 
-  onLogoutHandler(){
-    this.props.logoutClick();
+  onLogoutClickHandler(){
+    this.props.onLogoutClick();
   },
 
   render() {
@@ -41,7 +46,7 @@ export default React.createClass({
     return (
       <div className='deck-block-container'>
         <h1>Choose one of your decks</h1>
-        <button onClick={this.onLogoutHandler}>Logout</button>
+        <button onClick={this.onLogoutClickHandler}>Logout</button>
         <hr/>
         {this.processData(data)}        
       </div>

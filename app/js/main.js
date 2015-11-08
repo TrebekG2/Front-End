@@ -170,6 +170,7 @@ exports['default'] = _react2['default'].createClass({
       _react2['default'].createElement(
         'button',
         {
+          className: 'createNewDeck',
           onClick: this.createDeckHandler },
         'Create new deck'
       )
@@ -499,6 +500,13 @@ exports['default'] = _react2['default'].createClass({
           },
           className: 'edit-deck-button' },
         'View this deck'
+      ),
+      _react2['default'].createElement(
+        'button',
+        {
+          className: 'play-button',
+          onClick: this.playClickHandler },
+        'Play'
       )
     );
   },
@@ -508,8 +516,8 @@ exports['default'] = _react2['default'].createClass({
     return data.map(this.processDecks);
   },
 
-  onLogoutHandler: function onLogoutHandler() {
-    this.props.logoutClick();
+  onLogoutClickHandler: function onLogoutClickHandler() {
+    this.props.onLogoutClick();
   },
 
   render: function render() {
@@ -526,7 +534,7 @@ exports['default'] = _react2['default'].createClass({
       ),
       _react2['default'].createElement(
         'button',
-        { onClick: this.onLogoutHandler },
+        { onClick: this.onLogoutClickHandler },
         'Logout'
       ),
       _react2['default'].createElement('hr', null),
@@ -563,6 +571,11 @@ exports['default'] = _react2['default'].createClass({
     this.props.onAddClick();
   },
 
+  //NEED TO CREATE THIS FUNCTION
+  playClickHandler: function playClickHandler() {
+    this.props.playDeck();
+  },
+
   processCards: function processCards(card) {
 
     return _react2['default'].createElement(
@@ -593,6 +606,10 @@ exports['default'] = _react2['default'].createClass({
     return data.map(this.processCards);
   },
 
+  BackClickHandler: function BackClickHandler() {
+    this.props.onBackClick();
+  },
+
   render: function render() {
 
     var data = this.props.cards;
@@ -608,9 +625,18 @@ exports['default'] = _react2['default'].createClass({
       _react2['default'].createElement(
         'button',
         {
+          className: 'addcardBtn',
           onClick: this.addHandler },
         'Add a card'
       ),
+      _react2['default'].createElement(
+        'button',
+        {
+          className: 'back-btn',
+          onClick: this.BackClickHandler },
+        'Back'
+      ),
+      _react2['default'].createElement('hr', null),
       this.processData(data)
     );
   }
@@ -1003,7 +1029,7 @@ var Router = _backbone2['default'].Router.extend({
         }
       });
     });
-
+    //need to send user oject to release it when logging out and returning to home page
     // LogoutClick={() => this.goto('')
     //          Cookies.remove('decks')
     //           $.ajaxSetup ({
@@ -1017,8 +1043,8 @@ var Router = _backbone2['default'].Router.extend({
       null,
       _react2['default'].createElement(_componentsUser_landing2['default'], {
         decks: _jsCookie2['default'].getJSON('decks'),
-        logoutClick: function () {
-          return _this4.goto('');
+        onLogoutClick: function () {
+          _this4.goto('');
         },
         onViewClick: function (id) {
           return _this4.goto('viewdeck/' + id);
@@ -1035,7 +1061,6 @@ var Router = _backbone2['default'].Router.extend({
               title: newDeckTitle
             }
           });
-
           request.then(function (data) {
             _jsCookie2['default'].set('return', data);
             console.log(_jsCookie2['default'].getJSON('return'));
@@ -1149,6 +1174,9 @@ var Router = _backbone2['default'].Router.extend({
 
     _reactDom2['default'].render(_react2['default'].createElement(_componentsView_deck2['default'], {
       cards: _jsCookie2['default'].getJSON('cards'),
+      onBackClick: function () {
+        _this6.goto('');
+      },
       onEditClick: function (id) {
         _this6.goto(editCard);
       },
