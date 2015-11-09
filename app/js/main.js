@@ -164,9 +164,10 @@ exports['default'] = _react2['default'].createClass({
     return _react2['default'].createElement(
       'div',
       { className: 'deck-block-container' },
+      _react2['default'].createElement('hr', null),
       _react2['default'].createElement(
         'form',
-        null,
+        { className: 'signInForm' },
         _react2['default'].createElement(
           'label',
           null,
@@ -608,6 +609,11 @@ exports['default'] = _react2['default'].createClass({
     this.props.onViewClick(id);
   },
 
+  deleteHandler: function deleteHandler(id) {
+
+    this.props.onDeleteClick(id);
+  },
+
   processDecks: function processDecks(deck) {
     var _this = this;
 
@@ -627,6 +633,15 @@ exports['default'] = _react2['default'].createClass({
           },
           className: 'edit-deck-button' },
         'View deck'
+      ),
+      _react2['default'].createElement(
+        'button',
+        {
+          onClick: function () {
+            _this.deleteHandler(deck.id);
+          },
+          className: 'delete-deck-button' },
+        'Delete deck'
       )
     );
   },
@@ -1212,6 +1227,8 @@ var Router = _backbone2['default'].Router.extend({
       });
     });
 
+    var userObject = _jsCookie2['default'].getJSON('users');
+
     _reactDom2['default'].render(_react2['default'].createElement(
       'div',
       null,
@@ -1223,6 +1240,35 @@ var Router = _backbone2['default'].Router.extend({
         decks: _jsCookie2['default'].getJSON('decks'),
         onViewClick: function (id) {
           return _this4.goto('viewdeck/' + id);
+        },
+        onDeleteClick: function (id) {
+          var userObject = _jsCookie2['default'].getJSON('users');
+          var baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
+          var action = 'destroy';
+          var thisId = '' + id;
+
+          console.log('' + thisId);
+
+          var request = _jquery2['default'].ajax({
+            url: '' + baseUrl + action,
+            method: 'DELETE',
+            data: {
+              deck_id: '' + thisId
+            }
+          });
+
+          request.then(function (data) {
+            _jsCookie2['default'].set('delete', data);
+            console.log(_jsCookie2['default'].getJSON(data));
+            window.location.reload();
+            _this4.goto('user/' + userObject.name);
+
+            _jquery2['default'].ajaxSetup({
+              headers: {
+                access_token: data.access_token
+              }
+            });
+          });
         } }),
       _react2['default'].createElement(_componentsCreate_deck2['default'], {
         onSubmitNewDeck: function () {

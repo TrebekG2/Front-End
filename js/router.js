@@ -254,13 +254,44 @@ let Router = Backbone.Router.extend({
       });
     });
 
+    let userObject = Cookies.getJSON('users');
+
     ReactDom.render (
       <div>
         <UserLandingComponent
           onLogoutClick={()=> this.goto('logout')}
           users ={Cookies.getJSON('users')}
           decks= {Cookies.getJSON('decks')}
-          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}/>
+          onViewClick = {(id) => this.goto(`viewdeck/${id}`)}
+          onDeleteClick = {(id) => {
+            let userObject = Cookies.getJSON('users');
+            let baseUrl = 'https://nameless-plains-2123.herokuapp.com/deck/';
+            let action = 'destroy';
+            let thisId = `${id}`;
+
+            console.log(`${thisId}`);
+
+            let request = $.ajax({
+              url: `${baseUrl}${action}`,
+              method: 'DELETE',
+              data:{
+                deck_id: `${thisId}`
+              }
+              });
+            
+            request.then((data) => {
+              Cookies.set('delete', data);
+              console.log(Cookies.getJSON(data));
+              window.location.reload();
+              this.goto(`user/${userObject.name}`);
+
+              $.ajaxSetup ({
+                headers: {
+                  access_token: data.access_token
+                }
+              });
+            });
+          }}/>
         <CreateDeckComponent
           onSubmitNewDeck = {() => {
             let newDeckTitle = document.querySelector('.new-deck-title-input').value;
@@ -326,8 +357,6 @@ let Router = Backbone.Router.extend({
 
     let cardObject = Cookies.getJSON('cards');
     let editCard = `editcard/${id}`;
-
-
   
 
     ReactDom.render(

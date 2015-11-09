@@ -10,7 +10,8 @@ export default React.createClass({
   render() {
     return (
       <div className='deck-block-container'>
-        <form>
+        <hr/>
+        <form className="signInForm">
           <label>Deck Title</label>
           <input className='new-deck-title-input' type='text' placeholder='enter a deck title'/>
         </form>

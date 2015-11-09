@@ -2192,6 +2192,16 @@ h1 {
   font-size: .8em;
   padding: 6px; }
 
+.delete-deck-button {
+  margin: 10px auto;
+  background: red;
+  color: white;
+  display: block;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: .8em;
+  padding: 6px; }
+
 .logout-btn {
   background: none;
   font-size: 0.8em;

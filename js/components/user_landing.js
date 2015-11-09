@@ -8,6 +8,12 @@ export default React.createClass({
 
   },
 
+  deleteHandler (id) {
+
+    this.props.onDeleteClick(id);
+
+  },
+
 
   processDecks(deck) {
 
@@ -18,6 +24,11 @@ export default React.createClass({
             onClick ={()=> {this.editClickHandler(deck.id)}}
             className='edit-deck-button'>
             View deck
+          </button>
+          <button 
+            onClick ={()=> {this.deleteHandler(deck.id)}}
+            className='delete-deck-button'>
+            Delete deck
           </button>
       </div>
     );
